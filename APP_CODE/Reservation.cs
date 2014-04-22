@@ -8,12 +8,7 @@ using System.Web;
 /// </summary>
 public interface Reservation
 {
-	public Reservation()
-	{
-		//
-		//TODO: 在此处添加构造函数逻辑
-		//
-	}
+	
     
 
 }

@@ -16,36 +16,31 @@ public class HotelReservation:Reservation
 	}
 
     private int id;
-
+    private String owner;
+    private int hotelId;
+    private Dictionary<String, int> rooms;
+    private DateTime checkIn;
+    private DateTime checkOut;
     public int Id
     {
         get { return id; }
         set { id = value; }
     }
-
-    private String owner;
-
     public String Owner
     {
         get { return owner; }
         set { owner = value; }
     }
-
-    private String hotelName;
-
-    public String HotelName
+    public int HotelId
     {
-        get { return hotelName; }
-        set { hotelName = value; }
+        get { return hotelId; }
+        set { hotelId = value; }
     }
-    private Dictionary<String, int> rooms;
-    
     public Dictionary<String, int> Rooms
     {
         get { return rooms; }
         set { rooms = value; }
     }
-
     public String DictionaryRoomsToString()
     {
         String result = String.Empty;
@@ -59,7 +54,6 @@ public class HotelReservation:Reservation
         result = result.Substring(0, result.Length - 1);
         return result;
     }
-
     public Dictionary<String, int> StringRoomsToDictionary(String str)
     {
         Dictionary<String, int> result = new Dictionary<string, int>();
@@ -71,27 +65,22 @@ public class HotelReservation:Reservation
         }
         return result;
     }
-
-    private DateTime checkIn;
-
     public DateTime CheckIn
     {
         get { return checkIn; }
         set { checkIn = value; }
     }
-    private DateTime checkOut;
-
     public DateTime CheckOut
     {
         get { return checkOut; }
         set { checkOut = value; }
     }
-    private Double cost;
-
-    public Double Cost
+    public String DateTimeDateToString(DateTime dateTime)
     {
-        get { return cost; }
-        set { cost = value; }
+        return dateTime.ToString("yyyy/MM/dd");
     }
-
+    public DateTime StringDateToDateTime(String str)
+    {
+        return DateTime.ParseExact(str, "yyyy/MM/dd", System.Globalization.CultureInfo.CurrentCulture);
+    }
 }

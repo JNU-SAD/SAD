@@ -16,63 +16,48 @@ public class Customer
 	}
 
     private String emailAddress;
-
+    private String password;
+    private String firstName;
+    private String lastName;
+    private String sex;
+    private String phoneNumber;
+    private Basket basket;
+    private String creditCardNumber;
     public String EmailAddress
     {
         get { return emailAddress; }
         set { emailAddress = value; }
     }
-
-    private String password;
-
     public String Password
     {
         get { return password; }
         set { password = value; }
     }
-
-    private String firstName;
-
     public String FirstName
     {
         get { return firstName; }
         set { firstName = value; }
     }
-
-    private String lastName;
-
     public String LastName
     {
         get { return lastName; }
         set { lastName = value; }
     }
-
-    private String sex;
-
     public String Sex
     {
         get { return sex; }
         set { sex = value; }
     }
-
-    private String phoneNumber;
-
     public String PhoneNumber
     {
         get { return phoneNumber; }
         set { phoneNumber = value; }
     }
-
-    private Basket basket;
-
     public Basket Basket
     {
         get { return basket; }
         set { basket = value; }
     }
-
-    private String creditCardNumber;
-
     public String CreditCardNumber
     {
         get { return creditCardNumber; }
