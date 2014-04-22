@@ -19,7 +19,13 @@ public class Room
     private Double fullRate;
     private int totalNumber;
     private int capacity;
+    private List<Arrangement> arrangements;
 
+    public List<Arrangement> Arrangements
+    {
+        get { return arrangements; }
+        set { arrangements = value; }
+    }
     public int Capacity
     {
         get { return capacity; }

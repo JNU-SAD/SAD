@@ -15,34 +15,45 @@ public class Hotel
 		//
 	}
     private int id;
+    private String name;
+    private String address;
+    private int starLevel;
+    private String contactNumber;
+    private List<Room> rooms;
+
+    public List<Room> Rooms
+    {
+        get { return rooms; }
+        set { rooms = value; }
+    }
 
     public int Id
     {
         get { return id; }
         set { id = value; }
     }
-    private String name;
+    
 
     public String Name
     {
         get { return name; }
         set { name = value; }
     }
-    private String address;
+    
 
     public String Address
     {
         get { return address; }
         set { address = value; }
     }
-    private int starLevel;
+    
 
     public int StarLevel
     {
         get { return starLevel; }
         set { starLevel = value; }
     }
-    private String contactNumber;
+    
 
     public String ContactNumber
     {
