@@ -9,7 +9,7 @@ using System.Data.SqlClient;
 /// </summary>
 public class DatabaseConnector
 {
-    private readonly String HOSTSTR = "Server=.;Database=SAD;User ID=edisond;Password=33635468";
+    private readonly String HOSTSTR = "Server=a2a5bad2-d4fc-47f9-b241-a2ed00d7fc16.sqlserver.sequelizer.com;Database=dba2a5bad2d4fc47f9b241a2ed00d7fc16;User ID=tnucjrzwvfrcgpqd;Password=mHVvDSviXMhKcMseBMbVNP4Vh3jhscQ78mgy2jRciNpRGuYn4LKLHZBEN8oJGoYU;";
     private SqlConnection dbConnection;
     private SqlCommand cmd;
     //构建函数时创建SQL连接
@@ -459,6 +459,37 @@ public class DatabaseConnector
             dbConnection.Close();
         }
     }
+    //获取所有酒店
+    public List<Hotel> GetAllHotel()
+    {
+        try
+        {
+            dbConnection.Open();
+            cmd = new SqlCommand("Select * from Table_Hotel", dbConnection);
+            SqlDataReader result = cmd.ExecuteReader();
+            List<Hotel> hotels = new List<Hotel>();
+            while (result.Read())
+            {
+                Hotel hotel = new Hotel();
+                hotel.Id = result.GetInt32(0);
+                hotel.Name = result.GetString(1);
+                hotel.Address = result.GetString(2);
+                hotel.StarLevel = result.GetInt32(3);
+                hotel.ContactNumber = result.GetString(4);
+                hotels.Add(hotel);
+            }
+            return hotels;
+        }
+        catch (Exception e)
+        {
+            Console.Write(e.ToString());
+            return null;
+        }
+        finally
+        {
+            dbConnection.Close();
+        }
+    }
     //更新酒店信息
     public bool UpdateHotel(Hotel hotel)
     {
@@ -545,7 +576,7 @@ public class DatabaseConnector
                 Room room = new Room();
                 room.HotelId = result.GetInt32(0);
                 room.RoomType = result.GetString(1);
-                room.FullRate = result.GetDouble(2);
+                room.FullRate = result.GetFloat(2);
                 room.TotalNumber = result.GetInt32(3);
                 room.Capacity = result.GetInt32(4);
                 rooms.Add(room);
@@ -656,7 +687,7 @@ public class DatabaseConnector
                 arrangement.HotelId = result.GetInt32(0);
                 arrangement.RoomType = result.GetString(1);
                 arrangement.Date = arrangement.StringDateToDateTime(result.GetString(2));
-                arrangement.Rate = result.GetDouble(3);
+                arrangement.Rate = result.GetFloat(3);
                 arrangement.BookedNumber = result.GetInt32(4);
                 arrangements.Add(arrangement);
             }
