@@ -4,12 +4,10 @@ using System.Linq;
 using System.Web;
 using System.Data;
 using System.Data.SqlClient;
-/// <summary>
-///DatabaseConnector 的摘要说明
-/// </summary>
+
 public class DatabaseConnector
 {
-    private readonly String HOSTSTR = "Server=a2a5bad2-d4fc-47f9-b241-a2ed00d7fc16.sqlserver.sequelizer.com;Database=dba2a5bad2d4fc47f9b241a2ed00d7fc16;User ID=tnucjrzwvfrcgpqd;Password=mHVvDSviXMhKcMseBMbVNP4Vh3jhscQ78mgy2jRciNpRGuYn4LKLHZBEN8oJGoYU;";
+    private readonly String HOSTSTR = @"Data Source=(LocalDB)\v11.0;AttachDbFilename=|DataDirectory|Database.mdf;Integrated Security=True";
     private SqlConnection dbConnection;
     private SqlCommand cmd;
     //构建函数时创建SQL连接
@@ -202,14 +200,7 @@ public class DatabaseConnector
                 hotelReservation.CheckOut = hotelReservation.StringDateToDateTime(result.GetString(5));
                 hotelReservations.Add(hotelReservation);
             }
-            if (hotelReservations.Count != 0)
-            {
-                return hotelReservations;
-            }
-            else
-            {
-                return null;
-            }
+            return hotelReservations;
         }
         catch (Exception e)
         {
@@ -339,14 +330,7 @@ public class DatabaseConnector
                 order.ReservationIds = order.StringReservationIdsToList(result.GetString(3));
                 orders.Add(order);
             }
-            if (orders.Count != 0)
-            {
-                return orders;
-            }
-            else
-            {
-                return null;
-            }
+            return orders;
         }
         catch (Exception e)
         {
@@ -413,7 +397,8 @@ public class DatabaseConnector
                 + hotel.Name + "','"
                 + hotel.Address + "','"
                 + hotel.StarLevel.ToString() + "','"
-                + hotel.ContactNumber + "')"
+                + hotel.ContactNumber + "','"
+                + hotel.ImageUrl + "')"
                 , dbConnection);
             cmd.ExecuteNonQuery();
             return true;
@@ -428,6 +413,32 @@ public class DatabaseConnector
             dbConnection.Close();
         }
     }
+    //获取所有酒店id
+    public List<int> GetHotelIds()
+    {
+        try
+        {
+            dbConnection.Open();
+            cmd = new SqlCommand("Select distinct Id from Table_Hotel", dbConnection);
+            SqlDataReader result = cmd.ExecuteReader();
+            List<int> Result = new List<int>();
+            while (result.Read())
+            {
+                Result.Add(result.GetInt32(0));
+            }
+            return Result;
+        }
+        catch (Exception e)
+        {
+            Console.Write(e.ToString());
+            return null;
+        }
+        finally
+        {
+            dbConnection.Close();
+        }
+    }
+
     //根据酒店名获取酒店信息
     public Hotel GetHotelByName(String name)
     {
@@ -444,10 +455,42 @@ public class DatabaseConnector
                 hotel.Address = result.GetString(2);
                 hotel.StarLevel = result.GetInt32(3);
                 hotel.ContactNumber = result.GetString(4);
-                
+                hotel.ImageUrl = result.GetString(5);
                 return hotel;
             }
             return null;
+        }
+        catch (Exception e)
+        {
+            Console.Write(e.ToString());
+            return null;
+        }
+        finally
+        {
+            dbConnection.Close();
+        }
+    }
+    //根据地址获取酒店信息
+    public List<Hotel> GetHotelByAddress(String address)
+    {
+        try
+        {
+            dbConnection.Open();
+            cmd = new SqlCommand("Select * from Table_Hotel where Address like '%" + address + "%'", dbConnection);
+            SqlDataReader result = cmd.ExecuteReader();
+            List<Hotel> hotels = new List<Hotel>();
+            while (result.Read())
+            {
+                Hotel hotel = new Hotel();
+                hotel.Id = result.GetInt32(0);
+                hotel.Name = result.GetString(1);
+                hotel.Address = result.GetString(2);
+                hotel.StarLevel = result.GetInt32(3);
+                hotel.ContactNumber = result.GetString(4);
+                hotel.ImageUrl = result.GetString(5);
+                hotels.Add(hotel);
+            }
+            return hotels;
         }
         catch (Exception e)
         {
@@ -476,6 +519,7 @@ public class DatabaseConnector
                 hotel.Address = result.GetString(2);
                 hotel.StarLevel = result.GetInt32(3);
                 hotel.ContactNumber = result.GetString(4);
+                hotel.ImageUrl = result.GetString(5);
                 hotels.Add(hotel);
             }
             return hotels;
@@ -484,6 +528,30 @@ public class DatabaseConnector
         {
             Console.Write(e.ToString());
             return null;
+        }
+        finally
+        {
+            dbConnection.Close();
+        }
+    }
+    //获取id所属酒店房间的最低价
+    public int GetHotelPrice(int id)
+    {
+        try
+        {
+            dbConnection.Open();
+            cmd = new SqlCommand("Select min(FullRate) from Table_Room where HotelId ='" + id.ToString() + "'", dbConnection);
+            SqlDataReader result = cmd.ExecuteReader();
+            while (result.Read())
+            {
+                return result.GetInt32(0);
+            }
+            return -1;
+        }
+        catch (Exception e)
+        {
+            Console.Write(e.ToString());
+            return -1;
         }
         finally
         {
@@ -500,7 +568,8 @@ public class DatabaseConnector
                 + hotel.Name + "',Address='"
                 + hotel.Address + "',StarLevel='"
                 + hotel.StarLevel.ToString() + "',ContactNumber='"
-                + hotel.ContactNumber + "' where Id='"
+                + hotel.ContactNumber + "',ImageUrl='"
+                + hotel.ImageUrl + "' where Id='"
                 + hotel.Id.ToString() + "'", dbConnection);
             cmd.ExecuteNonQuery();
             return true;
@@ -576,19 +645,43 @@ public class DatabaseConnector
                 Room room = new Room();
                 room.HotelId = result.GetInt32(0);
                 room.RoomType = result.GetString(1);
-                room.FullRate = result.GetFloat(2);
+                room.FullRate = result.GetInt32(2);
                 room.TotalNumber = result.GetInt32(3);
                 room.Capacity = result.GetInt32(4);
                 rooms.Add(room);
             }
-            if (rooms.Count != 0)
+            return rooms;
+        }
+        catch (Exception e)
+        {
+            Console.Write(e.ToString());
+            return null;
+        }
+        finally
+        {
+            dbConnection.Close();
+        }
+    }
+    //获取所有房间
+    public List<Room> GetAllRoom()
+    {
+        try
+        {
+            dbConnection.Open();
+            cmd = new SqlCommand("Select * from Table_Room", dbConnection);
+            SqlDataReader result = cmd.ExecuteReader();
+            List<Room> rooms = new List<Room>();
+            while (result.Read())
             {
-                return rooms;
+                Room room = new Room();
+                room.HotelId = result.GetInt32(0);
+                room.RoomType = result.GetString(1);
+                room.FullRate = result.GetInt32(2);
+                room.TotalNumber = result.GetInt32(3);
+                room.Capacity = result.GetInt32(4);
+                rooms.Add(room);
             }
-            else
-            {
-                return null;
-            }
+            return rooms;
         }
         catch (Exception e)
         {
@@ -687,18 +780,42 @@ public class DatabaseConnector
                 arrangement.HotelId = result.GetInt32(0);
                 arrangement.RoomType = result.GetString(1);
                 arrangement.Date = arrangement.StringDateToDateTime(result.GetString(2));
-                arrangement.Rate = result.GetFloat(3);
+                arrangement.Rate = result.GetInt32(3);
                 arrangement.BookedNumber = result.GetInt32(4);
                 arrangements.Add(arrangement);
             }
-            if (arrangements.Count != 0)
+            return arrangements;
+        }
+        catch (Exception e)
+        {
+            Console.Write(e.ToString());
+            return null;
+        }
+        finally
+        {
+            dbConnection.Close();
+        }
+    }
+    //获取所有日程
+    public List<Arrangement> GetAllArrangement()
+    {
+        try
+        {
+            dbConnection.Open();
+            cmd = new SqlCommand("Select * from Table_Arrangement", dbConnection);
+            SqlDataReader result = cmd.ExecuteReader();
+            List<Arrangement> arrangements = new List<Arrangement>();
+            while (result.Read())
             {
-                return arrangements;
+                Arrangement arrangement = new Arrangement();
+                arrangement.HotelId = result.GetInt32(0);
+                arrangement.RoomType = result.GetString(1);
+                arrangement.Date = arrangement.StringDateToDateTime(result.GetString(2));
+                arrangement.Rate = result.GetInt32(3);
+                arrangement.BookedNumber = result.GetInt32(4);
+                arrangements.Add(arrangement);
             }
-            else
-            {
-                return null;
-            }
+            return arrangements;
         }
         catch (Exception e)
         {

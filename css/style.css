@@ -1,98 +1,464 @@
 ﻿body 
 {
-    width:1000px;
-    margin:0 auto;
-    background-color:Silver;
+    background-color:#FCFCFC;
+    font-family:'Segoe UI';
+}
+.logo
+{
+    border: none;
+    cursor:pointer;
+    position:absolute;
+    left:0;
+    top:0;
 }
 
+.loginBar
+{
+    width: 100%;
+    height: 20px;
+    background-color:transparent;
+    text-align:right;
+    margin-bottom:10px;
+}
+    .loginBar .label
+    {
+        font-size:xx-small;
+    }
+    .loginBar .input
+    {
+        width: 70px;
+        font-size: x-small;
+        margin-right: 10px;
+        background-color: #F3F3F3;
+        border: none;
+    }
+    .loginBar .signInButton
+    {
+        font-size:x-small;
+        color:white;
+        cursor:pointer;
+        border-style:solid;
+        border-color:#336699;
+        background-color:#336699;
+    }
+     .loginBar .signUpButton
+    {
+        font-size:x-small;
+        color:white;
+        cursor:pointer;
+        border-style:solid;
+        border-color:#CC3333;
+        background-color:#CC3333;
+    }
+.loggedInBar
+{
+    width: 100%;
+    height: 20px;
+    background-color:transparent;
+    text-align:right;
+    margin-bottom:10px;
+}
+    .loggedInBar span
+    {
+        font-size:small;
+    }
+    .loggedInBar .signOutButton
+    {
+        font-size:x-small;
+        color:white;
+        cursor:pointer;
+        border-style:solid;
+        border-color:#336699;
+        background-color:#336699;
+    }
+.signUpPanel
+{
+    width: 100%;
+    background-color: transparent;
+    text-align: right;
+}
+    .signUpPanel .label
+    {
+        font-size: xx-small;
+    }
+    .signUpPanel .input
+    {
+        width: 70px;
+        font-size: x-small;
+        margin-right: 10px;
+        background-color: #F3F3F3;
+        border: none;
+    }
+     .signUpPanel .signUpButton
+    {
+        font-size:x-small;
+        color:white;
+        cursor:pointer;
+        border-style:solid;
+        border-color:#CC3333;
+        background-color:#CC3333;
+    }
 .mainBox
 {
     width:900px;
     height:600px;
     margin:0 auto;
     position:relative;
-    top:40px;
+    top:20px;
     background-image:url(../image/bg_homepage.jpg); 
     overflow:hidden;
     border-radius:12px;
 }
 
-.mainBox h1
+    .mainBox h1
+    {
+        font-size: xx-large;
+        color: White;
+        text-align: center;
+        line-height: 50px;
+        margin-top: 100px;
+    }
+    .mainBox h2
+    {
+        font-size: large;
+        color: White;
+        text-align: center;
+    }
+    .mainBox .inputBox
+    {
+        width: 600px;
+        height: 200px;
+        margin: 0 auto;
+        position: relative;
+        top: 40px;
+        background-color: White;
+        border-radius: 12px;
+        padding-left: 20px;
+    }
+        .mainBox .inputBox .inputCity
+        {
+            width: 560px;
+            height: 40px;
+            margin-top: 20px;
+            margin-bottom: 20px;
+            padding-left:20px;
+            position: relative;
+            font-size: large;
+            border:none;
+            background-color:#F3F3F3;
+            border-radius:8px;
+        }
+        .mainBox .inputBox .datePickerButton
+        {
+            width: 140px;
+            height: 40px;
+            position: relative;
+            font-size: large;
+            cursor: pointer;
+            background:url(../image/date.png) no-repeat center left;
+            border:none;
+            background-color:#F3F3F3;
+            padding-left:40px;
+            border-radius:8px;
+        }
+
+        .mainBox .inputBox .inputElse
+        {
+            width: 140px;
+            height: 40px;
+            position: relative;
+            font-size: large;
+            border:none;
+            background-color:#F3F3F3;
+            border-radius:8px;
+        }
+        .mainBox .inputBox .inputCheckOut
+        {
+            margin-left: 150px;
+            position: relative;
+        }
+        .mainBox .inputBox .serachButton
+        {
+            background:url(../image/search.png) no-repeat center left;
+            padding-left:35px;
+            height: 40px;
+            position: absolute;
+            top: 140px;
+            left: 460px;
+            background-color: #336699;
+            color: White;
+            font-size: large;
+            cursor: pointer;
+            border-style: none;
+            border-radius:4px;
+        }
+
+.mainBody
 {
-    font-size:xx-large;
-    font-weight:bold;
-    color:White;
-    font-family:Arial;
-    text-align:center;
-    line-height:50px;
-    margin-top:100px;
-}
-.mainBox h2
-{
-    font-size:large;
-    font-weight:bold;
-    color:White;
-    font-family:Arial;
-    text-align:center;
-}
-.mainBox .inputBox
-{
-    width:600px;
-    height:200px;
+    width:1000px;
+    background-color:#F3F3F3;
     margin:0 auto;
     position:relative;
-    top:40px;
-    background-color:White;
-    border-radius:12px;
-    padding-left:20px;
+    padding-top:30px;
+    padding-bottom:30px;
+    overflow:hidden;
 }
-.mainBox .inputBox .inputCity
-{
-    width:580px;
-    height:40px;
-    margin-top:20px;
-    position:relative;
-    background-color:White; 
-    font-size:large;
-}
-.mainBox .inputBox .datePickerButton
-{
-    width:140px;
-    height:40px;
-    margin-top:10px;
-    position:relative;
-    background-color:White;
-    font-size:large;
-    border-style:ridge;
-    cursor:pointer;
-}
+    .mainBody .searchInfo
+    {
+        padding-top: 30px;
+        padding-bottom:10px;
+        width: 960px;
+        margin: 0 auto;
+        position: relative;
+        background-color: #EEEEEE;
+        overflow: hidden;
+    }
+        .mainBody .searchInfo img
+        {
+            position: relative;
+            max-height: 50px;
+            max-width: 50px;
+            margin-left:20px;
+            float:left;
+        }
+        .mainBody .searchInfo span
+        {
+            position: relative;
+            height:30px;
+            float:left;
+            line-height:30px;
+            margin-left:10px;
+        }
+        .mainBody .searchInfo .researchButton
+        {
+            position: relative;
+            background:url(../image/search.png) no-repeat center left;
+            padding-left:40px;
+            margin-right:20px;
+            height: 40px;
+            background-color: #336699;
+            color: White;
+            font-size: large;
+            cursor: pointer;
+            border-style: none;
+            float:right;
+            border-radius:4px;
+        }
+    .mainBody .aside
+    {
+        width:200px;
+        margin-left:20px;
+        float:left;
+        position:relative;
+        background-color:#FCFCFC;
+    }
+        .mainBody .aside .detail
+        {
+            width: 180px;
+            margin-left: 10px;
+            margin-bottom:10px;
+            position: relative;
+            text-align:left;
+        }
+            .mainBody .aside .detail h1, h2, h3, h4, h5, h6
+            {
+                background:url(../image/header.png) no-repeat center left;
+                padding-left:30px;
+                color:blue;
+                font-size:medium;
+                font-family:'Segoe UI';
+                font-weight:400;
+            }
+            .mainBody .aside .detail span
+            {
+                color:black;
+                font-size:small;
+            }
+            .mainBody .aside .detail .input
+            {
+                color:black;
+                font-size:small;
+                width:130px;
+                height:15px;
+                background-color:#F3F3F3;
+                border:none;
+            }
+            .mainBody .aside .detail .button
+            {
+                font-size: x-small;
+                color: white;
+                cursor: pointer;
+                border:3px solid #336699;
+                background-color: #336699;
+                border-radius:4px;
+            }
+            .mainBody .aside .detail .dropdowmlist
+            {
+                color:black;
+                font-size:small;
+                width:170px;
+                height:20px;
+                background-color:#F3F3F3;
+                border:none;
+            }
 
-.mainBox .inputBox .inputElse
-{
-    width:140px;
-    height:40px;
-    position:relative;
-    background-color:White;
-    font-size:large;
-    
-}
-.mainBox .inputBox .inputCheckOut
-{
-    margin-left:150px;
-    position:relative; 
-}
-.mainBox .inputBox .serachButton
-{
-    width:140px;
-    height:40px;
-    position:absolute;
-    top:140px;
-    left:460px;
-    background-color:Maroon;
-    color:White;
-    font-family:Arial;
-    font-weight:bold;
-    font-size:large;
-    cursor:pointer;
-    border-style:none;
-}
+            .mainBody .aside .detail .checkline
+            {
+                width:180px;
+                height:25px;
+                border:none;
+                position:relative;
+            }
+            .mainBody .aside .detail .checkbox
+            {
+                color:black;
+                font-size:small;
+                border:none;
+                position:relative;
+                float:left;
+            }
+            .mainBody .aside .detail .label
+            {
+                color:silver;
+                font-size:small;
+                border:none;
+                position:relative;
+                float:right;
+            }
+            .mainBody .aside .detail .star
+            {
+                margin-left:5px;
+                max-height:15px;
+                float:left;
+            }
+    .mainBody .result
+    {
+        width:740px;
+        margin-right:20px;
+        float:right;
+        position:relative;
+        background-color:#FCFCFC;
+        padding-left:10px;
+        padding-top:10px;
+        padding-bottom:10px;
+    }
+        .mainBody .result .head
+        {
+            border: none;
+            position: relative;
+            height:20px;
+        }
+            .mainBody .result .head .summary
+            {
+                font-size: small;
+                border: none;
+                position: relative;
+                float: left;
+            }
+            .mainBody .result .head .sort
+            {
+                margin-right: 20px;
+                font-size: small;
+                background-color: #F3F3F3;
+                border: none;
+                height: 20px;
+                float: right;
+            }
+        .mainBody .result .filters
+        {
+            padding-top:10px;
+            padding-bottom:10px;
+            border: none;
+            position: relative;
+            height:50px;
+        }
+            .mainBody .result .filters .button
+            {
+                background:url(../image/close.png) no-repeat right center;
+                margin-right:10px;
+                margin-top:5px;
+                padding-right:20px;
+                height:25px;
+                position: relative;
+                float: left;
+                background-color:#F9CA6F;
+                font-size: x-small;
+                cursor: pointer;
+                border:3px solid #F9CA6F;
+                border-radius:4px;
+            }
+        .mainBody .result .resultbox
+        {
+            padding-top:10px;
+            margin-top:10px;
+            height:150px;
+            width:720px;
+            background-color:#F3F3F3;
+        }
+            .mainBody .result .resultbox .img
+            {
+                margin-left:10px;
+                max-height:130px;
+                width:200px;
+                float:left;
+            }
+            .mainBody .result .resultbox .detail
+            {
+                margin-left:10px;
+                width:380px;
+                height:130px;
+                float:left;
+            }
+                .mainBody .result .resultbox .detail .hotelName
+                {
+                    width:380px;
+                    font-size: large;
+                    line-height:50px;
+                }
+                .mainBody .result .resultbox .detail .hotelAddress
+                {
+                    width:380px;
+                    font-size: medium;
+                    line-height:30px;
+                }
+                .mainBody .result .resultbox .detail .hotelStar
+                {
+                    margin-top:10px;
+                    width:380px;
+                }
+                    .mainBody .result .resultbox .detail .hotelStar .star
+                    {
+                        margin-left: 5px;
+                        max-height: 15px;
+                        float: left;
+                    }
+            .mainBody .result .resultbox .price
+            {
+                margin-left:10px;
+                width:100px;
+                height:130px;
+                float:left;
+                text-align:center;
+            }
+                .mainBody .result .resultbox .price .cost
+                {
+                    font-size:xx-large;
+                    line-height:50px;
+                }
+                .mainBody .result .resultbox .price .perNight
+                {
+                    font-size:x-small;
+                    margin-bottom:30px;
+                }
+                .mainBody .result .resultbox .price .bookNow
+                {
+                    background-color:#336699;
+                    border:7px solid #336699;
+                    width:100px;
+                    height:30px;
+                    cursor:pointer;
+                    color:white;
+                    font-size:large;
+                    text-decoration:none;
+                    border-radius:4px;
+                }

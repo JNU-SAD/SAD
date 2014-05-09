@@ -17,7 +17,7 @@ public class Arrangement
     private int hotelId;
     private String roomType;
     private DateTime date;
-    private float rate;
+    private int rate;
     private int bookedNumber;
 
     public int BookedNumber
@@ -25,7 +25,7 @@ public class Arrangement
         get { return bookedNumber; }
         set { bookedNumber = value; }
     }
-    public float Rate
+    public int Rate
     {
         get { return rate; }
         set { rate = value; }

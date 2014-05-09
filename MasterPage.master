@@ -1,0 +1,51 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="MasterPage.master.cs" Inherits="MasterPage" %>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>Hotel</title>
+     <link type="text/css" rel="stylesheet" href="css/style.css"/>
+    <asp:ContentPlaceHolder id="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <form runat="server">
+    <asp:ImageButton ID="ImageButton1" runat="server" CssClass="logo" BorderStyle="None" ImageUrl="image/logo.png"  OnClick="ImageButton1_Click"/>
+    <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
+    <asp:UpdatePanel ID="UpdatePanel1" runat="server">
+    <ContentTemplate>    
+        <% if(Session["Customer"]==null){ %>
+        <div class="loginBar">
+            <asp:Label ID="Label1" runat="server" CssClass="label" Text="Email"/>
+            <asp:TextBox  ID="TextBox1" runat="server" CssClass="input"/>
+            <asp:Label ID="Label2" runat="server" CssClass="label" Text="Password"/>
+            <asp:TextBox  ID="TextBox2" runat="server" CssClass="input" TextMode="Password"/>
+            <asp:Button ID="Button1" runat="server" CssClass="signInButton" Text="Sign In" OnClick="Button1_Click" />
+            <asp:Button ID="Button2" runat="server" CssClass="signUpButton" Text="Sign Up Free!" OnClick="Button2_Click" />
+        </div>
+        <%} else{%>
+        <div class="loggedInBar">
+            <span>Welcome, <%=Session["Customer"].ToString() %></span>
+            <asp:Button ID="Button4" runat="server" CssClass="signOutButton" Text="Sign Out" OnClick="Button4_Click" />
+        </div>
+        <%} %>
+        <asp:Panel ID="Panel1" runat="server" Visible="false">
+        <div class="signUpPanel">
+                <asp:Label ID="Label3" runat="server" CssClass="label" Text="Email"/>
+                <asp:TextBox  ID="TextBox3" runat="server" CssClass="input"/>
+                <asp:Label ID="Label4" runat="server" CssClass="label" Text="Password"/>
+                <asp:TextBox  ID="TextBox4" runat="server" CssClass="input" TextMode="Password"/>
+                <asp:Label ID="Label5" runat="server" CssClass="label" Text="Confirm"/>
+                <asp:TextBox  ID="TextBox5" runat="server" CssClass="input" TextMode="Password"/>
+                <asp:Button ID="Button3" runat="server" CssClass="signUpButton" Text="Go" OnClick="Button3_Click" />
+        </div>
+        </asp:Panel>
+        <hr style="border:1px solid #F3F3F3"/>
+    </ContentTemplate>
+    </asp:UpdatePanel>
+        <asp:ContentPlaceHolder id="ContentPlaceHolder1" runat="server">
+        
+        </asp:ContentPlaceHolder>
+    </form>
+</body>
+</html>

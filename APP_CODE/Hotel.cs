@@ -19,6 +19,19 @@ public class Hotel
     private String address;
     private int starLevel;
     private String contactNumber;
+    private String imageUrl;
+    private int price;
+
+    public int Price
+    {
+        get { return price; }
+        set { price = value; }
+    }
+    public String ImageUrl
+    {
+        get { return imageUrl; }
+        set { imageUrl = value; }
+    }
     private List<Room> rooms;
 
     public List<Room> Rooms

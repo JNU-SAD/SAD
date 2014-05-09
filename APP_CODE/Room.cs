@@ -16,7 +16,7 @@ public class Room
 	}
     private int hotelId;
     private String roomType;
-    private float fullRate;
+    private int fullRate;
     private int totalNumber;
     private int capacity;
     private List<Arrangement> arrangements;
@@ -36,7 +36,7 @@ public class Room
         get { return totalNumber; }
         set { totalNumber = value; }
     }
-    public float FullRate
+    public int FullRate
     {
         get { return fullRate; }
         set { fullRate = value; }
