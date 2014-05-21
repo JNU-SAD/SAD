@@ -8,11 +8,11 @@ using System.Web.UI.WebControls;
 public partial class SearchResult : System.Web.UI.Page
 {
     private Server server = new Server();
-    private DatabaseConnector dbc = new DatabaseConnector();
+    private Dbc dbc = new Dbc();
     private static String nameFilter = null;//储存要过滤的酒店名
-    protected static List<Hotel> result = new List<Hotel>();//符合地址的所有酒店集合
-    protected static List<Hotel> unFilteredResult = new List<Hotel>();//在result基础上根据日期，房间数，人数过滤后的酒店集合
-    protected static List<Hotel> filteredResult = new List<Hotel>();//在unFilteredResult基础上根据酒店名，价格，星级过滤后的集合
+    protected static List<Table_Hotel> result = new List<Table_Hotel>();//符合地址的所有酒店集合
+    protected static List<Table_Hotel> unFilteredResult = new List<Table_Hotel>();//在result基础上根据日期，房间数，人数过滤后的酒店集合
+    protected static List<Table_Hotel> filteredResult = new List<Table_Hotel>();//在unFilteredResult基础上根据酒店名，价格，星级过滤后的集合
 
     protected bool isFiltering()//判断是否使用了页内过滤
     {
@@ -39,7 +39,7 @@ public partial class SearchResult : System.Web.UI.Page
         //过滤酒店名
         if (nameFilter != null)
         {
-            foreach (Hotel hotel in unFilteredResult)
+            foreach (Table_Hotel hotel in unFilteredResult)
             {
                 if (hotel.Name.Contains(nameFilter))
                     filteredResult.Add(hotel);
@@ -49,15 +49,15 @@ public partial class SearchResult : System.Web.UI.Page
         }
         else
         {
-            filteredResult = new List<Hotel>(unFilteredResult);
+            filteredResult = new List<Table_Hotel>(unFilteredResult);
             ButtonFilter1.Visible = false;
         }
         //过滤价格
         if (isPriceFiltering())
         {
-            List<Hotel> temp = new List<Hotel>(filteredResult);
+            List<Table_Hotel> temp = new List<Table_Hotel>(filteredResult);
             filteredResult.Clear();
-            foreach (Hotel hotel in temp)
+            foreach (Table_Hotel hotel in temp)
             {
                 if (CheckBox1.Checked && hotel.Price >= 70 && hotel.Price <= 359)
                     filteredResult.Add(hotel);
@@ -76,9 +76,9 @@ public partial class SearchResult : System.Web.UI.Page
         //过滤星级
         if (isStarFiltering())
         {
-            List<Hotel> temp = new List<Hotel>(filteredResult);
+            List<Table_Hotel> temp = new List<Table_Hotel>(filteredResult);
             filteredResult.Clear();
-            foreach (Hotel hotel in temp)
+            foreach (Table_Hotel hotel in temp)
             {
                 if (CheckBox5.Checked && hotel.StarLevel == 1)
                     filteredResult.Add(hotel);
@@ -112,10 +112,10 @@ public partial class SearchResult : System.Web.UI.Page
                 result = dbc.GetHotelByAddress(Request["Address"]);
                 unFilteredResult = server.Search(result, DateTime.ParseExact(Request["CheckIn"], "yyyy/MM/dd", System.Globalization.CultureInfo.CurrentCulture), DateTime.ParseExact(Request["CheckOut"], "yyyy/MM/dd", System.Globalization.CultureInfo.CurrentCulture), Convert.ToInt32(Request["RoomNum"]), Convert.ToInt32(Request["GuestNum"]));
                 unFilteredResult.Sort(new HotelComparePriceLowToHigh());
-                filteredResult = new List<Hotel>(unFilteredResult);
+                filteredResult = new List<Table_Hotel>(unFilteredResult);
                 int[] price = { 0, 0, 0, 0 };
                 int[] star = { 0, 0, 0, 0, 0 };
-                foreach (Hotel hotel in unFilteredResult)
+                foreach (Table_Hotel hotel in unFilteredResult)
                 {
                     if (hotel.Price >= 70 && hotel.Price <= 359)
                         price[0]++;
@@ -257,17 +257,17 @@ public partial class SearchResult : System.Web.UI.Page
     }
 }
 //酒店排序方法：价格低到高
-public class HotelComparePriceLowToHigh : IComparer<Hotel>
+public class HotelComparePriceLowToHigh : IComparer<Table_Hotel>
 {
-    public int Compare(Hotel x, Hotel y)
+    public int Compare(Table_Hotel x, Table_Hotel y)
     {
         return (x.Price.CompareTo(y.Price));
     }
 }
 //酒店排序方法：价格高到低
-public class HotelComparePriceHighToLow : IComparer<Hotel>
+public class HotelComparePriceHighToLow : IComparer<Table_Hotel>
 {
-    public int Compare(Hotel x, Hotel y)
+    public int Compare(Table_Hotel x, Table_Hotel y)
     {
         return (y.Price.CompareTo(x.Price));
     }

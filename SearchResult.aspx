@@ -106,7 +106,7 @@
             <!------------ 搜索结果 ------------>
             <%
                 
-                foreach (Hotel hotel in filteredResult)
+                foreach (Table_Hotel hotel in filteredResult)
                 {
                 %>
             <div class="resultbox">

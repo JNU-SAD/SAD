@@ -97,7 +97,8 @@
         border-style:solid;
         border-color:#CC3333;
         background-color:#CC3333;
-    }
+    height: 18px;
+}
 .mainBox
 {
     width:900px;

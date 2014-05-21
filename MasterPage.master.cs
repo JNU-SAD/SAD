@@ -32,13 +32,15 @@ public partial class MasterPage : System.Web.UI.MasterPage
             ScriptManager.RegisterStartupScript(this.UpdatePanel1, this.GetType(), "updateScript", "alert('Passwords must be matched.')", true);
             return;
         }
-        Customer customer = new Customer();
+        Table_Customer customer = new Table_Customer();
         customer.EmailAddress = TextBox3.Text;
         customer.Password = TextBox4.Text;
         customer.FirstName = customer.LastName = customer.PhoneNumber = customer.Sex = customer.CreditCardNumber = "";
-        DatabaseConnector dbc = new DatabaseConnector();
-        if (dbc.AddCustomer(customer))
+        
+        Dbc dbc = new Dbc();
+        if (dbc.GetCustomer(customer.EmailAddress) == null)
         {
+            dbc.AddCustomer(customer);
             Session["Customer"] = customer.EmailAddress;
             Panel1.Visible = false;
         }
@@ -56,8 +58,8 @@ public partial class MasterPage : System.Web.UI.MasterPage
             return;
         }
         String password=TextBox2.Text;
-        DatabaseConnector dbc = new DatabaseConnector();
-        Customer customer = dbc.GetCustomer(TextBox1.Text);
+        Dbc dbc = new Dbc();
+        Table_Customer customer = dbc.GetCustomer(TextBox1.Text);
         if (customer != null)
         {
             if (customer.Password.Equals(password))
