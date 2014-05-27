@@ -86,8 +86,9 @@ public class Dbc
             c.CheckOut = hotelReservation.CheckOut;
             c.Customer = hotelReservation.Customer;
             c.HotelId = hotelReservation.HotelId;
-            c.Room = hotelReservation.Room;
-            
+            c.RoomNum = hotelReservation.RoomNum;
+            c.RoomType = hotelReservation.RoomType;
+            c.Status = hotelReservation.Status;
         }
         data.SubmitChanges();
     }

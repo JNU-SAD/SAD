@@ -11,7 +11,23 @@
     left:0;
     top:0;
 }
-
+.button
+{
+    margin-bottom: 20px;
+    min-width: 150px;
+    color: white;
+    cursor: pointer;
+    border: 3px solid #336699;
+    background-color: #336699;
+    border-radius: 4px;
+}
+.input
+{
+    min-width: 70px;
+    margin-right: 10px;
+    background-color: white;
+    border:1px solid highlight;
+}
 .loginBar
 {
     width: 100%;
@@ -70,7 +86,8 @@
         border-style:solid;
         border-color:#336699;
         background-color:#336699;
-    }
+    height: 18px;
+}
 .signUpPanel
 {
     width: 100%;
@@ -253,6 +270,16 @@
         position:relative;
         background-color:#FCFCFC;
     }
+        .mainBody .aside .button
+        {
+            margin-bottom:20px;
+            width:150px;
+            color: white;
+            cursor: pointer;
+            border: 3px solid #336699;
+            background-color: #336699;
+            border-radius: 4px;
+        }
         .mainBody .aside .detail
         {
             width: 180px;
@@ -343,6 +370,20 @@
         padding-top:10px;
         padding-bottom:10px;
     }
+        .mainBody .result .reservation
+        {
+            padding-top:10px;
+            padding-left:10px;
+            padding-bottom:10px;
+            padding-right:10px;
+            margin-top:10px;
+            min-height:200px;
+            width:700px;
+            background-color:#F3F3F3;
+        }
+
+
+
         .mainBody .result .head
         {
             border: none;
@@ -373,7 +414,7 @@
             position: relative;
             height:50px;
         }
-            .mainBody .result .filters .button
+            .mainBody .result .filters .filterbutton
             {
                 background:url(../image/close.png) no-repeat right center;
                 margin-right:10px;

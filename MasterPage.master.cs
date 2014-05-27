@@ -79,4 +79,8 @@ public partial class MasterPage : System.Web.UI.MasterPage
     {
         Response.Redirect("Default.aspx");
     }
+    protected void Button5_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("Management.aspx");
+    }
 }

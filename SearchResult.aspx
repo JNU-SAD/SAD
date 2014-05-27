@@ -92,16 +92,16 @@
             </div>
             <!------------ 过滤器区 ------------>
             <div class="filters" runat="server" id="divFilters" visible="false">
-                <asp:Button ID="ButtonFilter1" runat="server" CssClass="button" Text="Name" Visible="false" OnClick="ButtonFilter1_Click"/>
-                <asp:Button ID="ButtonFilter2" runat="server" CssClass="button" Text="$70 - $359" Visible="false" OnClick="ButtonFilter2_Click"/>
-                <asp:Button ID="ButtonFilter3" runat="server" CssClass="button" Text="$360 - $649" Visible="false" OnClick="ButtonFilter3_Click"/>
-                <asp:Button ID="ButtonFilter4" runat="server" CssClass="button" Text="$650 - $929" Visible="false" OnClick="ButtonFilter4_Click"/>
-                <asp:Button ID="ButtonFilter5" runat="server" CssClass="button" Text="$930 - $1220" Visible="false" OnClick="ButtonFilter5_Click"/>
-                <asp:Button ID="ButtonFilter6" runat="server" CssClass="button" Text="1 star" Visible="false" OnClick="ButtonFilter6_Click"/>
-                <asp:Button ID="ButtonFilter7" runat="server" CssClass="button" Text="2 stars" Visible="false" OnClick="ButtonFilter7_Click"/>
-                <asp:Button ID="ButtonFilter8" runat="server" CssClass="button" Text="3 stars" Visible="false" OnClick="ButtonFilter8_Click"/>
-                <asp:Button ID="ButtonFilter9" runat="server" CssClass="button" Text="4 stars" Visible="false" OnClick="ButtonFilter9_Click"/>
-                <asp:Button ID="ButtonFilter10" runat="server" CssClass="button" Text="5 stars" Visible="false" OnClick="ButtonFilter10_Click"/>
+                <asp:Button ID="ButtonFilter1" runat="server" CssClass="filterbutton" Text="Name" Visible="false" OnClick="ButtonFilter1_Click"/>
+                <asp:Button ID="ButtonFilter2" runat="server" CssClass="filterbutton" Text="$70 - $359" Visible="false" OnClick="ButtonFilter2_Click"/>
+                <asp:Button ID="ButtonFilter3" runat="server" CssClass="filterbutton" Text="$360 - $649" Visible="false" OnClick="ButtonFilter3_Click"/>
+                <asp:Button ID="ButtonFilter4" runat="server" CssClass="filterbutton" Text="$650 - $929" Visible="false" OnClick="ButtonFilter4_Click"/>
+                <asp:Button ID="ButtonFilter5" runat="server" CssClass="filterbutton" Text="$930 - $1220" Visible="false" OnClick="ButtonFilter5_Click"/>
+                <asp:Button ID="ButtonFilter6" runat="server" CssClass="filterbutton" Text="1 star" Visible="false" OnClick="ButtonFilter6_Click"/>
+                <asp:Button ID="ButtonFilter7" runat="server" CssClass="filterbutton" Text="2 stars" Visible="false" OnClick="ButtonFilter7_Click"/>
+                <asp:Button ID="ButtonFilter8" runat="server" CssClass="filterbutton" Text="3 stars" Visible="false" OnClick="ButtonFilter8_Click"/>
+                <asp:Button ID="ButtonFilter9" runat="server" CssClass="filterbutton" Text="4 stars" Visible="false" OnClick="ButtonFilter9_Click"/>
+                <asp:Button ID="ButtonFilter10" runat="server" CssClass="filterbutton" Text="5 stars" Visible="false" OnClick="ButtonFilter10_Click"/>
             </div>
             <!------------ 搜索结果 ------------>
             <%

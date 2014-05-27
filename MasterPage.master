@@ -26,6 +26,7 @@
         <%} else{%>
         <div class="loggedInBar">
             <span>Welcome, <%=Session["Customer"].ToString() %></span>
+            <asp:Button ID="Button5" runat="server" CssClass="signOutButton" Text="Management" OnClick="Button5_Click" />
             <asp:Button ID="Button4" runat="server" CssClass="signOutButton" Text="Sign Out" OnClick="Button4_Click" />
         </div>
         <%} %>
@@ -44,7 +45,7 @@
     </ContentTemplate>
     </asp:UpdatePanel>
         <asp:ContentPlaceHolder id="ContentPlaceHolder1" runat="server">
-        
+            
         </asp:ContentPlaceHolder>
     </form>
 </body>
