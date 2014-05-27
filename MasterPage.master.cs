@@ -74,6 +74,7 @@ public partial class MasterPage : System.Web.UI.MasterPage
     protected void Button4_Click(object sender, EventArgs e)
     {
         Session.Contents.Clear();
+        Response.Redirect("Default.aspx");
     }
     protected void ImageButton1_Click(object sender, ImageClickEventArgs e)
     {
