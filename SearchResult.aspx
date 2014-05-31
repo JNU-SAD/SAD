@@ -128,7 +128,7 @@
                 <div class="price">
                     <div class="cost"><%="$"+hotel.Price.ToString() %></div>
                     <div class="perNight">per night</div>
-                    <a href="#" class="bookNow">Book Now</a>
+                    <a href="HotelDetail.aspx?hotelId=<%=hotel.Id %>&CheckIn=<%=Request["CheckIn"] %>&CheckOut=<%=Request["CheckOut"] %> &RoomNum=<%=Request["RoomNum"] %>&GuestNum=<%=Request["GuestNum"] %>" class="bookNow">Book Now</a>
                 </div>
             </div>
            <%   

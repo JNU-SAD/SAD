@@ -132,6 +132,15 @@ public class Dbc
                 select s;
         return q.ToList();
     }
+    //根据酒店Id获取酒店
+    public Table_Hotel GetHotelById(int id)
+    {
+        var q = from s in data.Table_Hotel
+                where s.Id == id
+                select s;
+        return q.Count() == 0 ? null : q.First();
+
+    }
     //获取所有酒店
     public List<Table_Hotel> GetAllHotel()
     {
