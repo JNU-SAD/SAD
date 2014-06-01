@@ -21,11 +21,11 @@
             <img src="<%=@"image/hotel/" + hotel.ImageUrl%>" alt="img" />
         </div>
         <div class="roomInfo">
-            <asp:UpdatePanel runat="server">
+            <asp:UpdatePanel ID="UpdatePanel1" runat="server">
                 <ContentTemplate>
-            <p>Check in:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%=CheckIn %></p>
-            <p>Check out:&nbsp;&nbsp;&nbsp;<%=CheckOut %></p>
-            <p>Details:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%=RoomNum+"Room"+","+ GuestNum+"Guest"%></p>
+            <p>Check in:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<asp:Label ID="Label1" runat="server" Visible="true" ></asp:Label></p>
+            <p>Check out:&nbsp;&nbsp;&nbsp;<asp:Label ID="Label2" runat="server" Visible="true" ></asp:Label></p>
+            <p>Details:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<asp:Label ID="Label3" runat="server" Visible="true" ></asp:Label></p>
             <asp:Button ID="Button1" runat="server" Text="Change Dates" OnClick="Button1_Click" CssClass="check" />
             <hr />
             

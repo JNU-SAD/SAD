@@ -34,6 +34,9 @@ public partial class HotelDetial : System.Web.UI.Page
             Calendar2.SelectedDate = System.DateTime.Now.AddDays(1);
             Button2.Text = Calendar1.SelectedDate.ToString("yyyy/MM/dd");
             Button3.Text = Calendar2.SelectedDate.ToString("yyyy/MM/dd");
+            Label1.Text = CheckIn;
+            Label2.Text = CheckOut;
+            Label3.Text = RoomNum.ToString() + "Room," + GuestNum.ToString() + "Guest";
         }
 
     }
@@ -74,6 +77,7 @@ public partial class HotelDetial : System.Web.UI.Page
         RoomNum = Convert.ToInt32(DropDownList1.SelectedValue);
         GuestNum = Convert.ToInt32(DropDownList2.SelectedValue);
         Panel1.Visible = false;
+        UpdatePanel1.Update();
     }
     protected void Button5_Click(object sender, EventArgs e)
     {
@@ -81,11 +85,21 @@ public partial class HotelDetial : System.Web.UI.Page
     }
     protected void Calendar1_SelectionChanged(object sender, EventArgs e)
     {
+        if (Calendar1.SelectedDate > Calendar2.SelectedDate)
+        {
+            ScriptManager.RegisterStartupScript(this.UpdatePanel1, this.GetType(), "updateScript", "alert('Please select a real date.')", true);
+            Calendar1.SelectedDate = Calendar2.SelectedDate;
+        }
         Button2.Text = Calendar1.SelectedDate.ToString("yyyy/MM/dd");
         Calendar1.Visible = false;
     }
     protected void Calendar2_SelectionChanged(object sender, EventArgs e)
     {
+        if (Calendar1.SelectedDate > Calendar2.SelectedDate)
+        {
+            ScriptManager.RegisterStartupScript(this.UpdatePanel1, this.GetType(), "updateScript", "alert('Please select a real date.')", true);
+            Calendar2.SelectedDate = Calendar1.SelectedDate.AddDays(1);
+        }
         Button3.Text = Calendar2.SelectedDate.ToString("yyyy/MM/dd");
         Calendar2.Visible = false;
     }
