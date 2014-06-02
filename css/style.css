@@ -692,3 +692,152 @@
                     border-color: #336699;
                     background-color: #336699;
                 }
+    .mainBody .information
+    {
+        width:570px;
+        margin-left:20px;
+        float:left;
+        position:relative;
+        background-color:#FCFCFC;
+        padding:10px 10px 10px 10px;
+    }
+        .mainBody .information .title
+        {
+            height:30px;
+            position:relative;
+        }
+            .mainBody .information .title span
+            {
+                color:#336699;
+                font-size:x-large;
+            }
+            .mainBody .information .title .changeContact
+            {
+                float:right;
+                border:none;
+                color:blue;
+                background-color:#FCFCFC;
+                text-decoration:underline;
+                cursor:pointer;
+            }
+        .mainBody .information .informationDetail
+        {
+            border:solid;
+            border-color:silver;
+            border-width:thin;
+            width:96%;
+            margin-top:20px;
+            padding:10px 10px 10px 10px;
+        }
+            .mainBody .information .informationDetail span
+            {
+                font-size:medium;
+            }
+            .mainBody .information .informationDetail .name
+            {
+                height:30px;
+                width:150px;
+                font-size:medium;
+                border:solid;
+                border-color:#336699;
+                border-width:thin;
+                padding-left:10px;
+            }
+            .mainBody .information .informationDetail .textBox
+            {
+                height:30px;
+                border:solid;
+                border-color:#336699;
+                width:500px;
+                border-width:thin;
+                font-size:medium;
+                padding-left:10px;
+            }
+        .mainBody .information .payNow
+        {
+            margin-top:20px;
+            text-align:center;
+            cursor:pointer;
+            float: right;
+            height: 40px;
+            font-size:x-large;
+            color: white;
+            cursor: pointer;
+            border-style: solid;
+            border-color: #336699;
+            background-color: #336699;
+        }
+    .mainBody .Order
+    {
+        width:340px;
+        margin-right:20px;
+        float:right;
+        position:relative;
+        background-color:#FCFCFC;
+        padding-left:5px;
+        padding-right:5px;
+    }
+        .mainBody .Order .orderDetail
+        {
+            background-color:#F3F3F3;
+            padding-left:10px;
+            padding-right:10px;
+            height:400px;
+        }
+            .mainBody .Order .orderDetail h1
+            {
+                text-align: center;
+                font-weight: 300;
+            }
+            .mainBody .Order .orderDetail p.p1
+            {
+                text-align: center;
+                font-weight: 200;
+                font-size: medium;
+            }
+        
+            .mainBody .Order .orderDetail .labelStyle
+            {
+                float:right;
+            }
+            .mainBody .Order .orderDetail .s1
+            {
+                text-align:center;
+                font-weight:300;
+                font-size:medium;
+            }
+            .mainBody .Order .orderDetail .cost
+            {
+                float:right;
+                font-size:xx-large;
+            }
+        .mainBody .Order .hotelDetail
+        {
+            height:110px;
+            margin:5px;
+        }
+            .mainBody .Order .hotelDetail img
+            {
+                float: left;
+                max-height: 100px;
+                max-width: 100px;
+            }
+            .mainBody .Order .hotelDetail .hotelName
+            {
+                float:left;
+                height:50px;
+                font-size:large;
+                font-weight:600;
+                position:relative;
+            }
+            .mainBody .Order .hotelDetail .starLevel
+            {
+                margin-top:55px;
+                float:left;
+                height:50px;
+            }
+        .mainBody .Order .check
+        {
+            line-height:10px;
+            font-size:small;
+        }
