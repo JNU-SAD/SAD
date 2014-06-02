@@ -16,7 +16,7 @@
          <span><%=hotel.Address %></span><br />
         <span><%=hotel.ContactNumber %></span>
         </div>
-        <div class="detail">
+        <div class="detail1">
         <div class="imgbox">
             <img src="<%=@"image/hotel/" + hotel.ImageUrl%>" alt="img" />
         </div>
@@ -84,6 +84,46 @@
             <a href="#room" class="chooseARoom" >Choose a Room</a>
         </div>
         </div>
+        <asp:Label ID="Label_hotelId" runat="server" Visible="false" />
+        <asp:DetailsView runat="server" ID="DetailsView1" CellPadding="4" DataSourceID="LinqDataSource1" ForeColor="#333333" GridLines="None" AutoGenerateRows="False" DataKeyNames="HotelId,RoomType,Date">
+            <AlternatingRowStyle BackColor="White" ForeColor="#284775" />
+            <CommandRowStyle BackColor="#E2DED6" Font-Bold="True" />
+            <EditRowStyle BackColor="#999999" />
+            <FieldHeaderStyle BackColor="#E9ECF1" Font-Bold="True" />
+            <Fields>
+                <asp:BoundField DataField="HotelId" HeaderText="HotelId" ReadOnly="True" SortExpression="HotelId" />
+                <asp:BoundField DataField="RoomType" HeaderText="RoomType" ReadOnly="True" SortExpression="RoomType" />
+                <asp:BoundField DataField="Date" HeaderText="Date" ReadOnly="True" SortExpression="Date" />
+                <asp:BoundField DataField="Rate" HeaderText="Rate" SortExpression="Rate" />
+                <asp:BoundField DataField="BookedNumber" HeaderText="BookedNumber" SortExpression="BookedNumber" />
+            </Fields>
+            <FooterStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" />
+            <HeaderStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" />
+            <PagerStyle BackColor="#284775" ForeColor="White" HorizontalAlign="Center" />
+            <RowStyle BackColor="#F7F6F3" ForeColor="#333333" />
+        </asp:DetailsView>
+
+
+
+
+
+
+
+
+        <asp:LinqDataSource ID="LinqDataSource1" runat="server" EntityTypeName="" ContextTypeName="DataClassesDataContext" TableName="Table_Arrangement" Where="HotelId == @HotelId">
+            <WhereParameters>
+                <asp:ControlParameter ControlID="Label_hotelId" Name="HotelId" PropertyName="Text" Type="Int32" />
+            </WhereParameters>
+        </asp:LinqDataSource>
+
+
+
+
+
+
+
+
+        <!--
         <div class="roomDetail">
             <div class="title"><a id="room"></a>
                 Special Rates
@@ -96,11 +136,12 @@
                 </div>
                 <div class="price">
                     <div class="pernight"><span>$<b><%=r.FullRate %></b>per night</span></div>
-                    <asp:Button ID="Button5" runat="server" Text="Book Now" CssClass="bookNow" OnClick="Button5_Click" />
+                    <asp:Button ID="Button5" runat="server" Text="Book Now" CssClass="bookNow" />
                 </div>
             </div>
             <%} %>
         </div>
+        -->
         </div>
 </asp:Content>
 

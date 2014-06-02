@@ -4,17 +4,17 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-
+using System.Globalization;
 public partial class HotelDetial : System.Web.UI.Page
 {
     protected Dbc dbc = new Dbc();
-    protected  List<Table_Room> Room =new List<Table_Room>();
-    protected Table_Hotel hotel = new Table_Hotel();
-    protected int price;
-    protected string CheckIn;
-    protected string CheckOut;
-    protected int RoomNum;
-    protected int GuestNum;
+    protected static List<Table_Room> Room = new List<Table_Room>();
+    protected static Table_Hotel hotel = new Table_Hotel();
+    protected static int price;
+    protected static string CheckIn;
+    protected static string CheckOut;
+    protected static int RoomNum;
+    protected static int GuestNum;
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!IsPostBack)
@@ -37,6 +37,8 @@ public partial class HotelDetial : System.Web.UI.Page
             Label1.Text = CheckIn;
             Label2.Text = CheckOut;
             Label3.Text = RoomNum.ToString() + "Room," + GuestNum.ToString() + "Guest";
+
+            Label_hotelId.Text = hotel.Id.ToString();
         }
 
     }
@@ -74,15 +76,14 @@ public partial class HotelDetial : System.Web.UI.Page
     {
         CheckIn = Button2.Text;
         CheckOut = Button3.Text;
-        RoomNum = Convert.ToInt32(DropDownList1.SelectedValue);
-        GuestNum = Convert.ToInt32(DropDownList2.SelectedValue);
+        Label1.Text = Button2.Text;
+        Label2.Text = Button3.Text;
+        RoomNum = Convert.ToInt32(DropDownList1.SelectedValue.Substring(0,1));
+        GuestNum = Convert.ToInt32(DropDownList2.SelectedValue.Substring(0, 1));
+        Label3.Text = RoomNum.ToString() + "Room," + GuestNum.ToString() + "Guest";
         Panel1.Visible = false;
-        UpdatePanel1.Update();
     }
-    protected void Button5_Click(object sender, EventArgs e)
-    {
 
-    }
     protected void Calendar1_SelectionChanged(object sender, EventArgs e)
     {
         if (Calendar1.SelectedDate > Calendar2.SelectedDate)
@@ -103,4 +104,27 @@ public partial class HotelDetial : System.Web.UI.Page
         Button3.Text = Calendar2.SelectedDate.ToString("yyyy/MM/dd");
         Calendar2.Visible = false;
     }
+    /*
+    protected void Button5_Command(object sender, CommandEventArgs e)
+    {
+        //先判断是否登陆
+        if (Session["Customer"] == null)
+        {
+            Response.Write("<script>alert('Login Required.')</script>");
+            return;
+        }
+        DateTimeFormatInfo dtFormat = new DateTimeFormatInfo();
+        dtFormat.ShortDatePattern = "yyyy/MM/dd";
+        Table_HotelReservation reservation = new Table_HotelReservation();
+        reservation.CheckIn = Convert.ToDateTime(CheckIn, dtFormat);
+        reservation.CheckOut = Convert.ToDateTime(CheckOut, dtFormat);
+        reservation.Customer = Session["Customer"].ToString();
+        reservation.HotelId = hotel.Id;
+        reservation.RoomNum = RoomNum;
+        reservation.RoomType = e.CommandName;
+        reservation.Status = 0;
+        Session["Reservation"] = reservation;
+        Response.Redirect("ComfirmOrder.aspx");
+    }
+    */
 }

@@ -86,7 +86,6 @@
         border-style:solid;
         border-color:#336699;
         background-color:#336699;
-    height: 18px;
 }
 .signUpPanel
 {
@@ -313,6 +312,7 @@
             }
             .mainBody .aside .detail .button
             {
+
                 font-size: x-small;
                 color: white;
                 cursor: pointer;
@@ -527,7 +527,7 @@
             font-size: small;
             font-family: 'Microsoft YaHei';
         }
-    .mainBody .detail
+    .mainBody .detail1
     {
         width:100%;
         height:550px;
@@ -535,7 +535,7 @@
         position:relative;
     }
 
-    .mainBody .detail .imgbox
+    .mainBody .detail1 .imgbox
     {
         width:430px;
         margin-left:20px;
@@ -543,13 +543,13 @@
         position:relative;
         background-color:#FCFCFC;
     }
-        .mainBody .detail .imgbox img
+        .mainBody .detail1 .imgbox img
         {
             max-width:430px;
             float:left;
             position:relative;
         }
-    .mainBody .detail .roomInfo
+    .mainBody .detail1 .roomInfo
     {
         width:465px;
         margin-right:20px;
@@ -561,11 +561,11 @@
         padding-bottom:20px;
         padding-right:20px;
     }
-        .mainBody .detail .roomInfo p
+        .mainBody .detail1 .roomInfo p
         {
             line-height:30px;
         }
-        .mainBody .detail .roomInfo .check
+        .mainBody .detail1 .roomInfo .check
         {
             font-size: x-small;
             color: white;
@@ -574,7 +574,7 @@
             border-color: #336699;
             background-color: #336699;
         }
-        .mainBody .detail .roomInfo .datacheck
+        .mainBody .detail1 .roomInfo .datacheck
         {
             width: 220px;
             height: 40px;
@@ -589,7 +589,7 @@
             margin-top: 10px;
             margin-right: 10px;
         }
-        .mainBody .detail .roomInfo .inputElse
+        .mainBody .detail1 .roomInfo .inputElse
         {
             width: 220px;
             height: 40px;
@@ -601,7 +601,7 @@
             margin-top: 10px;
             margin-right: 10px;
         }
-        .mainBody .detail .roomInfo .checkAvailability
+        .mainBody .detail1 .roomInfo .checkAvailability
         {
             width: 450px;
             height: 40px;
@@ -615,7 +615,7 @@
             background-color: #336699;
             border-radius: 8px;
         }
-        .mainBody .detail .roomInfo .chooseARoom
+        .mainBody .detail1 .roomInfo .chooseARoom
         {
             text-align:center;
             cursor:pointer;
@@ -643,7 +643,6 @@
             font-size:x-large;
             text-align:left;
             color:white;
-            cursor:pointer;
             border-style:solid;
             border-color:#336699;
             background-color:#336699;
