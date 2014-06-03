@@ -10,6 +10,8 @@ public partial class HotelDetial : System.Web.UI.Page
     protected Dbc dbc = new Dbc();
     protected static List<Table_Room> Room = new List<Table_Room>();
     protected static Table_Hotel hotel = new Table_Hotel();
+    protected static List<Table_Arrangement> arrangement = new List<Table_Arrangement>();
+    protected static List<Table_Arrangement> _arrangement = new List<Table_Arrangement>();
     protected static int price;
     protected static string CheckIn;
     protected static string CheckOut;
@@ -37,8 +39,6 @@ public partial class HotelDetial : System.Web.UI.Page
             Label1.Text = CheckIn;
             Label2.Text = CheckOut;
             Label3.Text = RoomNum.ToString() + "Room," + GuestNum.ToString() + "Guest";
-
-            Label_hotelId.Text = hotel.Id.ToString();
         }
 
     }
@@ -104,27 +104,73 @@ public partial class HotelDetial : System.Web.UI.Page
         Button3.Text = Calendar2.SelectedDate.ToString("yyyy/MM/dd");
         Calendar2.Visible = false;
     }
-    /*
-    protected void Button5_Command(object sender, CommandEventArgs e)
+   
+
+    protected void GridView1_SelectedIndexChanged(object sender, EventArgs e)
     {
-        //先判断是否登陆
-        if (Session["Customer"] == null)
+        RefleshPanel2();
+        
+    
+    }
+    protected void GridView1_DataBound(object sender, EventArgs e)
+    {
+        for (int i = 0; i < GridView1.Rows.Count; i++)
         {
-            Response.Write("<script>alert('Login Required.')</script>");
-            return;
+            GridView1.Rows[i].Cells[1].Text = "$" + GridView1.Rows[i].Cells[1].Text;
+            
         }
+        GridView1.SelectedIndex = 0;
+        RefleshPanel2();
+    }
+    private void RefleshPanel2()
+    {
+        String roomtype = GridView1.SelectedRow.Cells[0].Text;
+        int hotelId = hotel.Id;
+        arrangement = dbc.GetArrangementByHotelIdAndRoomType(hotelId, roomtype);
+        _arrangement.Clear();
+        for (int i = 0; i < 10; i++)
+        {
+            bool found = false;
+            foreach (Table_Arrangement a in arrangement)
+            {
+                if (a.Date.ToShortDateString() == DateTime.Now.AddDays(i).ToShortDateString())
+                {
+                    _arrangement.Add(a);
+                    found = true;
+                    break;
+                }
+            }
+            if (!found)
+            {
+                Table_Arrangement a = new Table_Arrangement();
+                a.HotelId = hotel.Id;
+                a.RoomType = GridView1.SelectedRow.Cells[0].Text;
+                a.Date = DateTime.Now.AddDays(i);
+                a.BookedNumber = 0;
+                a.Rate = Convert.ToInt32(GridView1.SelectedRow.Cells[1].Text.Substring(1, GridView1.SelectedRow.Cells[1].Text.Length - 1));
+                _arrangement.Add(a);
+            }
+        }
+    }
+
+    protected void Button_BookNow_Click(object sender, EventArgs e)
+    {
+
         DateTimeFormatInfo dtFormat = new DateTimeFormatInfo();
         dtFormat.ShortDatePattern = "yyyy/MM/dd";
         Table_HotelReservation reservation = new Table_HotelReservation();
+        
         reservation.CheckIn = Convert.ToDateTime(CheckIn, dtFormat);
         reservation.CheckOut = Convert.ToDateTime(CheckOut, dtFormat);
-        reservation.Customer = Session["Customer"].ToString();
         reservation.HotelId = hotel.Id;
         reservation.RoomNum = RoomNum;
-        reservation.RoomType = e.CommandName;
+        reservation.RoomType = GridView1.SelectedRow.Cells[0].Text;
+        reservation.GuestNum = GuestNum;
         reservation.Status = 0;
+        reservation.Value = dbc.GetRoomByHotelIdAndRoomType(reservation.HotelId, reservation.RoomType).FullRate * reservation.RoomNum * (reservation.CheckOut - reservation.CheckIn).Days;
+        //订单的用户将在下一个页面确定
         Session["Reservation"] = reservation;
-        Response.Redirect("ComfirmOrder.aspx");
+        Response.Redirect("ComfirmOrder.aspx?hotelId=" + Request["hotelId"] + "&Address=" + Request["Address"] + "&CheckIn=" + Request["CheckIn"] + "&CheckOut=" + Request["CheckOut"] + "&RoomNum=" + Request["RoomNum"] + "&GuestNum=" + Request["GuestNum"]);
+
     }
-    */
 }

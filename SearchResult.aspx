@@ -1,11 +1,32 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeFile="SearchResult.aspx.cs" Inherits="SearchResult" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
+    <link type="text/css" rel="stylesheet" href="css/updown.css"/>
+    <script type="text/javascript">
+        $(function () {
+            $("#updown").css("top", window.screen.availHeight / 2 - 100 + "px");
+            $(window).scroll(function () {
+                if ($(window).scrollTop() >= 100) {
+                    $('#updown').fadeIn(300);
+                } else {
+                    $('#updown').fadeOut(300);
+                }
+            });
+            $('#updown .up').click(function () { $('html,body').animate({ scrollTop: '0px' }, 800); });
+            $('#updown .down').click(function () { $('html,body').animate({ scrollTop: document.body.clientHeight + 'px' }, 800); });
+        });
+    </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
-
+    <div id="updown"><span class="up"></span></div>
     <!------------ 主体开始 ------------>
     <div class="mainBody">
+        <div class="position">
+            <ul id="breadcrumb">
+                <li><a href="Default.aspx">Home</a></li>
+                <li><a href="#">Find a Hotel</a></li>
+            </ul>
+        </div>
         <!------------ 搜索信息栏 ------------>
         <div class="searchInfo">
             <img src="image/location.png" alt="location" />
@@ -110,10 +131,10 @@
                 {
                 %>
             <div class="resultbox">
-                <img src="<%=@"image/hotel/" + hotel.ImageUrl%>" alt="hotel" class="img"/>
+                <a href="HotelDetail.aspx?hotelId=<%=hotel.Id %>&Address=<%=Request["Address"] %>&CheckIn=<%=Request["CheckIn"] %>&CheckOut=<%=Request["CheckOut"] %>&RoomNum=<%=Request["RoomNum"] %>&GuestNum=<%=Request["GuestNum"] %>"><img src="<%=@"image/hotel/" + hotel.ImageUrl%>" alt="hotel" class="img"/></a>
                 <div class="detail">
                     <div class="hotelName">
-                        <%=hotel.Name%>
+                        <a href="HotelDetail.aspx?hotelId=<%=hotel.Id %>&Address=<%=Request["Address"] %>&CheckIn=<%=Request["CheckIn"] %>&CheckOut=<%=Request["CheckOut"] %>&RoomNum=<%=Request["RoomNum"] %>&GuestNum=<%=Request["GuestNum"] %>"><%=hotel.Name%></a>
                     </div>
                     <div class="hotelAddress">
                         <%=hotel.Address%>
@@ -128,7 +149,7 @@
                 <div class="price">
                     <div class="cost"><%="$"+hotel.Price.ToString() %></div>
                     <div class="perNight">per night</div>
-                    <a href="HotelDetail.aspx?hotelId=<%=hotel.Id %>&CheckIn=<%=Request["CheckIn"] %>&CheckOut=<%=Request["CheckOut"] %> &RoomNum=<%=Request["RoomNum"] %>&GuestNum=<%=Request["GuestNum"] %>" class="bookNow">Book Now</a>
+                    <a href="HotelDetail.aspx?hotelId=<%=hotel.Id %>&Address=<%=Request["Address"] %>&CheckIn=<%=Request["CheckIn"] %>&CheckOut=<%=Request["CheckOut"] %>&RoomNum=<%=Request["RoomNum"] %>&GuestNum=<%=Request["GuestNum"] %>" class="bookNow">Book Now</a>
                 </div>
             </div>
            <%   

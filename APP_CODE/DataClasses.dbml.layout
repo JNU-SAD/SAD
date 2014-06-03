@@ -26,10 +26,10 @@
         <elementListCompartment Id="5d6dac54-eb11-4040-ab5c-a4a8262b6e56" absoluteBounds="7.89, 2.085, 1.9700000000000002, 1.2025655110677083" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="226f052f-956c-4d45-9bcb-3cfa3fb463d0" absoluteBounds="5.25, 4.375, 2, 2.3356245930989585">
+    <classShape Id="56daf181-77cf-459b-9589-34416f15dbb7" absoluteBounds="5.125, 4.375, 2, 2.7176639811197916">
       <DataClassMoniker Name="/DataClassesDataContext/Table_HotelReservation" />
       <nestedChildShapes>
-        <elementListCompartment Id="a1eeb781-a43c-4344-8f51-003a0b558219" absoluteBounds="5.265, 4.835, 1.9700000000000002, 1.7756245930989585" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="12bd8d3c-f80c-4110-a59d-4c23d56b6bab" absoluteBounds="5.14, 4.835, 1.9700000000000002, 2.1576639811197915" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
   </nestedChildShapes>

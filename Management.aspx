@@ -15,9 +15,10 @@
         
     <div class="mainBody">
         <div class="aside" style="background-color:transparent">
+            <asp:Button ID="Button2" runat="server" Text="Reservations"  CssClass="button" OnClick="Button2_Click"/>
             <asp:Button ID="Button1" runat="server" Text="Information" CssClass="button" OnClick="Button1_Click"/>
             <asp:Button ID="Button3" runat="server" Text="Change Password" CssClass="button" OnClick="Button3_Click"/>
-            <asp:Button ID="Button2" runat="server" Text="Reservations"  CssClass="button" OnClick="Button2_Click"/>
+            
         </div>
         <div class="result" style="background-color:transparent">
             <asp:Panel ID="Panel1" runat="server" Visible="false" >
@@ -73,7 +74,7 @@
 
             <asp:Panel ID="Panel3" runat="server" Visible="false" >
                 <div class="reservation">
-                    <asp:GridView ID="GridView2" runat="server" AllowPaging="True" AllowSorting="True" AutoGenerateColumns="False" CellPadding="10" DataKeyNames="Id" DataSourceID="LinqDataSource2" ForeColor="#333333" GridLines="None" OnDataBound="GridView2_DataBound" HorizontalAlign="Center" Width="700px">
+                    <asp:GridView ID="GridView2" runat="server" AllowPaging="True" AllowSorting="True" AutoGenerateColumns="False" CellPadding="10" DataKeyNames="Id" DataSourceID="LinqDataSource2" ForeColor="#333333" GridLines="None" OnDataBound="GridView2_DataBound" HorizontalAlign="Center" Width="700px" PageSize="5">
                         <AlternatingRowStyle BackColor="White" ForeColor="#284775" />
                         <Columns>
                             <asp:BoundField DataField="Id" HeaderText="Id" InsertVisible="False" ReadOnly="True" SortExpression="Id" />
@@ -128,6 +129,9 @@
                         </Fields>
                         <FooterStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" />
                         <HeaderStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" />
+                        <HeaderTemplate>
+                            Detail
+                        </HeaderTemplate>
                         <PagerStyle BackColor="#284775" ForeColor="White" HorizontalAlign="Center" />
                         <RowStyle BackColor="#F7F6F3" ForeColor="#333333" />
                     </asp:DetailsView>
@@ -138,7 +142,10 @@
                             <asp:ControlParameter ControlID="GridView2" Name="Id" PropertyName="SelectedValue" Type="Int32" />
                         </WhereParameters>
                     </asp:LinqDataSource>
-                    <asp:LinqDataSource ID="LinqDataSource2" runat="server" ContextTypeName="DataClassesDataContext" EntityTypeName="" TableName="Table_HotelReservation">
+                    <asp:LinqDataSource ID="LinqDataSource2" runat="server" ContextTypeName="DataClassesDataContext" EntityTypeName="" TableName="Table_HotelReservation" Where="Customer == @Customer">
+                        <WhereParameters>
+                            <asp:SessionParameter Name="Customer" SessionField="Customer" Type="String" />
+                        </WhereParameters>
                     </asp:LinqDataSource>
                      
                 </div>

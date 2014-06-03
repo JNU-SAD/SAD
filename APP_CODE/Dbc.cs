@@ -196,6 +196,15 @@ public class Dbc
                 select s;
         return q.ToList();
     }
+    //根据酒店id和房间名获取房间
+    public Table_Room GetRoomByHotelIdAndRoomType(int hotelId, String roomType)
+    {
+        var q = from s in data.Table_Room
+                where s.HotelId == hotelId && s.RoomType == roomType
+                select s;
+        return q.Count() == 0 ? null : q.First();
+    }
+
     //获取所有房间
     public List<Table_Room> GetAllRoom()
     {
@@ -266,7 +275,7 @@ public class Dbc
     public void DeleteArrangement(int hotelId, String roomType, DateTime date)
     {
         var q = from s in data.Table_Arrangement
-                where s.HotelId == hotelId && s.RoomType == roomType && s.Date == date
+                where s.HotelId == hotelId && s.RoomType == roomType && s.Date.ToShortDateString() == date.ToShortDateString()
                 select s;
         data.Table_Arrangement.DeleteAllOnSubmit(q);
         data.SubmitChanges();

@@ -499,8 +499,6 @@ public partial class Table_Hotel : INotifyPropertyChanging, INotifyPropertyChang
 	
 	private string _ImageUrl;
 
-    private List<Table_Room> room = new List<Table_Room>();
-
     private int price;
 
     public int Price
@@ -508,6 +506,7 @@ public partial class Table_Hotel : INotifyPropertyChanging, INotifyPropertyChang
         get { return price; }
         set { price = value; }
     }
+    private List<Table_Room> room;
 
     public List<Table_Room> Room
     {
@@ -531,6 +530,7 @@ public partial class Table_Hotel : INotifyPropertyChanging, INotifyPropertyChang
     partial void OnImageUrlChanging(string value);
     partial void OnImageUrlChanged();
     #endregion
+
 	
 	public Table_Hotel()
 	{
@@ -694,7 +694,7 @@ public partial class Table_Room : INotifyPropertyChanging, INotifyPropertyChange
 	
 	private int _Capacity;
 
-    private List<Table_Arrangement> arrangement = new List<Table_Arrangement>();
+    private List<Table_Arrangement> arrangement;
 
     public List<Table_Arrangement> Arrangement
     {
@@ -865,6 +865,10 @@ public partial class Table_HotelReservation : INotifyPropertyChanging, INotifyPr
 	
 	private int _Status;
 	
+	private int _GuestNum;
+	
+	private int _Value;
+	
     #region 可扩展性方法定义
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -885,6 +889,10 @@ public partial class Table_HotelReservation : INotifyPropertyChanging, INotifyPr
     partial void OnRoomNumChanged();
     partial void OnStatusChanging(int value);
     partial void OnStatusChanged();
+    partial void OnGuestNumChanging(int value);
+    partial void OnGuestNumChanged();
+    partial void OnValueChanging(int value);
+    partial void OnValueChanged();
     #endregion
 	
 	public Table_HotelReservation()
@@ -1048,6 +1056,46 @@ public partial class Table_HotelReservation : INotifyPropertyChanging, INotifyPr
 				this._Status = value;
 				this.SendPropertyChanged("Status");
 				this.OnStatusChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_GuestNum", DbType="Int NOT NULL")]
+	public int GuestNum
+	{
+		get
+		{
+			return this._GuestNum;
+		}
+		set
+		{
+			if ((this._GuestNum != value))
+			{
+				this.OnGuestNumChanging(value);
+				this.SendPropertyChanging();
+				this._GuestNum = value;
+				this.SendPropertyChanged("GuestNum");
+				this.OnGuestNumChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Value", DbType="Int NOT NULL")]
+	public int Value
+	{
+		get
+		{
+			return this._Value;
+		}
+		set
+		{
+			if ((this._Value != value))
+			{
+				this.OnValueChanging(value);
+				this.SendPropertyChanging();
+				this._Value = value;
+				this.SendPropertyChanged("Value");
+				this.OnValueChanged();
 			}
 		}
 	}

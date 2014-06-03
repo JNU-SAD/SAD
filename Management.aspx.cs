@@ -13,7 +13,7 @@ public partial class Management : System.Web.UI.Page
     {
         if (!IsPostBack)
         {
-            Panel1.Visible = true;
+            Panel3.Visible = true;
             //reservations = dbc.GetHotelReservationByEmailAddress(Session["Customer"].ToString());
 
         }
@@ -65,8 +65,8 @@ public partial class Management : System.Web.UI.Page
         GridView2.SelectedIndex = 0;
         for (int i = 0; i < GridView2.Rows.Count; i++)
         {
-            GridView2.Rows[i].Cells[4].Text = GridView2.Rows[i].Cells[4].Text.Substring(0, 10).Trim();
-            GridView2.Rows[i].Cells[5].Text = GridView2.Rows[i].Cells[5].Text.Substring(0, 10).Trim();
+            GridView2.Rows[i].Cells[4].Text = GridView2.Rows[i].Cells[4].Text.Substring(0, GridView2.Rows[i].Cells[4].Text.IndexOf(" ")).Trim();
+            GridView2.Rows[i].Cells[5].Text = GridView2.Rows[i].Cells[5].Text.Substring(0, GridView2.Rows[i].Cells[5].Text.IndexOf(" ")).Trim();
             if (GridView2.Rows[i].Cells[6].Text == "1")
                 GridView2.Rows[i].Cells[6].Text = "Paid";
             else
@@ -75,12 +75,13 @@ public partial class Management : System.Web.UI.Page
     }
     protected void DetailsView2_DataBound(object sender, EventArgs e)
     {
-        DetailsView2.Rows[5].Cells[1].Text = DetailsView2.Rows[5].Cells[1].Text.Substring(0, 10).Trim();
-        DetailsView2.Rows[6].Cells[1].Text = DetailsView2.Rows[6].Cells[1].Text.Substring(0, 10).Trim();
+        DetailsView2.Rows[5].Cells[1].Text = DetailsView2.Rows[5].Cells[1].Text.Substring(0, DetailsView2.Rows[5].Cells[1].Text.IndexOf(" ")).Trim();
+        DetailsView2.Rows[6].Cells[1].Text = DetailsView2.Rows[6].Cells[1].Text.Substring(0, DetailsView2.Rows[6].Cells[1].Text.IndexOf(" ")).Trim();
         DetailsView2.Rows[7].Cells[1].Text = DetailsView2.Rows[7].Cells[1].Text == "0" ? "Unpaid" : "Paid";
     }
     protected void Button5_Click(object sender, EventArgs e)
     {
-
+        Session["Reservation"] = dbc.GetHotelReservationById(Convert.ToInt32(GridView2.SelectedRow.Cells[0].Text));
+        Response.Redirect("ComfirmOrder.aspx");
     }
 }

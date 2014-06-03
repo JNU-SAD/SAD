@@ -1,7 +1,23 @@
-﻿body 
+﻿html
 {
-    background-color:#FCFCFC;
-    font-family:'Segoe UI';
+    height: 100%;
+}
+body
+{
+    background-color: #FCFCFC;
+    font-family: 'Segoe UI';
+    background: #090b44; /* Old browsers */
+    background: -moz-radial-gradient(center, ellipse cover, #090b44 0%, #00001c 100%); /* FF3.6+ */
+    background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,#090b44), color-stop(100%,#00001c)); /* Chrome,Safari4+ */
+    background: -webkit-radial-gradient(center, ellipse cover, #090b44 0%,#00001c 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-radial-gradient(center, ellipse cover, #090b44 0%,#00001c 100%); /* Opera 12+ */
+    background: -ms-radial-gradient(center, ellipse cover, #090b44 0%,#00001c 100%); /* IE10+ */
+    background: radial-gradient(ellipse at center, #090b44 0%,#00001c 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#090b44', endColorstr='#00001c',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+    color:white;
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
 }
 .logo
 {
@@ -148,7 +164,7 @@
         margin: 0 auto;
         position: relative;
         top: 40px;
-        background-color: White;
+        background-color: rgba(255,255,255,0.5);
         border-radius: 12px;
         padding-left: 20px;
     }
@@ -213,13 +229,22 @@
 .mainBody
 {
     width:1000px;
-    background-color:#F3F3F3;
+    background-color:rgba(255,255,255,0.5);
     margin:0 auto;
     position:relative;
     padding-top:30px;
     padding-bottom:30px;
     overflow:hidden;
 }
+    .mainBody .position
+    {
+        margin-bottom:20px;
+        margin-right:20px;
+    }
+        .mainBody .position a
+        {
+            color: white;
+        }
     .mainBody .searchInfo
     {
         padding-top: 30px;
@@ -227,8 +252,9 @@
         width: 960px;
         margin: 0 auto;
         position: relative;
-        background-color: #EEEEEE;
+        background-color: rgba(255,255,255,0.8);
         overflow: hidden;
+        color:black;
     }
         .mainBody .searchInfo img
         {
@@ -267,7 +293,8 @@
         margin-left:20px;
         float:left;
         position:relative;
-        background-color:#FCFCFC;
+        background-color:rgba(255,255,255,0.8);
+        color:black;
     }
         .mainBody .aside .button
         {
@@ -365,10 +392,11 @@
         margin-right:20px;
         float:right;
         position:relative;
-        background-color:#FCFCFC;
+        background-color:rgba(255,255,255,0.8);
         padding-left:10px;
         padding-top:10px;
         padding-bottom:10px;
+        color:black;
     }
         .mainBody .result .reservation
         {
@@ -433,14 +461,14 @@
         {
             padding-top:10px;
             margin-top:10px;
-            height:150px;
+            height:160px;
             width:720px;
             background-color:#F3F3F3;
         }
             .mainBody .result .resultbox .img
             {
                 margin-left:10px;
-                max-height:130px;
+                max-height:150px;
                 width:200px;
                 float:left;
             }
@@ -530,7 +558,7 @@
     .mainBody .detail1
     {
         width:100%;
-        height:550px;
+        min-height:450px;
         margin:0 auto;
         position:relative;
     }
@@ -541,11 +569,11 @@
         margin-left:20px;
         float:left;
         position:relative;
-        background-color:#FCFCFC;
     }
         .mainBody .detail1 .imgbox img
         {
-            max-width:430px;
+            max-height:320px;
+            width:430px;
             float:left;
             position:relative;
         }
@@ -555,7 +583,8 @@
         margin-right:20px;
         float:right;
         position:relative;
-        background-color:#FCFCFC;
+        background-color: rgba(255,255,255,0.8);
+        color:black;
         padding-left:20px;
         padding-top:20px;
         padding-bottom:20px;
@@ -629,6 +658,11 @@
             border-color: black;
             background-color: black;
         }
+        .mainBody .detail1 .roomInfo .inputCheckOut
+        {
+            margin-left: 230px;
+            position: relative;
+        }
     .mainBody .roomDetail
     {
         padding-left:20px;
@@ -636,28 +670,37 @@
     }
         .mainBody .roomDetail .title
         {
-            width:97%;
+            width:950px;
             height:40px;
             margin-top:20px;
+            padding-top:10px;
             padding-left:20px;
-            font-size:x-large;
+            font-size:large;
             text-align:left;
             color:white;
-            border-style:solid;
-            border-color:#336699;
-            background-color:#336699;
+            background-color:#5D7B9D;
         }
+            .mainBody .roomDetail .title .booknow
+            {
+                float:right;
+                margin-right:20px;
+                border:none;
+                background-color:#CC3333;
+                height:30px;
+                width:100px;
+                color:white;
+                border-radius:6px;
+                cursor:pointer;
+            }
         .mainBody .roomDetail .item
         {
             border-style:none solid solid solid;
             border-color:silver;
-            width:97%;
-            height:80px;
-            padding-left:20px;
-            font-size:x-large;
+            width:964px;
             margin:0 auto;
             position:relative;
-            
+            background-color:#F3F3F3;
+            color:black;
         }
             .mainBody .roomDetail .item .roomtype
             {
@@ -697,7 +740,8 @@
         margin-left:20px;
         float:left;
         position:relative;
-        background-color:#FCFCFC;
+        background-color: rgba(255,255,255,0.8);
+        color:black;
         padding:10px 10px 10px 10px;
     }
         .mainBody .information .title
@@ -715,7 +759,7 @@
                 float:right;
                 border:none;
                 color:blue;
-                background-color:#FCFCFC;
+                background-color:transparent;
                 text-decoration:underline;
                 cursor:pointer;
             }
@@ -755,16 +799,19 @@
         .mainBody .information .payNow
         {
             margin-top:20px;
+            margin-left:20px;
             text-align:center;
             cursor:pointer;
             float: right;
             height: 40px;
+            min-width:100px;
             font-size:x-large;
             color: white;
             cursor: pointer;
             border-style: solid;
             border-color: #336699;
             background-color: #336699;
+            border-radius:6px;
         }
     .mainBody .Order
     {
@@ -772,7 +819,8 @@
         margin-right:20px;
         float:right;
         position:relative;
-        background-color:#FCFCFC;
+        background-color: rgba(255,255,255,0.8);
+        color:black;
         padding-left:5px;
         padding-right:5px;
     }
@@ -812,7 +860,7 @@
             }
         .mainBody .Order .hotelDetail
         {
-            height:110px;
+            min-height:40px;
             margin:5px;
         }
             .mainBody .Order .hotelDetail img
@@ -839,4 +887,21 @@
         {
             line-height:10px;
             font-size:small;
+        }
+    .mainBody .payMethodList
+    {
+        position:relative;
+        width:900px;
+        min-height:400px;
+        margin:0 auto;
+        margin-top:50px;
+        margin-bottom:50px;
+    }
+        .mainBody .payMethodList .payMethod
+        {
+            position:relative;
+            margin-top:20px;
+            margin-left:20px;
+            max-width:150px;
+            border:none;
         }

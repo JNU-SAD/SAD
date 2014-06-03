@@ -4,10 +4,20 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
     <div class="mainBody">
+        <div class="position">
+            <ul id="breadcrumb">
+                <li><a href="Default.aspx">Home</a></li>
+                <li><a href="SearchResult.aspx?Address=<%=Request["Address"] %>&CheckIn=<%=Request["CheckIn"] %>&CheckOut=<%=Request["CheckOut"] %>&RoomNum=<%=Request["RoomNum"] %>&GuestNum=<%=Request["GuestNum"] %>">Find a Hotel</a></li>
+                <li><a href="HotelDetail.aspx?hotelId=<%=hotel.Id %>&Address=<%=Request["Address"] %>&CheckIn=<%=Request["CheckIn"] %>&CheckOut=<%=Request["CheckOut"] %>&RoomNum=<%=Request["RoomNum"] %>&GuestNum=<%=Request["GuestNum"] %>"">Room Specific</a></li>
+                <li><a href="#">Confirm</a></li>
+            </ul>
+            </div>
     <div class="information">
+        <asp:UpdatePanel ID="UpdatePanel1" runat="server"><ContentTemplate>
         <div class="title">
             <span>Your Information:</span>
             <asp:Button ID="Button1" runat="server" Text="Change Contact" CssClass="changeContact" OnClick="Button1_Click" />
+            <asp:Button ID="Button3" runat="server" Text="Use Default" CssClass="changeContact" OnClick="Button3_Click" />
         </div>
         <div class="informationDetail">
             <span><b>Guest Name</b></span><br />
@@ -19,8 +29,10 @@
             <span><b>CreditCardNumber:</b></span><asp:TextBox ID="TextBox4" runat="server" CssClass="textBox" ></asp:TextBox><br /><br />
             <span><b>Email:</b></span><asp:TextBox ID="TextBox5" runat="server" CssClass="textBox" ></asp:TextBox><br /><br />
         </div>
+        <asp:Button ID="Button4" runat="server" Text="Later" CssClass="payNow" OnClick="Button4_Click" />
         <asp:Button ID="Button2" runat="server" Text="Pay Now" CssClass="payNow" OnClick="Button2_Click" />
-
+        
+        </ContentTemplate></asp:UpdatePanel>
     </div>
     <div class="Order">
        <div class="orderDetail">
@@ -34,13 +46,13 @@
             
             <hr />
             <div class="s1">TOTAL CHARGES</div>
-            <div class="cost">$<span></span></div>
+            <div class="cost" runat="server" id="Label_cost"></div>
        </div> 
         
             <div class="hotelDetail">
-                <img src="#" runat="server" />
+
                 <asp:Label ID="Label5" runat="server" CssClass="hotelName">123</asp:Label>
-                <div class="starLevel">starLevel</div>
+
             </div>
         <div class="check">
             <p><b>Address:</b></p>
