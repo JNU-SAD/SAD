@@ -4,7 +4,6 @@
 }
 body
 {
-    background-color: #FCFCFC;
     font-family: 'Segoe UI';
     background: #090b44; /* Old browsers */
     background: -moz-radial-gradient(center, ellipse cover, #090b44 0%, #00001c 100%); /* FF3.6+ */
@@ -18,6 +17,10 @@ body
     box-sizing: border-box;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
+}
+ul li
+{
+    list-style:none;
 }
 .logo
 {
@@ -229,7 +232,7 @@ body
 .mainBody
 {
     width:1000px;
-    background-color:rgba(255,255,255,0.5);
+    background-color:rgba(255,255,255,0.4);
     margin:0 auto;
     position:relative;
     padding-top:30px;
@@ -314,7 +317,7 @@ body
             position: relative;
             text-align:left;
         }
-            .mainBody .aside .detail h1, h2, h3, h4, h5, h6
+            .mainBody .aside .detail .title
             {
                 background:url(../image/header.png) no-repeat center left;
                 padding-left:30px;
@@ -337,7 +340,7 @@ body
                 background-color:#F3F3F3;
                 border:none;
             }
-            .mainBody .aside .detail .button
+            .mainBody .aside .detail .button1
             {
 
                 font-size: x-small;
@@ -699,7 +702,7 @@ body
             width:964px;
             margin:0 auto;
             position:relative;
-            background-color:#F3F3F3;
+            background-color:rgba(255,255,255,0.8);
             color:black;
         }
             .mainBody .roomDetail .item .roomtype
@@ -905,3 +908,100 @@ body
             max-width:150px;
             border:none;
         }
+    .mainBody .hotelDescription
+    {
+        margin:20px 20px 20px 20px;
+        padding-top:20px;
+        padding-bottom:20px;
+        background-color:rgba(255,255,255,0.8);
+        color:black;
+    }
+        .mainBody .hotelDescription .title
+        {
+            margin-left:20px;
+            font-size:x-large;
+            font-weight:normal;
+            color:blue;
+        }
+        .mainBody .hotelDescription .hotelDetail
+        {
+            margin-left:20px;
+            width:600px;
+        }
+        .mainBody .hotelDescription .info
+        {
+            padding-top:50px;
+            width:250px;
+            float:right;
+            margin-right:20px;
+            min-height:200px;
+            position:relative;
+        }
+            .mainBody .hotelDescription .info .roomNum
+            {
+                margin-top:20px;
+                background:url(../image/room.png) no-repeat left top;
+                padding-left:50px;
+                line-height:35px;
+            }
+            .mainBody .hotelDescription .info .time
+            {
+                margin-top:20px;
+                background:url(../image/icon_clock_alt.png) no-repeat left top;
+                padding-left:50px;
+                line-height:35px;
+            }
+    .mainBody .Amenities
+    {
+        margin:20px 20px 20px 20px;
+        padding-top:20px;
+        padding-bottom:20px;
+        background-color:rgba(255,255,255,0.8);
+        color:black;
+        min-height:270px;
+    }
+        .mainBody .Amenities .title
+        {
+            margin-left: 20px;
+            margin-bottom:20px;
+            font-size: x-large;
+            font-weight: normal;
+            color: blue;
+        }
+        .mainBody .Amenities .box_available
+        {
+            height:100px;
+            width:180px;
+            text-align:center;
+            float:left;
+        }
+            .mainBody .Amenities .box_available .img
+            {
+                height: 50px;
+                width: 50px;
+                border: none;
+            }
+            .mainBody .Amenities .box_available .text
+            {
+                width: 180px;
+                text-align: center;
+            }
+        .mainBody .Amenities .box_not_available
+        {
+            height: 100px;
+            width: 180px;
+            text-align: center;
+            float: left;
+            opacity:0.3;
+        }
+            .mainBody .Amenities .box_not_available .img
+            {
+                height: 50px;
+                width: 50px;
+                border: none;
+            }
+            .mainBody .Amenities .box_not_available .text
+            {
+                width: 180px;
+                text-align: center;
+            }

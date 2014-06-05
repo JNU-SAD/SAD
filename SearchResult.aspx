@@ -3,8 +3,8 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
     <link type="text/css" rel="stylesheet" href="css/updown.css"/>
     <script type="text/javascript">
-        $(function () {
-            $("#updown").css("top", window.screen.availHeight / 2 - 100 + "px");
+        $(document).ready(function () {
+            $("#updown").css("top", window.screen.availHeight / 2 + "px");
             $(window).scroll(function () {
                 if ($(window).scrollTop() >= 100) {
                     $('#updown').fadeIn(300);
@@ -43,16 +43,16 @@
         <div class="aside">
             <!------------ 酒店精确搜索 ------------>
             <div class="detail">
-                <h1>Hotel Specifics</h1>
+                <h1 class="title">Hotel Specifics</h1>
                 <span>Hotel Name:</span>
                 <asp:TextBox ID="TextBox1" runat="server" CssClass="input" />
-                <asp:Button ID="Button1" runat="server" CssClass="button" Text="Go" OnClick="Button1_Click" />
+                <asp:Button ID="Button1" runat="server" CssClass="button1" Text="Go" OnClick="Button1_Click" />
                 <span>Hotel Chain:</span>
                 <asp:DropDownList ID="DropDownList1" runat="server" CssClass="dropdowmlist" />
             </div>
             <!------------ 价格搜索 ------------>
             <div class="detail">
-                <h1>Price Range</h1>
+                <h1 class="title">Price Range</h1>
                 <div class="checkline">
                      <asp:CheckBox ID="CheckBox1" runat="server" Text="$70 - $359"  CssClass="checkbox" AutoPostBack="true" OnCheckedChanged="CheckBox1_CheckedChanged"/>
                      <asp:Label ID="Label1" runat="server" Text="(0)" CssClass="label" />
@@ -73,7 +73,7 @@
             </div>
             <!------------ 星级搜索 ------------>
             <div class="detail">
-                <h1>Star Rating</h1>
+                <h1 class="title">Star Rating</h1>
                 <div class="checkline">
                     <asp:CheckBox ID="CheckBox5" runat="server" CssClass="checkbox" AutoPostBack="true" OnCheckedChanged="CheckBox5_CheckedChanged"/>
                     <img src="image/star.png" class="star" alt="star" />
@@ -109,6 +109,9 @@
                 <asp:DropDownList ID="DropDownList2" runat="server" CssClass="sort" AutoPostBack="true" OnSelectedIndexChanged="DropDownList2_SelectedIndexChanged">
                     <asp:ListItem>Sort by price - low to high</asp:ListItem>
                     <asp:ListItem>Sort by price - high to low</asp:ListItem>
+                    <asp:ListItem>Sort by stars - low to high</asp:ListItem>
+                    <asp:ListItem>Sort by stars - high to low</asp:ListItem>
+                    <asp:ListItem>Sort by name</asp:ListItem>
                 </asp:DropDownList>
             </div>
             <!------------ 过滤器区 ------------>

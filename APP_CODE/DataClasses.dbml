@@ -20,16 +20,6 @@
       <Column Name="CreditCardNumber" Type="System.String" DbType="VarChar(50)" CanBeNull="true" UpdateCheck="Never" />
     </Type>
   </Table>
-  <Table Name="dbo.Table_Hotel" Member="Table_Hotel">
-    <Type Name="Table_Hotel">
-      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="Name" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
-      <Column Name="Address" Type="System.String" DbType="VarChar(500) NOT NULL" CanBeNull="false" />
-      <Column Name="StarLevel" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="ContactNumber" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
-      <Column Name="ImageUrl" Type="System.String" DbType="VarChar(500)" CanBeNull="true" />
-    </Type>
-  </Table>
   <Table Name="dbo.Table_Room" Member="Table_Room">
     <Type Name="Table_Room">
       <Column Name="HotelId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
@@ -51,6 +41,29 @@
       <Column Name="Status" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="GuestNum" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="Value" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Table_Hotel" Member="Table_Hotel">
+    <Type Name="Table_Hotel">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Address" Type="System.String" DbType="VarChar(500) NOT NULL" CanBeNull="false" />
+      <Column Name="StarLevel" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ContactNumber" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="ImageUrl" Type="System.String" DbType="VarChar(500)" CanBeNull="true" />
+      <Column Name="Description" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="isBusinessCenter" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="isAccessible" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="isNonSmoking" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="isFreeBreakfast" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="isFreeInternet" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="isSwimmingPool" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="isPetsAllowed" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="isAirportShuttle" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="isFreeParking" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="isFitnessCenter" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="CheckInTime" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="CheckOutTime" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
     </Type>
   </Table>
 </Database>

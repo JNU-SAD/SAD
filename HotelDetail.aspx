@@ -1,6 +1,27 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeFile="HotelDetail.aspx.cs" Inherits="HotelDetial" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
+    <link type="text/css" rel="stylesheet" href="css/updown.css"/>
+    <link type="text/css" rel="stylesheet" href="css/test.css"/>
+    <script type="text/javascript" src="script/zzsc.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#updown").css("top", window.screen.availHeight / 2 + "px");
+            $(window).scroll(function () {
+                if ($(window).scrollTop() >= 100) {
+                    $('#updown').fadeIn(300);
+                } else {
+                    $('#updown').fadeOut(300);
+                }
+            });
+            $('#to_rooms_rates').click(function () { $('html,body').animate({ scrollTop: $('#ContentPlaceHolder1_GridView1').offset().top }, 800); });
+            $('#to_hotel_description').click(function () { $('html,body').animate({ scrollTop: $('#hotel_description').offset().top }, 800); });
+            $('#to_amenities').click(function () { $('html,body').animate({ scrollTop: $('#amenities').offset().top }, 800); });
+            $('#choose_a_room').click(function () { $('html,body').animate({ scrollTop: $('#ContentPlaceHolder1_GridView1').offset().top }, 800); });
+            $('#updown .up').click(function () { $('html,body').animate({ scrollTop: '0px' }, 800); });
+            $('#updown .down').click(function () { $('html,body').animate({ scrollTop: document.body.clientHeight + 'px' }, 800); });
+        });
+    </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
     
@@ -90,13 +111,27 @@
             </ContentTemplate>
             </asp:UpdatePanel>
             <span>from $<b><%=price %> </b>per night</span>
-            <a href="#room" class="chooseARoom" >Choose a Room</a>
+            <div id="choose_a_room" class="chooseARoom">Choose a room</div>
+            <div id="updown"><span class="up"></span></div>
         </div>
         </div>
         
         <asp:UpdatePanel ID="UpdatePanel2" runat="server">
         <ContentTemplate>
+
+        
+
         <div class="roomDetail">
+            <div class="nav">
+            <ul>
+                <li class="cur"><a href="#" id="to_rooms_rates">Rooms & Rates</a></li>
+                <li><a href="#" id="to_hotel_description">Hotel Description</a></li>
+                <li><a href="#" id="to_amenities">Amenities</a></li>
+            </ul> 
+                <div class="curBg"></div>
+                <div class="cls"></div>
+            </div> 
+            <br /><br />
         <asp:GridView runat="server" ID="GridView1" AutoGenerateColumns="False" CellPadding="20" DataKeyNames="HotelId,RoomType" DataSourceID="LinqDataSource1" ForeColor="#333333" GridLines="None" HorizontalAlign="Center" OnSelectedIndexChanged="GridView1_SelectedIndexChanged" Width="970px" OnDataBound="GridView1_DataBound">
             <AlternatingRowStyle BackColor="White" ForeColor="#284775" />
             <Columns>
@@ -131,15 +166,15 @@
         </asp:LinqDataSource>
         
         <asp:Panel ID="Panel2" runat="server" Visible="true">
-        <div class="title"><%=GridView1.SelectedRow.Cells[0].Text %> Detail of Next 10 Days
+        <div class="title"><%=GridView1.SelectedRow.Cells[0].Text %> Detail of Next Week
             <asp:Button ID="Button_BookNow" runat="server" CssClass="booknow" Text="Book Now!" OnClick="Button_BookNow_Click" />
         </div>
         <div class="item">
-        <table cellpadding="8">
+        <table cellpadding="8" style="width:950px">
             <tr>
                 <td></td>
                 <%foreach(Table_Arrangement a in _arrangement){ %>
-                <td align="center"><%=a.Date.ToShortDateString().Substring(0, a.Date.ToShortDateString().IndexOf(" ")).Trim() %></td>
+                <td align="center"><%=a.Date.ToString("MM/dd/yyyy")%></td>
                 <%} %>
             </tr>
             <tr>
@@ -166,9 +201,137 @@
         </div>
         </ContentTemplate>
         </asp:UpdatePanel>
-
-
-       
+        <div class="hotelDescription" id="hotel_description">
+            <div class="info">
+                <div class="roomNum">
+                    <%="Rooms: "+TotalRoomNum.ToString() %>
+                </div>
+                <div class="time">
+                    <%="Check in time: "+hotel.CheckInTime %>
+                </div>
+                <div class="time">
+                    <%="Check out time: "+hotel.CheckOutTime %>
+                </div>
+            </div>
+            <h1 class="title">Hotel Description</h1>
+            <div class="hotelDetail">
+               <%=hotel.Description %>
+            </div>
+            
+        </div>
+        <div class="Amenities" id="amenities">
+            <h1 class="title">Amenities</h1>
+            <%if(hotel.isBusinessCenter==1){ %>
+            <div class="box_available">
+                <img class="img" src="image/tie.png" alt="bs"/>
+                <div class="text">Business Center</div>
+            </div>
+                <%}else{ %>
+            <div class="box_not_available">
+                <img class="img" src="image/tie.png" alt="bs"/>
+                <div class="text"><s>Business Center</s></div>
+            </div>
+                <%} %>
+            <%if(hotel.isFitnessCenter==1){ %>
+            <div class="box_available">
+                <img class="img" src="image/trainers.png" alt="bs"/>
+                <div class="text">Fitness Center</div>
+            </div>
+            <%}else{ %>
+            <div class="box_not_available">
+                <img class="img" src="image/trainers.png" alt="bs"/>
+                <div class="text"><s>Fitness Center</s></div>
+            </div>
+                <%} %>
+            <%if(hotel.isNonSmoking==1){ %>
+            <div class="box_available">
+                <img class="img" src="image/no_smoking_512.png" alt="bs"/>
+                <div class="text">Non Smoking</div>
+            </div>
+            <%}else{ %>
+            <div class="box_not_available">
+                <img class="img" src="image/no_smoking_512.png" alt="bs"/>
+                <div class="text"><s>Non Smoking</s></div>
+            </div>
+                <%} %>
+            <%if(hotel.isPetsAllowed==1){ %>
+            <div class="box_available">
+                <img class="img" src="image/dog_2.png" alt="bs"/>
+                <div class="text">Pets Allowed</div>
+            </div>
+            <%}else{ %>
+            <div class="box_not_available">
+                <img class="img" src="image/dog_2.png" alt="bs"/>
+                <div class="text"><s>Pets Allowed</s></div>
+            </div>
+                <%} %>
+            <%if(hotel.isFreeBreakfast==1){ %>
+            <div class="box_available">
+                <img class="img" src="image/f0f4.png" alt="bs"/>
+                <div class="text">Free Breakfast</div>
+            </div>
+            <%}else{ %>
+            <div class="box_not_available">
+                <img class="img" src="image/f0f4.png" alt="bs"/>
+                <div class="text"><s>Free Breakfast</s></div>
+            </div>
+                <%} %>
+            <%if(hotel.isFreeInternet==1){ %>
+            <div class="box_available">
+                <img class="img" src="image/wifi.png" alt="bs"/>
+                <div class="text">Free Internet</div>
+            </div>
+            <%}else{ %>
+            <div class="box_not_available">
+                <img class="img" src="image/wifi.png" alt="bs"/>
+                <div class="text"><s>Free Internet</s></div>
+            </div>
+                <%} %>
+            <%if(hotel.isSwimmingPool==1){ %>
+            <div class="box_available">
+                <img class="img" src="image/swimming.png" alt="bs"/>
+                <div class="text">Swimming Pool</div>
+            </div>
+            <%}else{ %>
+            <div class="box_not_available">
+                <img class="img" src="image/swimming.png" alt="bs"/>
+                <div class="text"><s>Swimming Pool</s></div>
+            </div>
+                <%} %>
+            <%if(hotel.isAirportShuttle==1){ %>
+            <div class="box_available">
+                <img class="img" src="image/bus.png" alt="bs"/>
+                <div class="text">Airport Shuttle</div>
+            </div>
+            <%}else{ %>
+            <div class="box_not_available">
+                <img class="img" src="image/bus.png" alt="bs"/>
+                <div class="text"><s>Airport Shuttle</s></div>
+            </div>
+                <%} %>
+            <%if(hotel.isFreeParking==1){ %>
+            <div class="box_available">
+                <img class="img" src="image/car.png" alt="bs"/>
+                <div class="text">Free Parking</div>
+            </div>
+            <%}else{ %>
+            <div class="box_not_available">
+                <img class="img" src="image/car.png" alt="bs"/>
+                <div class="text"><s>Free Parking</s></div>
+            </div>
+                <%} %>
+            <%if(hotel.isAccessible==1){ %>
+            <div class="box_available">
+                <img class="img" src="image/wheelchair.png" alt="bs"/>
+                <div class="text">Accessible</div>
+            </div>
+            <%}else{ %>
+            <div class="box_not_available">
+                <img class="img" src="image/wheelchair.png" alt="bs"/>
+                <div class="text"><s>Accessible</s></div>
+            </div>
+                <%} %>
+        </div>
         </div>
 </asp:Content>
 

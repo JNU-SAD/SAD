@@ -153,6 +153,21 @@ public partial class SearchResult : System.Web.UI.Page
             filteredResult.Sort(new HotelComparePriceHighToLow());
             unFilteredResult.Sort(new HotelComparePriceHighToLow());
         }
+        else if (DropDownList2.SelectedIndex == 2)
+        {
+            filteredResult.Sort(new HotelCompareStarLowToHigh());
+            unFilteredResult.Sort(new HotelCompareStarLowToHigh());
+        }
+        else if (DropDownList2.SelectedIndex == 3)
+        {
+            filteredResult.Sort(new HotelCompareStarHighToLow());
+            unFilteredResult.Sort(new HotelCompareStarHighToLow());
+        }
+        else if (DropDownList2.SelectedIndex == 4)
+        {
+            filteredResult.Sort(new HotelCompareName());
+            unFilteredResult.Sort(new HotelCompareName());
+        }
     }
     protected void Button1_Click(object sender, EventArgs e)
     {
@@ -270,5 +285,29 @@ public class HotelComparePriceHighToLow : IComparer<Table_Hotel>
     public int Compare(Table_Hotel x, Table_Hotel y)
     {
         return (y.Price.CompareTo(x.Price));
+    }
+}
+//酒店排序方法：星级低到高
+public class HotelCompareStarLowToHigh : IComparer<Table_Hotel>
+{
+    public int Compare(Table_Hotel x, Table_Hotel y)
+    {
+        return (x.StarLevel.CompareTo(y.StarLevel));
+    }
+}
+//酒店排序方法：星级高到低
+public class HotelCompareStarHighToLow : IComparer<Table_Hotel>
+{
+    public int Compare(Table_Hotel x, Table_Hotel y)
+    {
+        return (y.StarLevel.CompareTo(x.StarLevel));
+    }
+}
+//酒店排序方法：名字
+public class HotelCompareName : IComparer<Table_Hotel>
+{
+    public int Compare(Table_Hotel x, Table_Hotel y)
+    {
+        return (x.Name.CompareTo(y.Name));
     }
 }

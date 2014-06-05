@@ -17,6 +17,7 @@ public partial class HotelDetial : System.Web.UI.Page
     protected static string CheckOut;
     protected static int RoomNum;
     protected static int GuestNum;
+    protected static int TotalRoomNum;
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!IsPostBack)
@@ -30,6 +31,11 @@ public partial class HotelDetial : System.Web.UI.Page
                 CheckOut = Request["CheckOut"];
                 RoomNum = Convert.ToInt32(Request["RoomNum"]);
                 GuestNum = Convert.ToInt32(Request["GuestNum"]);
+                TotalRoomNum = 0;
+                foreach (Table_Room r in Room)
+                {
+                    TotalRoomNum += r.TotalNumber;
+                }
             }
             catch (Exception) { }
             Calendar1.SelectedDate = System.DateTime.Now;
@@ -128,7 +134,7 @@ public partial class HotelDetial : System.Web.UI.Page
         int hotelId = hotel.Id;
         arrangement = dbc.GetArrangementByHotelIdAndRoomType(hotelId, roomtype);
         _arrangement.Clear();
-        for (int i = 0; i < 10; i++)
+        for (int i = 0; i < 7; i++)
         {
             bool found = false;
             foreach (Table_Arrangement a in arrangement)

@@ -25,9 +25,9 @@
 		</script>
 </head>
 <body>
-    <!--
-    <canvas width="100%" height="100%" class="snow" style="position:fixed;z-index:-1"></canvas>
-    -->
+    
+    <%--<canvas width="100%" height="100%" class="snow" style="position:fixed;z-index:-1"></canvas>--%>
+    
     <form runat="server">
     <asp:ImageButton ID="ImageButton1" runat="server" CssClass="logo" BorderStyle="None" ImageUrl="image/logo.png"  OnClick="ImageButton1_Click"/>
     <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
