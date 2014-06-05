@@ -26,6 +26,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
     
     <div class="mainBody">
+        <div id="updown"><span class="up"></span></div>
         <div class="position">
             <ul id="breadcrumb">
                 <li><a href="Default.aspx">Home</a></li>
@@ -45,6 +46,16 @@
          <span><%=hotel.Address %></span><br />
         <span><%=hotel.ContactNumber %></span>
         </div>
+        <div class="nav">
+            <ul>
+                <li class="cur"><a href="#" id="to_rooms_rates">Rooms & Rates</a></li>
+                <li><a href="#" id="to_hotel_description">Hotel Description</a></li>
+                <li><a href="#" id="to_amenities">Amenities</a></li>
+            </ul> 
+                <div class="curBg"></div>
+                <div class="cls"></div>
+            </div> 
+            <br /><br />
         <div class="detail1">
         <div class="imgbox">
             <img src="<%=@"image/hotel/" + hotel.ImageUrl%>" alt="img" />
@@ -112,26 +123,12 @@
             </asp:UpdatePanel>
             <span>from $<b><%=price %> </b>per night</span>
             <div id="choose_a_room" class="chooseARoom">Choose a room</div>
-            <div id="updown"><span class="up"></span></div>
+            
         </div>
         </div>
-        
         <asp:UpdatePanel ID="UpdatePanel2" runat="server">
         <ContentTemplate>
-
-        
-
         <div class="roomDetail">
-            <div class="nav">
-            <ul>
-                <li class="cur"><a href="#" id="to_rooms_rates">Rooms & Rates</a></li>
-                <li><a href="#" id="to_hotel_description">Hotel Description</a></li>
-                <li><a href="#" id="to_amenities">Amenities</a></li>
-            </ul> 
-                <div class="curBg"></div>
-                <div class="cls"></div>
-            </div> 
-            <br /><br />
         <asp:GridView runat="server" ID="GridView1" AutoGenerateColumns="False" CellPadding="20" DataKeyNames="HotelId,RoomType" DataSourceID="LinqDataSource1" ForeColor="#333333" GridLines="None" HorizontalAlign="Center" OnSelectedIndexChanged="GridView1_SelectedIndexChanged" Width="970px" OnDataBound="GridView1_DataBound">
             <AlternatingRowStyle BackColor="White" ForeColor="#284775" />
             <Columns>

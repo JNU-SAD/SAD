@@ -14,6 +14,7 @@
             });
             $('#updown .up').click(function () { $('html,body').animate({ scrollTop: '0px' }, 800); });
             $('#updown .down').click(function () { $('html,body').animate({ scrollTop: document.body.clientHeight + 'px' }, 800); });
+            
         });
     </script>
 </asp:Content>
@@ -50,6 +51,7 @@
                 <span>Hotel Chain:</span>
                 <asp:DropDownList ID="DropDownList1" runat="server" CssClass="dropdowmlist" />
             </div>
+            <hr style="width:85%" />
             <!------------ 价格搜索 ------------>
             <div class="detail">
                 <h1 class="title">Price Range</h1>
@@ -71,6 +73,7 @@
                 </div>
 
             </div>
+            <hr style="width:85%" />
             <!------------ 星级搜索 ------------>
             <div class="detail">
                 <h1 class="title">Star Rating</h1>
@@ -100,7 +103,73 @@
                     <asp:Label ID="Label9" runat="server" Text="(0)" CssClass="label" />
                 </div>
             </div>
+            <hr style="width:85%" />
+            <!------------ 功能搜索 ------------>
+            <div class="detail">
+                <h1 class="title">Amenities</h1>
+                <div class="checkline">
+                    <asp:CheckBox ID="CheckBox10" runat="server" CssClass="checkbox" AutoPostBack="true" OnCheckedChanged="CheckBox10_CheckedChanged"/>
+                    <img src="image/tie.png" class="icon" alt="star" />
+                    <div class="text">Business Center</div>
+                    <asp:Label ID="Label10" runat="server" Text="(0)" CssClass="label" />
+                </div>
+                <div class="checkline">
+                    <asp:CheckBox ID="CheckBox11" runat="server"  CssClass="checkbox" AutoPostBack="true" OnCheckedChanged="CheckBox11_CheckedChanged"/>
+                    <img src="image/trainers.png" class="icon" alt="star" />
+                    <div class="text">Fitness Center</div>
+                    <asp:Label ID="Label11" runat="server" Text="(0)" CssClass="label" />
+                </div>
+                <div class="checkline">
+                    <asp:CheckBox ID="CheckBox12" runat="server"  CssClass="checkbox" AutoPostBack="true" OnCheckedChanged="CheckBox12_CheckedChanged"/>
+                    <img src="image/no_smoking_512.png" class="icon" alt="star" />
+                    <div class="text">Non Smoking</div>
+                    <asp:Label ID="Label12" runat="server" Text="(0)" CssClass="label" />
+                </div>
+                <div class="checkline">
+                    <asp:CheckBox ID="CheckBox13" runat="server"  CssClass="checkbox" AutoPostBack="true" OnCheckedChanged="CheckBox13_CheckedChanged"/>
+                    <img src="image/dog_2.png" class="icon" alt="star" />
+                    <div class="text">Pets Allowed</div>
+                    <asp:Label ID="Label13" runat="server" Text="(0)" CssClass="label" />
+                </div>
+                <div class="checkline">
+                    <asp:CheckBox ID="CheckBox14" runat="server"  CssClass="checkbox" AutoPostBack="true" OnCheckedChanged="CheckBox14_CheckedChanged"/>
+                    <img src="image/f0f4.png" class="icon" alt="star" />
+                    <div class="text">Free Breakfast</div>
+                    <asp:Label ID="Label14" runat="server" Text="(0)" CssClass="label" />
+                </div>
+                <div class="checkline">
+                    <asp:CheckBox ID="CheckBox15" runat="server"  CssClass="checkbox" AutoPostBack="true" OnCheckedChanged="CheckBox15_CheckedChanged"/>
+                    <img src="image/wifi.png" class="icon" alt="star" />
+                    <div class="text">Free Internet</div>
+                    <asp:Label ID="Label15" runat="server" Text="(0)" CssClass="label" />
+                </div>
+                <div class="checkline">
+                    <asp:CheckBox ID="CheckBox16" runat="server"  CssClass="checkbox" AutoPostBack="true" OnCheckedChanged="CheckBox16_CheckedChanged"/>
+                    <img src="image/swimming.png" class="icon" alt="star" />
+                    <div class="text">Swimming Pool</div>
+                    <asp:Label ID="Label16" runat="server" Text="(0)" CssClass="label" />
+                </div>
+                <div class="checkline">
+                    <asp:CheckBox ID="CheckBox17" runat="server"  CssClass="checkbox" AutoPostBack="true" OnCheckedChanged="CheckBox17_CheckedChanged"/>
+                    <img src="image/bus.png" class="icon" alt="star" />
+                    <div class="text">Airport Shuttle</div>
+                    <asp:Label ID="Label17" runat="server" Text="(0)" CssClass="label" />
+                </div>
+                <div class="checkline">
+                    <asp:CheckBox ID="CheckBox18" runat="server"  CssClass="checkbox" AutoPostBack="true" OnCheckedChanged="CheckBox18_CheckedChanged"/>
+                    <img src="image/car.png" class="icon" alt="star" />
+                    <div class="text">Free Parking</div>
+                    <asp:Label ID="Label18" runat="server" Text="(0)" CssClass="label" />
+                </div>
+                <div class="checkline">
+                    <asp:CheckBox ID="CheckBox19" runat="server"  CssClass="checkbox" AutoPostBack="true" OnCheckedChanged="CheckBox19_CheckedChanged"/>
+                    <img src="image/wheelchair.png" class="icon" alt="star" />
+                    <div class="text">Accessible</div>
+                    <asp:Label ID="Label19" runat="server" Text="(0)" CssClass="label" />
+                </div>
+            </div>
         </div>
+        
         <!------------ 搜索结果显示 ------------>
         <div class="result">
             <!------------ 概要以及排序 ------------>
@@ -126,6 +195,16 @@
                 <asp:Button ID="ButtonFilter8" runat="server" CssClass="filterbutton" Text="3 stars" Visible="false" OnClick="ButtonFilter8_Click"/>
                 <asp:Button ID="ButtonFilter9" runat="server" CssClass="filterbutton" Text="4 stars" Visible="false" OnClick="ButtonFilter9_Click"/>
                 <asp:Button ID="ButtonFilter10" runat="server" CssClass="filterbutton" Text="5 stars" Visible="false" OnClick="ButtonFilter10_Click"/>
+                <asp:Button ID="ButtonFilter11" runat="server" CssClass="filterbutton" Text="Business Center" Visible="false" OnClick="ButtonFilter11_Click"/>
+                <asp:Button ID="ButtonFilter12" runat="server" CssClass="filterbutton" Text="Fitness Center" Visible="false" OnClick="ButtonFilter12_Click"/>
+                <asp:Button ID="ButtonFilter13" runat="server" CssClass="filterbutton" Text="Non Smoking" Visible="false" OnClick="ButtonFilter13_Click"/>
+                <asp:Button ID="ButtonFilter14" runat="server" CssClass="filterbutton" Text="Pets Allowed" Visible="false" OnClick="ButtonFilter14_Click"/>
+                <asp:Button ID="ButtonFilter15" runat="server" CssClass="filterbutton" Text="Free Breakfast" Visible="false" OnClick="ButtonFilter15_Click"/>
+                <asp:Button ID="ButtonFilter16" runat="server" CssClass="filterbutton" Text="Free Internet" Visible="false" OnClick="ButtonFilter16_Click"/>
+                <asp:Button ID="ButtonFilter17" runat="server" CssClass="filterbutton" Text="Swimming Pool" Visible="false" OnClick="ButtonFilter17_Click"/>
+                <asp:Button ID="ButtonFilter18" runat="server" CssClass="filterbutton" Text="Airport Shuttle" Visible="false" OnClick="ButtonFilter18_Click"/>
+                <asp:Button ID="ButtonFilter19" runat="server" CssClass="filterbutton" Text="Free Parking" Visible="false" OnClick="ButtonFilter19_Click"/>
+                <asp:Button ID="ButtonFilter20" runat="server" CssClass="filterbutton" Text="Accessible" Visible="false" OnClick="ButtonFilter20_Click"/>
             </div>
             <!------------ 搜索结果 ------------>
             <%

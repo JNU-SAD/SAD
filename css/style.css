@@ -5,18 +5,11 @@
 body
 {
     font-family: 'Segoe UI';
-    background: #090b44; /* Old browsers */
-    background: -moz-radial-gradient(center, ellipse cover, #090b44 0%, #00001c 100%); /* FF3.6+ */
-    background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,#090b44), color-stop(100%,#00001c)); /* Chrome,Safari4+ */
-    background: -webkit-radial-gradient(center, ellipse cover, #090b44 0%,#00001c 100%); /* Chrome10+,Safari5.1+ */
-    background: -o-radial-gradient(center, ellipse cover, #090b44 0%,#00001c 100%); /* Opera 12+ */
-    background: -ms-radial-gradient(center, ellipse cover, #090b44 0%,#00001c 100%); /* IE10+ */
-    background: radial-gradient(ellipse at center, #090b44 0%,#00001c 100%); /* W3C */
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#090b44', endColorstr='#00001c',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+    background-image:url(../image/apic3942.jpg);
+    background-repeat:no-repeat; 
+    background-attachment:fixed;
+    background-size:cover;
     color:white;
-    box-sizing: border-box;
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
 }
 ul li
 {
@@ -141,7 +134,7 @@ ul li
     margin:0 auto;
     position:relative;
     top:20px;
-    background-image:url(../image/bg_homepage.jpg); 
+    background-color:rgba(0,0,0,0);
     overflow:hidden;
     border-radius:12px;
 }
@@ -254,10 +247,12 @@ ul li
         padding-bottom:10px;
         width: 960px;
         margin: 0 auto;
+        margin-bottom:2px;
         position: relative;
         background-color: rgba(255,255,255,0.8);
         overflow: hidden;
         color:black;
+        
     }
         .mainBody .searchInfo img
         {
@@ -292,7 +287,7 @@ ul li
         }
     .mainBody .aside
     {
-        width:200px;
+        width:207px;
         margin-left:20px;
         float:left;
         position:relative;
@@ -313,7 +308,8 @@ ul li
         {
             width: 180px;
             margin-left: 10px;
-            margin-bottom:10px;
+            margin-bottom:20px;
+            margin-top:20px;
             position: relative;
             text-align:left;
         }
@@ -389,6 +385,18 @@ ul li
                 max-height:15px;
                 float:left;
             }
+            .mainBody .aside .detail .icon
+            {
+                margin-left:5px;
+                margin-right:10px;
+                max-height:20px;
+                float:left;
+            }
+            .mainBody .aside .detail .text
+            {
+                font-size:small;
+                float:left;
+            }
     .mainBody .result
     {
         width:740px;
@@ -447,19 +455,20 @@ ul li
         }
             .mainBody .result .filters .filterbutton
             {
-                background:url(../image/close.png) no-repeat right center;
+                background:#F9CA6F url('../image/close.png') no-repeat right center;
                 margin-right:10px;
                 margin-top:5px;
                 padding-right:20px;
                 height:25px;
                 position: relative;
                 float: left;
-                background-color:#F9CA6F;
                 font-size: x-small;
                 cursor: pointer;
                 border:3px solid #F9CA6F;
                 border-radius:4px;
-            }
+    top: 0px;
+    left: 0px;
+}
         .mainBody .result .resultbox
         {
             padding-top:10px;
@@ -561,7 +570,7 @@ ul li
     .mainBody .detail1
     {
         width:100%;
-        min-height:450px;
+        min-height:380px;
         margin:0 auto;
         position:relative;
     }

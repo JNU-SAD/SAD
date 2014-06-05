@@ -16,7 +16,7 @@ public partial class SearchResult : System.Web.UI.Page
 
     protected bool isFiltering()//判断是否使用了页内过滤
     {
-        return isNameFiltering() || isPriceFiltering() || isStarFiltering();
+        return isNameFiltering() || isPriceFiltering() || isStarFiltering() || isAmenitiesFiltering();
     }
     private bool isNameFiltering()//判断是否使用了酒店名过滤
     {
@@ -31,6 +31,10 @@ public partial class SearchResult : System.Web.UI.Page
     private bool isStarFiltering()//判断是否使用了星级过滤
     {
         return CheckBox5.Checked || CheckBox6.Checked || CheckBox7.Checked || CheckBox8.Checked || CheckBox9.Checked;
+    }
+    private bool isAmenitiesFiltering()//判断是否使用了功能过滤
+    {
+        return CheckBox10.Checked || CheckBox11.Checked || CheckBox12.Checked || CheckBox13.Checked || CheckBox14.Checked || CheckBox15.Checked || CheckBox16.Checked || CheckBox17.Checked || CheckBox18.Checked || CheckBox19.Checked;
     }
     private void doFilter()//执行过滤
     {
@@ -97,6 +101,45 @@ public partial class SearchResult : System.Web.UI.Page
         ButtonFilter8.Visible = CheckBox7.Checked;
         ButtonFilter9.Visible = CheckBox8.Checked;
         ButtonFilter10.Visible = CheckBox9.Checked;
+        //过滤功能
+        if (isAmenitiesFiltering())
+        {
+            List<Table_Hotel> temp = new List<Table_Hotel>(filteredResult);
+            filteredResult.Clear();
+            foreach (Table_Hotel hotel in temp)
+            {
+                if (CheckBox10.Checked && hotel.isBusinessCenter == 1)
+                    filteredResult.Add(hotel);
+                else if (CheckBox11.Checked && hotel.isFitnessCenter == 1)
+                    filteredResult.Add(hotel);
+                else if (CheckBox12.Checked && hotel.isNonSmoking == 1)
+                    filteredResult.Add(hotel);
+                else if (CheckBox13.Checked && hotel.isPetsAllowed == 1)
+                    filteredResult.Add(hotel);
+                else if (CheckBox14.Checked && hotel.isFreeBreakfast == 1)
+                    filteredResult.Add(hotel);
+                else if (CheckBox15.Checked && hotel.isFreeInternet == 1)
+                    filteredResult.Add(hotel);
+                else if (CheckBox16.Checked && hotel.isSwimmingPool == 1)
+                    filteredResult.Add(hotel);
+                else if (CheckBox17.Checked && hotel.isAirportShuttle == 1)
+                    filteredResult.Add(hotel);
+                else if (CheckBox18.Checked && hotel.isFreeParking == 1)
+                    filteredResult.Add(hotel);
+                else if (CheckBox19.Checked && hotel.isAccessible == 1)
+                    filteredResult.Add(hotel);
+            }
+        }
+        ButtonFilter11.Visible = CheckBox10.Checked;
+        ButtonFilter12.Visible = CheckBox11.Checked;
+        ButtonFilter13.Visible = CheckBox12.Checked;
+        ButtonFilter14.Visible = CheckBox13.Checked;
+        ButtonFilter15.Visible = CheckBox14.Checked;
+        ButtonFilter16.Visible = CheckBox15.Checked;
+        ButtonFilter17.Visible = CheckBox16.Checked;
+        ButtonFilter18.Visible = CheckBox17.Checked;
+        ButtonFilter19.Visible = CheckBox18.Checked;
+        ButtonFilter20.Visible = CheckBox19.Checked;
         if (!isFiltering())
             divFilters.Visible = false;
     }
@@ -115,6 +158,7 @@ public partial class SearchResult : System.Web.UI.Page
                 filteredResult = new List<Table_Hotel>(unFilteredResult);
                 int[] price = { 0, 0, 0, 0 };
                 int[] star = { 0, 0, 0, 0, 0 };
+                int[] amenities = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
                 foreach (Table_Hotel hotel in unFilteredResult)
                 {
                     if (hotel.Price >= 70 && hotel.Price <= 359)
@@ -126,6 +170,16 @@ public partial class SearchResult : System.Web.UI.Page
                     else if (hotel.Price >= 930 && hotel.Price <= 1220)
                         price[3]++;
                     star[hotel.StarLevel - 1]++;
+                    amenities[0] += hotel.isBusinessCenter;
+                    amenities[1] += hotel.isFitnessCenter;
+                    amenities[2] += hotel.isNonSmoking;
+                    amenities[3] += hotel.isPetsAllowed;
+                    amenities[4] += hotel.isFreeBreakfast;
+                    amenities[5] += hotel.isFreeInternet;
+                    amenities[6] += hotel.isSwimmingPool;
+                    amenities[7] += hotel.isAirportShuttle;
+                    amenities[8] += hotel.isFreeParking;
+                    amenities[9] += hotel.isAccessible;
                 }
                 Label1.Text = "(" + price[0].ToString() + ")";
                 Label2.Text = "(" + price[1].ToString() + ")";
@@ -136,7 +190,16 @@ public partial class SearchResult : System.Web.UI.Page
                 Label7.Text = "(" + star[2].ToString() + ")";
                 Label8.Text = "(" + star[3].ToString() + ")";
                 Label9.Text = "(" + star[4].ToString() + ")";
-                
+                Label10.Text = "(" + amenities[0].ToString() + ")";
+                Label11.Text = "(" + amenities[1].ToString() + ")";
+                Label12.Text = "(" + amenities[2].ToString() + ")";
+                Label13.Text = "(" + amenities[3].ToString() + ")";
+                Label14.Text = "(" + amenities[4].ToString() + ")";
+                Label15.Text = "(" + amenities[5].ToString() + ")";
+                Label16.Text = "(" + amenities[6].ToString() + ")";
+                Label17.Text = "(" + amenities[7].ToString() + ")";
+                Label18.Text = "(" + amenities[8].ToString() + ")";
+                Label19.Text = "(" + amenities[9].ToString() + ")";
             }
             catch (Exception) { }
         }
@@ -269,6 +332,96 @@ public partial class SearchResult : System.Web.UI.Page
     protected void ButtonResearch_Click(object sender, EventArgs e)
     {
         Response.Redirect("Default.aspx");
+    }
+    protected void ButtonFilter11_Click(object sender, EventArgs e)
+    {
+        CheckBox10.Checked = false;
+        doFilter();
+    }
+    protected void ButtonFilter12_Click(object sender, EventArgs e)
+    {
+        CheckBox11.Checked = false;
+        doFilter();
+    }
+    protected void ButtonFilter13_Click(object sender, EventArgs e)
+    {
+        CheckBox12.Checked = false;
+        doFilter();
+    }
+    protected void ButtonFilter14_Click(object sender, EventArgs e)
+    {
+        CheckBox13.Checked = false;
+        doFilter();
+    }
+    protected void ButtonFilter15_Click(object sender, EventArgs e)
+    {
+        CheckBox14.Checked = false;
+        doFilter();
+    }
+    protected void ButtonFilter16_Click(object sender, EventArgs e)
+    {
+        CheckBox15.Checked = false;
+        doFilter();
+    }
+    protected void ButtonFilter17_Click(object sender, EventArgs e)
+    {
+        CheckBox16.Checked = false;
+        doFilter();
+    }
+    protected void ButtonFilter18_Click(object sender, EventArgs e)
+    {
+        CheckBox17.Checked = false;
+        doFilter();
+    }
+    protected void ButtonFilter19_Click(object sender, EventArgs e)
+    {
+        CheckBox18.Checked = false;
+        doFilter();
+    }
+    protected void ButtonFilter20_Click(object sender, EventArgs e)
+    {
+        CheckBox19.Checked = false;
+        doFilter();
+    }
+    protected void CheckBox10_CheckedChanged(object sender, EventArgs e)
+    {
+        doFilter();
+    }
+    protected void CheckBox11_CheckedChanged(object sender, EventArgs e)
+    {
+        doFilter();
+    }
+    protected void CheckBox12_CheckedChanged(object sender, EventArgs e)
+    {
+        doFilter();
+    }
+    protected void CheckBox13_CheckedChanged(object sender, EventArgs e)
+    {
+        doFilter();
+    }
+    protected void CheckBox14_CheckedChanged(object sender, EventArgs e)
+    {
+        doFilter();
+    }
+    protected void CheckBox15_CheckedChanged(object sender, EventArgs e)
+    {
+        doFilter();
+    }
+    protected void CheckBox16_CheckedChanged(object sender, EventArgs e)
+    {
+        doFilter();
+    }
+    protected void CheckBox17_CheckedChanged(object sender, EventArgs e)
+    {
+        doFilter();
+    }
+    protected void CheckBox18_CheckedChanged(object sender, EventArgs e)
+    {
+        doFilter();
+    }
+    protected void CheckBox19_CheckedChanged(object sender, EventArgs e)
+    {
+        doFilter();
     }
 }
 //酒店排序方法：价格低到高
