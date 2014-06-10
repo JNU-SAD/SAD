@@ -106,28 +106,30 @@ public partial class SearchResult : System.Web.UI.Page
         {
             List<Table_Hotel> temp = new List<Table_Hotel>(filteredResult);
             filteredResult.Clear();
-            foreach (Table_Hotel hotel in temp)
+            for(int i=temp.Count-1;i>-1;i--)
             {
-                if (CheckBox10.Checked && hotel.isBusinessCenter == 1)
-                    filteredResult.Add(hotel);
-                else if (CheckBox11.Checked && hotel.isFitnessCenter == 1)
-                    filteredResult.Add(hotel);
-                else if (CheckBox12.Checked && hotel.isNonSmoking == 1)
-                    filteredResult.Add(hotel);
-                else if (CheckBox13.Checked && hotel.isPetsAllowed == 1)
-                    filteredResult.Add(hotel);
-                else if (CheckBox14.Checked && hotel.isFreeBreakfast == 1)
-                    filteredResult.Add(hotel);
-                else if (CheckBox15.Checked && hotel.isFreeInternet == 1)
-                    filteredResult.Add(hotel);
-                else if (CheckBox16.Checked && hotel.isSwimmingPool == 1)
-                    filteredResult.Add(hotel);
-                else if (CheckBox17.Checked && hotel.isAirportShuttle == 1)
-                    filteredResult.Add(hotel);
-                else if (CheckBox18.Checked && hotel.isFreeParking == 1)
-                    filteredResult.Add(hotel);
-                else if (CheckBox19.Checked && hotel.isAccessible == 1)
-                    filteredResult.Add(hotel);
+
+                if ((!CheckBox10.Checked || temp[i].isBusinessCenter == 1) && (!CheckBox11.Checked || temp[i].isFitnessCenter == 1) && (!CheckBox12.Checked || temp[i].isNonSmoking == 1) && (!CheckBox13.Checked || temp[i].isPetsAllowed == 1) && (!CheckBox14.Checked || temp[i].isFreeBreakfast == 1) && (!CheckBox15.Checked || temp[i].isFreeInternet == 1) && (!CheckBox16.Checked || temp[i].isSwimmingPool == 1) && (!CheckBox17.Checked || temp[i].isAirportShuttle == 1) && (!CheckBox18.Checked || temp[i].isFreeParking == 1) && (!CheckBox19.Checked || temp[i].isAccessible == 1))
+                    filteredResult.Add(temp[i]);
+                    //filteredResult.RemoveAt(i);
+                //if (!CheckBox11.Checked && hotel.isFitnessCenter == 0)
+                //    filteredResult.Remove(hotel);
+                //if (!CheckBox12.Checked && hotel.isNonSmoking == 0)
+                //    filteredResult.Remove(hotel);
+                //if (!CheckBox13.Checked && hotel.isPetsAllowed == 0)
+                //    filteredResult.Remove(hotel);
+                //if (!CheckBox14.Checked && hotel.isFreeBreakfast == 0)
+                //    filteredResult.Remove(hotel);
+                //if (!CheckBox15.Checked && hotel.isFreeInternet == 0)
+                //    filteredResult.Remove(hotel);
+                //if (!CheckBox16.Checked && hotel.isSwimmingPool == 0)
+                //    filteredResult.Remove(hotel);
+                //if (!CheckBox17.Checked && hotel.isAirportShuttle == 0)
+                //    filteredResult.Remove(hotel);
+                //if (!CheckBox18.Checked && hotel.isFreeParking == 0)
+                //    filteredResult.Remove(hotel);
+                //if (!CheckBox19.Checked && hotel.isAccessible == 0)
+                //    filteredResult.Remove(hotel);
             }
         }
         ButtonFilter11.Visible = CheckBox10.Checked;
