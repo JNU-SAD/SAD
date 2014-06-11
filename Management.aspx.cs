@@ -11,8 +11,11 @@ public partial class Management : System.Web.UI.Page
     //protected static List<Table_HotelReservation> reservations = new List<Table_HotelReservation>();
     protected void Page_Load(object sender, EventArgs e)
     {
+        if (Session["Customer"] == null)
+            Response.Redirect("Default.aspx");
         if (!IsPostBack)
         {
+            
             Panel3.Visible = true;
             //reservations = dbc.GetHotelReservationByEmailAddress(Session["Customer"].ToString());
 
@@ -65,23 +68,31 @@ public partial class Management : System.Web.UI.Page
         GridView2.SelectedIndex = 0;
         for (int i = 0; i < GridView2.Rows.Count; i++)
         {
-            GridView2.Rows[i].Cells[4].Text = GridView2.Rows[i].Cells[4].Text.Substring(0, GridView2.Rows[i].Cells[4].Text.IndexOf(" ")).Trim();
-            GridView2.Rows[i].Cells[5].Text = GridView2.Rows[i].Cells[5].Text.Substring(0, GridView2.Rows[i].Cells[5].Text.IndexOf(" ")).Trim();
-            if (GridView2.Rows[i].Cells[6].Text == "1")
-                GridView2.Rows[i].Cells[6].Text = "Paid";
+            GridView2.Rows[i].Cells[0].Text = (i+1).ToString();
+            GridView2.Rows[i].Cells[1].Text = dbc.GetHotelById(Convert.ToInt32(GridView2.Rows[i].Cells[1].Text)).Name;
+            GridView2.Rows[i].Cells[3].Text = "$" + GridView2.Rows[i].Cells[3].Text;
+            if (GridView2.Rows[i].Cells[4].Text == "1")
+                GridView2.Rows[i].Cells[4].Text = "Paid";
             else
-                GridView2.Rows[i].Cells[6].Text = "Unpaid";
+                GridView2.Rows[i].Cells[4].Text = "Unpaid";
         }
     }
     protected void DetailsView2_DataBound(object sender, EventArgs e)
     {
+        DetailsView2.Rows[1].Cells[1].Text = dbc.GetHotelById(Convert.ToInt32(DetailsView2.Rows[1].Cells[1].Text)).Name;
+        DetailsView2.Rows[4].Cells[1].Text = DetailsView2.Rows[4].Cells[1].Text.Substring(0, DetailsView2.Rows[4].Cells[1].Text.IndexOf(" ")).Trim();
         DetailsView2.Rows[5].Cells[1].Text = DetailsView2.Rows[5].Cells[1].Text.Substring(0, DetailsView2.Rows[5].Cells[1].Text.IndexOf(" ")).Trim();
-        DetailsView2.Rows[6].Cells[1].Text = DetailsView2.Rows[6].Cells[1].Text.Substring(0, DetailsView2.Rows[6].Cells[1].Text.IndexOf(" ")).Trim();
+        DetailsView2.Rows[6].Cells[1].Text = "$" + DetailsView2.Rows[6].Cells[1].Text;
         DetailsView2.Rows[7].Cells[1].Text = DetailsView2.Rows[7].Cells[1].Text == "0" ? "Unpaid" : "Paid";
     }
     protected void Button5_Click(object sender, EventArgs e)
     {
+        if (GridView2.SelectedRow.Cells[6].Text == "Paid")
+        {
+            ScriptManager.RegisterStartupScript(this.UpdatePanel1, this.GetType(), "updateScript", "alert('Had Paid')", true);
+            return;
+        }
         Session["Reservation"] = dbc.GetHotelReservationById(Convert.ToInt32(GridView2.SelectedRow.Cells[0].Text));
-        Response.Redirect("ComfirmOrder.aspx");
+        Response.Redirect("ConfirmOrder.aspx");
     }
 }

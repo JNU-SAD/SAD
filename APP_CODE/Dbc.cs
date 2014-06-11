@@ -280,4 +280,12 @@ public class Dbc
         data.Table_Arrangement.DeleteAllOnSubmit(q);
         data.SubmitChanges();
     }
+
+    //获得所有支付方式
+    public List<Table_PayMethod> GetAllPayMethod()
+    {
+        var q = from s in data.Table_PayMethod
+                select s;
+        return q.ToList();
+    }
 }

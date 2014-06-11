@@ -1014,3 +1014,29 @@ ul li
                 width: 180px;
                 text-align: center;
             }
+.payButton
+{
+    position:relative;
+    margin-top:200px;
+    width:300px;
+    height:70px;
+    color: white;
+    cursor: pointer;
+    border:none;
+    background-color: #6ce26c;
+    border-radius: 6px;
+    font-size:x-large;
+}
+.cancelButton
+{
+    position:relative;
+    margin-top:50px;
+    width:300px;
+    height:70px;
+    color: white;
+    cursor: pointer;
+    border:none;
+    background-color:darkred;
+    border-radius: 6px;
+    font-size:x-large;
+}

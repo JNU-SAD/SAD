@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeFile="ComfirmOrder.aspx.cs" Inherits="ComfirmOrder" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeFile="ConfirmOrder.aspx.cs" Inherits="ComfirmOrder" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
 </asp:Content>
@@ -26,7 +26,6 @@
             <span><b>Sex:</b></span>
             <asp:DropDownList ID="DropDownList1" runat="server" CssClass="textBox" Width="90px"><asp:ListItem>male</asp:ListItem><asp:ListItem>female</asp:ListItem></asp:DropDownList><br /><br />
             <span><b>PhoneNumber:</b></span><asp:TextBox ID="TextBox3" runat="server" CssClass="textBox" ></asp:TextBox><br /><br />
-            <span><b>CreditCardNumber:</b></span><asp:TextBox ID="TextBox4" runat="server" CssClass="textBox" ></asp:TextBox><br /><br />
             <span><b>Email:</b></span><asp:TextBox ID="TextBox5" runat="server" CssClass="textBox" ></asp:TextBox><br /><br />
         </div>
         <asp:Button ID="Button4" runat="server" Text="Later" CssClass="payNow" OnClick="Button4_Click" />

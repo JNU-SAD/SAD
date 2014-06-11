@@ -16,6 +16,18 @@ public partial class ComfirmOrder : System.Web.UI.Page
        
         if (!IsPostBack)
         {
+
+            reservation = (Table_HotelReservation)Session["Reservation"];
+            if (reservation.Id != null)
+            {
+                TextBox1.Text = reservation.name.Substring(0, reservation.name.IndexOf(".", 0));
+                TextBox2.Text = reservation.name.Substring(reservation.name.IndexOf(".", 0), reservation.name.Length - reservation.name.IndexOf(".", 0));
+                TextBox5.Text = reservation.EmailAddress;
+                if (reservation.sex == "male")
+                    DropDownList1.SelectedIndex = 0;
+                else
+                    DropDownList1.SelectedIndex = 1;
+            }
             //如果用户已经登陆则textbox1-5依次填入用户信息。
             if (Session["Customer"] != null)
             {
@@ -23,18 +35,16 @@ public partial class ComfirmOrder : System.Web.UI.Page
                 TextBox1.Text = customer.FirstName;
                 TextBox2.Text = customer.LastName;
                 TextBox3.Text = customer.PhoneNumber;
-                TextBox4.Text = customer.CreditCardNumber;
                 TextBox5.Text = customer.EmailAddress;
                 if (customer.Sex == "male")
                     DropDownList1.SelectedIndex = 0;
                 else
                     DropDownList1.SelectedIndex = 1;
-                TextBox1.Enabled = TextBox2.Enabled = TextBox3.Enabled = TextBox4.Enabled = TextBox5.Enabled = false;
+                TextBox1.Enabled = TextBox2.Enabled = TextBox3.Enabled = TextBox5.Enabled = false;
                 DropDownList1.Enabled = false;
             }
             //如果用户没有登陆，则textbook1-5为空
             //加载右边订单信息
-            reservation = (Table_HotelReservation)Session["Reservation"];
             hotel = dbc.GetHotelById(reservation.HotelId);
             room = dbc.GetRoomByHotelIdAndRoomType(reservation.HotelId, reservation.RoomType);
             TimeSpan t=reservation.CheckOut-reservation.CheckIn;
@@ -56,19 +66,35 @@ public partial class ComfirmOrder : System.Web.UI.Page
     protected void Button1_Click(object sender, EventArgs e)
     {
         //按下按钮清空联系人信息
-        TextBox1.Text = TextBox2.Text = TextBox3.Text = TextBox4.Text = TextBox5.Text = String.Empty;
-        TextBox1.Enabled = TextBox2.Enabled = TextBox3.Enabled = TextBox4.Enabled = TextBox5.Enabled = true;
+        TextBox1.Text = TextBox2.Text = TextBox3.Text = TextBox5.Text = String.Empty;
+        TextBox1.Enabled = TextBox2.Enabled = TextBox3.Enabled = TextBox5.Enabled = true;
         DropDownList1.Enabled = true;
         DropDownList1.SelectedIndex = 0;
     }
     protected void Button2_Click(object sender, EventArgs e)
     {
-        if (TextBox1.Text == String.Empty || TextBox2.Text == String.Empty || TextBox3.Text == String.Empty || TextBox4.Text == String.Empty || TextBox5.Text == String.Empty)
+        if (Session["Customer"] != null)
         {
-            ScriptManager.RegisterStartupScript(this.UpdatePanel1, this.GetType(), "updateScript", "alert('All fields must not be empty.')", true);
+            if (TextBox1.Text == String.Empty || TextBox2.Text == String.Empty || TextBox3.Text == String.Empty || TextBox5.Text == String.Empty)
+            {
+                ScriptManager.RegisterStartupScript(this.UpdatePanel1, this.GetType(), "updateScript", "alert('All fields must not be empty.')", true);
+                return;
+            }
+            try
+            {
+                reservation.name = TextBox1.Text +"."+ TextBox2.Text;
+                reservation.sex = DropDownList1.Text.ToString();
+                reservation.EmailAddress = TextBox5.Text.ToString();
+                reservation.Customer = Session["Customer"].ToString();
+                Response.Redirect("PayMethod.aspx");
+            }
+            catch (Exception) { }
+        }
+        else
+        {
+            ScriptManager.RegisterStartupScript(this.UpdatePanel1, this.GetType(), "updateScript", "alert('Login Required')", true);
             return;
         }
-        Response.Redirect("PayMethod.aspx");
     }
     protected void Button3_Click(object sender, EventArgs e)
     {
@@ -78,13 +104,12 @@ public partial class ComfirmOrder : System.Web.UI.Page
             TextBox1.Text = customer.FirstName;
             TextBox2.Text = customer.LastName;
             TextBox3.Text = customer.PhoneNumber;
-            TextBox4.Text = customer.CreditCardNumber;
             TextBox5.Text = customer.EmailAddress;
             if (customer.Sex == "male")
                 DropDownList1.SelectedIndex = 0;
             else
                 DropDownList1.SelectedIndex = 1;
-            TextBox1.Enabled = TextBox2.Enabled = TextBox3.Enabled = TextBox4.Enabled = TextBox5.Enabled = false;
+            TextBox1.Enabled = TextBox2.Enabled = TextBox3.Enabled  = TextBox5.Enabled = false;
             DropDownList1.Enabled = false;
         }
         else
@@ -95,17 +120,30 @@ public partial class ComfirmOrder : System.Web.UI.Page
     }
     protected void Button4_Click(object sender, EventArgs e)
     {
-        if (TextBox1.Text == String.Empty || TextBox2.Text == String.Empty || TextBox3.Text == String.Empty || TextBox4.Text == String.Empty || TextBox5.Text == String.Empty)
+        if (Session["Customer"] != null)
         {
-            ScriptManager.RegisterStartupScript(this.UpdatePanel1, this.GetType(), "updateScript", "alert('All fields must not be empty.')", true);
+            if (TextBox1.Text == String.Empty || TextBox2.Text == String.Empty || TextBox3.Text == String.Empty || TextBox5.Text == String.Empty)
+            {
+                ScriptManager.RegisterStartupScript(this.UpdatePanel1, this.GetType(), "updateScript", "alert('All fields must not be empty.')", true);
+                return;
+            }
+            try
+            {
+                reservation.name = TextBox1.Text + TextBox2.Text;
+                reservation.sex = DropDownList1.Text.ToString();
+                reservation.EmailAddress = TextBox5.Text.ToString();
+                reservation.Customer = Session["Customer"].ToString();
+                if (reservation.Id == null)
+                    dbc.AddHotelReservation(reservation);
+                Response.Redirect("Management.aspx");
+            }
+            catch (Exception) { }
+        }
+        else
+        {
+            ScriptManager.RegisterStartupScript(this.UpdatePanel1, this.GetType(), "updateScript", "alert('Login Required')", true);
             return;
         }
-        try
-        {
-            reservation.Customer = Session["Customer"].ToString();
-            dbc.AddHotelReservation(reservation);
-            Response.Redirect("Management.aspx");
-        }
-        catch (Exception) { }
     }
+    
 }

@@ -78,19 +78,14 @@
                         <AlternatingRowStyle BackColor="White" ForeColor="#284775" />
                         <Columns>
                             <asp:BoundField DataField="Id" HeaderText="Id" InsertVisible="False" ReadOnly="True" SortExpression="Id" />
-                            <asp:BoundField DataField="HotelId" HeaderText="Hotel Id" SortExpression="HotelId">
+                            <asp:BoundField DataField="HotelId" HeaderText="Hotel" SortExpression="HotelId">
                             <ItemStyle HorizontalAlign="Center" />
                             </asp:BoundField>
                             <asp:BoundField DataField="RoomType" HeaderText="Room Type" SortExpression="RoomType">
                             <ItemStyle HorizontalAlign="Center" />
                             </asp:BoundField>
-                            <asp:BoundField DataField="RoomNum" HeaderText="Num." SortExpression="RoomNum">
-                            <ItemStyle HorizontalAlign="Center" />
-                            </asp:BoundField>
-                            <asp:BoundField DataField="CheckIn" HeaderText="Check In" SortExpression="CheckIn">
-                            <ItemStyle HorizontalAlign="Center" />
-                            </asp:BoundField>
-                            <asp:BoundField DataField="CheckOut" HeaderText="Check Out" SortExpression="CheckOut">
+                            <asp:BoundField DataField="Value" HeaderText="Value" SortExpression="Value">
+                            <HeaderStyle HorizontalAlign="Center" />
                             <ItemStyle HorizontalAlign="Center" />
                             </asp:BoundField>
                             <asp:BoundField DataField="Status" HeaderText="Status" SortExpression="Status">
@@ -118,13 +113,13 @@
                         <EditRowStyle BackColor="#999999" />
                         <FieldHeaderStyle BackColor="#E9ECF1" Font-Bold="True" />
                         <Fields>
-                            <asp:BoundField DataField="Id" HeaderText="Reservation Id" InsertVisible="False" ReadOnly="True" SortExpression="Id" />
                             <asp:BoundField DataField="Customer" HeaderText="Customer" SortExpression="Customer" />
-                            <asp:BoundField DataField="HotelId" HeaderText="Hotel Id" SortExpression="HotelId" />
+                            <asp:BoundField DataField="HotelId" HeaderText="Hotel" SortExpression="HotelId" />
                             <asp:BoundField DataField="RoomType" HeaderText="Room Type" SortExpression="RoomType" />
                             <asp:BoundField DataField="RoomNum" HeaderText="Room Number" SortExpression="RoomNum" />
                             <asp:BoundField DataField="CheckIn" HeaderText="Check In" SortExpression="CheckIn" />
                             <asp:BoundField DataField="CheckOut" HeaderText="Check Out" SortExpression="CheckOut" />
+                            <asp:BoundField DataField="Value" HeaderText="Value" />
                             <asp:BoundField DataField="Status" HeaderText="Status" SortExpression="Status" />
                         </Fields>
                         <FooterStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" />

@@ -162,10 +162,11 @@ public partial class HotelDetial : System.Web.UI.Page
     protected void Button_BookNow_Click(object sender, EventArgs e)
     {
 
+
         DateTimeFormatInfo dtFormat = new DateTimeFormatInfo();
         dtFormat.ShortDatePattern = "yyyy/MM/dd";
         Table_HotelReservation reservation = new Table_HotelReservation();
-        
+
         reservation.CheckIn = Convert.ToDateTime(CheckIn, dtFormat);
         reservation.CheckOut = Convert.ToDateTime(CheckOut, dtFormat);
         reservation.HotelId = hotel.Id;
@@ -176,7 +177,7 @@ public partial class HotelDetial : System.Web.UI.Page
         reservation.Value = dbc.GetRoomByHotelIdAndRoomType(reservation.HotelId, reservation.RoomType).FullRate * reservation.RoomNum * (reservation.CheckOut - reservation.CheckIn).Days;
         //订单的用户将在下一个页面确定
         Session["Reservation"] = reservation;
-        Response.Redirect("ComfirmOrder.aspx?hotelId=" + Request["hotelId"] + "&Address=" + Request["Address"] + "&CheckIn=" + Request["CheckIn"] + "&CheckOut=" + Request["CheckOut"] + "&RoomNum=" + Request["RoomNum"] + "&GuestNum=" + Request["GuestNum"]);
+        Response.Redirect("ConfirmOrder.aspx?hotelId=" + Request["hotelId"] + "&Address=" + Request["Address"] + "&CheckIn=" + Request["CheckIn"] + "&CheckOut=" + Request["CheckOut"] + "&RoomNum=" + Request["RoomNum"] + "&GuestNum=" + Request["GuestNum"]);
 
     }
 }

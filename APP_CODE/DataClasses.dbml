@@ -1,14 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><Database Name="Database" Class="DataClassesDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
   <Connection Mode="WebSettings" ConnectionString="Data Source=(LocalDB)\v11.0;AttachDbFilename=|DataDirectory|\Database.mdf;Integrated Security=True" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="DatabaseConnectionString" Provider="System.Data.SqlClient" />
-  <Table Name="dbo.Table_Arrangement" Member="Table_Arrangement">
-    <Type Name="Table_Arrangement">
-      <Column Name="HotelId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="RoomType" Type="System.String" DbType="VarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="Date" Type="System.DateTime" DbType="DateTime NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="Rate" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="BookedNumber" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-    </Type>
-  </Table>
   <Table Name="dbo.Table_Customer" Member="Table_Customer">
     <Type Name="Table_Customer">
       <Column Name="EmailAddress" Type="System.String" DbType="VarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
@@ -18,29 +9,7 @@
       <Column Name="Sex" Type="System.String" DbType="VarChar(50)" CanBeNull="true" UpdateCheck="Never" />
       <Column Name="PhoneNumber" Type="System.String" DbType="VarChar(50)" CanBeNull="true" UpdateCheck="Never" />
       <Column Name="CreditCardNumber" Type="System.String" DbType="VarChar(50)" CanBeNull="true" UpdateCheck="Never" />
-    </Type>
-  </Table>
-  <Table Name="dbo.Table_Room" Member="Table_Room">
-    <Type Name="Table_Room">
-      <Column Name="HotelId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="RoomType" Type="System.String" DbType="VarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="FullRate" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="TotalNumber" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="Capacity" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-    </Type>
-  </Table>
-  <Table Name="dbo.Table_HotelReservation" Member="Table_HotelReservation">
-    <Type Name="Table_HotelReservation">
-      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="Customer" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
-      <Column Name="HotelId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="RoomType" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
-      <Column Name="CheckIn" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
-      <Column Name="CheckOut" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
-      <Column Name="RoomNum" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="Status" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="GuestNum" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="Value" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Table_Customer_Table_HotelReservation" Member="Table_HotelReservation" ThisKey="EmailAddress" OtherKey="Customer" Type="Table_HotelReservation" />
     </Type>
   </Table>
   <Table Name="dbo.Table_Hotel" Member="Table_Hotel">
@@ -64,6 +33,55 @@
       <Column Name="isFitnessCenter" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="CheckInTime" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
       <Column Name="CheckOutTime" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Association Name="Table_Hotel_Table_Room" Member="Table_Room" ThisKey="Id" OtherKey="HotelId" Type="Table_Room" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Table_PayMethod" Member="Table_PayMethod">
+    <Type Name="Table_PayMethod">
+      <Column Name="Name" Type="System.String" DbType="NChar(20) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Url" Type="System.String" DbType="NChar(200)" CanBeNull="true" />
+      <Column Name="ImgUrl" Type="System.String" DbType="NChar(50)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Table_Room" Member="Table_Room">
+    <Type Name="Table_Room">
+      <Column Name="HotelId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="RoomType" Type="System.String" DbType="VarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="FullRate" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="TotalNumber" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Capacity" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Table_Room_Table_Arrangement" Member="Table_Arrangement" ThisKey="HotelId,RoomType" OtherKey="HotelId,RoomType" Type="Table_Arrangement" />
+      <Association Name="Table_Room_Table_HotelReservation" Member="Table_HotelReservation" ThisKey="HotelId,RoomType" OtherKey="HotelId,RoomType" Type="Table_HotelReservation" />
+      <Association Name="Table_Hotel_Table_Room" Member="Table_Hotel" ThisKey="HotelId" OtherKey="Id" Type="Table_Hotel" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Table_Arrangement" Member="Table_Arrangement">
+    <Type Name="Table_Arrangement">
+      <Column Name="HotelId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="RoomType" Type="System.String" DbType="VarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Date" Type="System.DateTime" DbType="DateTime NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Rate" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="BookedNumber" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Table_Room_Table_Arrangement" Member="Table_Room" ThisKey="HotelId,RoomType" OtherKey="HotelId,RoomType" Type="Table_Room" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Table_HotelReservation" Member="Table_HotelReservation">
+    <Type Name="Table_HotelReservation">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Customer" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="HotelId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="RoomType" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="CheckIn" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="CheckOut" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="RoomNum" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Status" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="GuestNum" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Value" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="name" Type="System.String" DbType="NChar(30)" CanBeNull="true" />
+      <Column Name="sex" Type="System.String" DbType="NChar(10)" CanBeNull="true" />
+      <Column Name="EmailAddress" Type="System.String" DbType="NChar(50)" CanBeNull="true" />
+      <Association Name="Table_Customer_Table_HotelReservation" Member="Table_Customer" ThisKey="Customer" OtherKey="EmailAddress" Type="Table_Customer" IsForeignKey="true" />
+      <Association Name="Table_Room_Table_HotelReservation" Member="Table_Room" ThisKey="HotelId,RoomType" OtherKey="HotelId,RoomType" Type="Table_Room" IsForeignKey="true" />
     </Type>
   </Table>
 </Database>
