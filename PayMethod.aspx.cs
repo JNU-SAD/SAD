@@ -16,8 +16,6 @@ public partial class PayMethod : System.Web.UI.Page
             Response.Redirect("Default.aspx");
         if (!IsPostBack)
         {
-            
-
             Reservation = (Table_HotelReservation)Session["Reservation"];
             paymethods = dbc.GetAllPayMethod();
         }
@@ -25,7 +23,14 @@ public partial class PayMethod : System.Web.UI.Page
     protected void button1_Click(object sender, EventArgs e)
     {
         Reservation.Status = 1;
-        dbc.AddHotelReservation(Reservation);
+        if (Reservation.Id == -1)
+        {
+            dbc.AddHotelReservation(Reservation);
+        }
+        else
+        {
+            dbc.UpdateHotelReservation(Reservation);
+        }
         Response.Redirect("Management.aspx");
     }
 }

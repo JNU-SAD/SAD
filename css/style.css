@@ -27,11 +27,29 @@ ul li
 {
     margin-bottom: 20px;
     min-width: 150px;
+    height:30px;
     color: white;
     cursor: pointer;
     border: 3px solid #336699;
     background-color: #336699;
     border-radius: 4px;
+    font-size:small;
+}
+
+.buttonc
+{
+    position:relative;
+    margin-top:10px;
+    padding-left:40px;
+    padding-right:40px;
+    font-size:15px;
+    height:40px;
+    color: white;
+    cursor: pointer;
+    border: 3px solid #336699;
+    background-color: #336699;
+    border-radius: 4px;
+    text-decoration:none;
 }
 .input
 {
@@ -418,7 +436,7 @@ ul li
             margin-top:10px;
             min-height:200px;
             width:700px;
-            background-color:#F3F3F3;
+
         }
 
 
@@ -495,13 +513,11 @@ ul li
                 {
                     width:380px;
                     font-size: large;
-                    line-height:50px;
                 }
                 .mainBody .result .resultbox .detail .hotelAddress
                 {
                     width:380px;
                     font-size: medium;
-                    line-height:30px;
                 }
                 .mainBody .result .resultbox .detail .hotelStar
                 {
@@ -666,9 +682,9 @@ ul li
             font-size:medium;
             color: white;
             cursor: pointer;
-            border-style: solid;
-            border-color: black;
+            border:solid 4px black;
             background-color: black;
+            border-radius:4px;
         }
         .mainBody .detail1 .roomInfo .inputCheckOut
         {
@@ -1014,6 +1030,41 @@ ul li
                 width: 180px;
                 text-align: center;
             }
+    .mainBody .comment
+    {
+        margin:20px 20px 20px 20px;
+        padding-top:20px;
+        padding-bottom:20px;
+        background-color:rgba(255,255,255,0.8);
+        color:black;
+        min-height:270px;
+        position:relative;
+    }
+        .mainBody .comment .title
+        {
+            margin-left: 20px;
+            margin-bottom: 20px;
+            font-size: x-large;
+            font-weight: normal;
+            color: blue;
+            position:relative;
+        }
+        .mainBody .comment .sum
+        {
+            margin-left: 40px;
+            margin-bottom: 20px;
+            min-width:800px;
+            min-height:70px;
+            position:relative;
+        }
+        .mainBody .comment .content
+        {
+            margin-left: 40px;
+            margin-bottom: 20px;
+            width:800px;
+            position:relative;
+        }
+
 .payButton
 {
     position:relative;
@@ -1040,3 +1091,12 @@ ul li
     border-radius: 6px;
     font-size:x-large;
 }
+
+
+
+.reveal-modal-bg{position:fixed;height:100%;width:100%;background-color:#000;z-index:100;display:none;top:0;left:0;}
+.reveal-modal{visibility:hidden;top:100px;left:50%;margin-left:-300px;width:420px;background:#eee url(modal-gloss.png) no-repeat -200px -80px;position:absolute;z-index:101;padding:30px 40px 34px;-moz-border-radius:5px;-webkit-border-radius:5px;border-radius:5px;-moz-box-shadow:0 0 10px rgba(0,0,0,.4);-webkit-box-shadow:0 0 10px rgba(0,0,0,.4);-box-shadow:0 0 10px rgba(0,0,0,.4);}
+.reveal-modal .close-reveal-modal {
+font-size:22px;line-height:.5;position:absolute;top:8px;right:11px;color:#aaa;text-shadow:0 -1px 1px rbga(0,0,0,.6);font-weight:bold;cursor:pointer;} 
+.reveal-modal h2{font-size:18px;color:#990000;padding:0 0 20px 0;}
+.reveal-modal p{padding:0 0 15px 0;}

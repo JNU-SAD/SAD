@@ -9,6 +9,7 @@ public partial class SearchResult : System.Web.UI.Page
 {
     private Server server = new Server();
     private Dbc dbc = new Dbc();
+    private DataClassesDataContext data = new DataClassesDataContext();
     private static String nameFilter = null;//储存要过滤的酒店名
     protected static List<Table_Hotel> result = new List<Table_Hotel>();//符合地址的所有酒店集合
     protected static List<Table_Hotel> unFilteredResult = new List<Table_Hotel>();//在result基础上根据日期，房间数，人数过滤后的酒店集合
@@ -145,8 +146,27 @@ public partial class SearchResult : System.Web.UI.Page
         if (!isFiltering())
             divFilters.Visible = false;
     }
-    
-    
+
+    protected String Rating(int i)
+    {
+        String AvaRatingString;
+        switch (i)
+        {
+            case 0: AvaRatingString = "No Ratings"; break;
+            case 1: AvaRatingString = "Very Poor"; break;
+            case 2: AvaRatingString = "Acceptable"; break;
+            case 3: AvaRatingString = "Acceptable"; break;
+            case 4: AvaRatingString = "Acceptable"; break;
+            case 5: AvaRatingString = "Above Average"; break;
+            case 6: AvaRatingString = "Pleasant"; break;
+            case 7: AvaRatingString = "Good"; break;
+            case 8: AvaRatingString = "Fantastic"; break;
+            case 9: AvaRatingString = "Wonderful"; break;
+            case 10: AvaRatingString = "Exceptional"; break;
+            default: AvaRatingString = "No Ratings"; break;
+        }
+        return AvaRatingString;
+    }
     
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -157,6 +177,21 @@ public partial class SearchResult : System.Web.UI.Page
                 result = dbc.GetHotelByAddress(Request["Address"]);
                 unFilteredResult = server.Search(result, DateTime.ParseExact(Request["CheckIn"], "yyyy/MM/dd", System.Globalization.CultureInfo.CurrentCulture), DateTime.ParseExact(Request["CheckOut"], "yyyy/MM/dd", System.Globalization.CultureInfo.CurrentCulture), Convert.ToInt32(Request["RoomNum"]), Convert.ToInt32(Request["GuestNum"]));
                 unFilteredResult.Sort(new HotelComparePriceLowToHigh());
+                foreach (Table_Hotel hotel in unFilteredResult)
+                {
+                    var q = from s in data.Table_Comment
+                            where s.HotelId == hotel.Id
+                            select s;
+                    List<Table_Comment> comment = q.ToList();
+                    hotel.Rating = 0;
+                    if (comment.Count != 0)
+                    {
+                        foreach (Table_Comment c in comment)
+                            hotel.Rating += c.Score;
+                        hotel.Rating /= comment.Count;
+                    }
+
+                }
                 filteredResult = new List<Table_Hotel>(unFilteredResult);
                 int[] price = { 0, 0, 0, 0 };
                 int[] star = { 0, 0, 0, 0, 0 };
@@ -229,6 +264,17 @@ public partial class SearchResult : System.Web.UI.Page
             unFilteredResult.Sort(new HotelCompareStarHighToLow());
         }
         else if (DropDownList2.SelectedIndex == 4)
+        {
+            filteredResult.Sort(new HotelCompareRatingLowToHigh());
+            unFilteredResult.Sort(new HotelCompareRatingLowToHigh());
+        }
+        else if (DropDownList2.SelectedIndex == 5)
+        {
+            filteredResult.Sort(new HotelCompareRatingHighToLow());
+            unFilteredResult.Sort(new HotelCompareRatingHighToLow());
+        }
+
+        else if (DropDownList2.SelectedIndex == 6)
         {
             filteredResult.Sort(new HotelCompareName());
             unFilteredResult.Sort(new HotelCompareName());
@@ -456,6 +502,22 @@ public class HotelCompareStarHighToLow : IComparer<Table_Hotel>
     public int Compare(Table_Hotel x, Table_Hotel y)
     {
         return (y.StarLevel.CompareTo(x.StarLevel));
+    }
+}
+//酒店排序方法：评分低到高
+public class HotelCompareRatingLowToHigh : IComparer<Table_Hotel>
+{
+    public int Compare(Table_Hotel x, Table_Hotel y)
+    {
+        return (x.Rating.CompareTo(y.Rating));
+    }
+}
+//酒店排序方法：评分高到低
+public class HotelCompareRatingHighToLow : IComparer<Table_Hotel>
+{
+    public int Compare(Table_Hotel x, Table_Hotel y)
+    {
+        return (y.Rating.CompareTo(x.Rating));
     }
 }
 //酒店排序方法：名字

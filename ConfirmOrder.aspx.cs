@@ -18,10 +18,10 @@ public partial class ComfirmOrder : System.Web.UI.Page
         {
 
             reservation = (Table_HotelReservation)Session["Reservation"];
-            if (reservation.Id != null)
+            if (reservation.Id != -1)
             {
                 TextBox1.Text = reservation.name.Substring(0, reservation.name.IndexOf(".", 0));
-                TextBox2.Text = reservation.name.Substring(reservation.name.IndexOf(".", 0), reservation.name.Length - reservation.name.IndexOf(".", 0));
+                TextBox2.Text = reservation.name.Substring(reservation.name.IndexOf(".", 0) + 1, reservation.name.Length - reservation.name.IndexOf(".", 0) - 1);
                 TextBox5.Text = reservation.EmailAddress;
                 if (reservation.sex == "male")
                     DropDownList1.SelectedIndex = 0;
@@ -29,7 +29,7 @@ public partial class ComfirmOrder : System.Web.UI.Page
                     DropDownList1.SelectedIndex = 1;
             }
             //如果用户已经登陆则textbox1-5依次填入用户信息。
-            if (Session["Customer"] != null)
+            else if (Session["Customer"] != null)
             {
                 Table_Customer customer = dbc.GetCustomer(Session["Customer"].ToString());
                 TextBox1.Text = customer.FirstName;
@@ -129,11 +129,11 @@ public partial class ComfirmOrder : System.Web.UI.Page
             }
             try
             {
-                reservation.name = TextBox1.Text + TextBox2.Text;
+                reservation.name = TextBox1.Text + "." + TextBox2.Text;
                 reservation.sex = DropDownList1.Text.ToString();
                 reservation.EmailAddress = TextBox5.Text.ToString();
                 reservation.Customer = Session["Customer"].ToString();
-                if (reservation.Id == null)
+                if (reservation.Id == -1)
                     dbc.AddHotelReservation(reservation);
                 Response.Redirect("Management.aspx");
             }

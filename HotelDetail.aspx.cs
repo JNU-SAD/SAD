@@ -7,17 +7,21 @@ using System.Web.UI.WebControls;
 using System.Globalization;
 public partial class HotelDetial : System.Web.UI.Page
 {
-    protected Dbc dbc = new Dbc();
+    private Dbc dbc = new Dbc();
+    private DataClassesDataContext data = new DataClassesDataContext();
     protected static List<Table_Room> Room = new List<Table_Room>();
     protected static Table_Hotel hotel = new Table_Hotel();
     protected static List<Table_Arrangement> arrangement = new List<Table_Arrangement>();
     protected static List<Table_Arrangement> _arrangement = new List<Table_Arrangement>();
+    protected static List<Table_Comment> comment = new List<Table_Comment>();
     protected static int price;
     protected static string CheckIn;
     protected static string CheckOut;
     protected static int RoomNum;
     protected static int GuestNum;
     protected static int TotalRoomNum;
+    protected static int AvaRating;
+    protected static String AvaRatingString;
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!IsPostBack)
@@ -27,6 +31,18 @@ public partial class HotelDetial : System.Web.UI.Page
                 Room = dbc.GetRoomByHotelId(Convert.ToInt32(Request["hotelId"]));
                 hotel = dbc.GetHotelById(Convert.ToInt32(Request["hotelId"]));
                 price = dbc.GetHotelPrice(Convert.ToInt32(Request["hotelId"]));
+                var q = from s in data.Table_Comment
+                        where s.HotelId == hotel.Id
+                        select s;
+                comment = q.ToList();
+                AvaRating = 0;
+                if (comment.Count != 0)
+                {
+                    foreach (Table_Comment c in comment)
+                        AvaRating += c.Score;
+                    AvaRating /= comment.Count;
+                }
+                AvaRatingString = Rating(AvaRating);
                 CheckIn = Request["CheckIn"];
                 CheckOut = Request["CheckOut"];
                 RoomNum = Convert.ToInt32(Request["RoomNum"]);
@@ -47,6 +63,26 @@ public partial class HotelDetial : System.Web.UI.Page
             Label3.Text = RoomNum.ToString() + "Room," + GuestNum.ToString() + "Guest";
         }
 
+    }
+    protected String Rating(int i)
+    {
+        String AvaRatingString;
+        switch (i)
+        {
+            case 0: AvaRatingString = "No Ratings"; break;
+            case 1: AvaRatingString = "Very Poor"; break;
+            case 2: AvaRatingString = "Acceptable"; break;
+            case 3: AvaRatingString = "Acceptable"; break;
+            case 4: AvaRatingString = "Acceptable"; break;
+            case 5: AvaRatingString = "Above Average"; break;
+            case 6: AvaRatingString = "Pleasant"; break;
+            case 7: AvaRatingString = "Good"; break;
+            case 8: AvaRatingString = "Fantastic"; break;
+            case 9: AvaRatingString = "Wonderful"; break;
+            case 10: AvaRatingString = "Exceptional"; break;
+            default: AvaRatingString = "No Ratings"; break;
+        }
+        return AvaRatingString;
     }
     protected void Button1_Click(object sender, EventArgs e)
     {
@@ -166,7 +202,7 @@ public partial class HotelDetial : System.Web.UI.Page
         DateTimeFormatInfo dtFormat = new DateTimeFormatInfo();
         dtFormat.ShortDatePattern = "yyyy/MM/dd";
         Table_HotelReservation reservation = new Table_HotelReservation();
-
+        reservation.Id = -1;
         reservation.CheckIn = Convert.ToDateTime(CheckIn, dtFormat);
         reservation.CheckOut = Convert.ToDateTime(CheckOut, dtFormat);
         reservation.HotelId = hotel.Id;
@@ -176,6 +212,7 @@ public partial class HotelDetial : System.Web.UI.Page
         reservation.Status = 0;
         reservation.Value = dbc.GetRoomByHotelIdAndRoomType(reservation.HotelId, reservation.RoomType).FullRate * reservation.RoomNum * (reservation.CheckOut - reservation.CheckIn).Days;
         //订单的用户将在下一个页面确定
+        Session["Reservation"] = null;
         Session["Reservation"] = reservation;
         Response.Redirect("ConfirmOrder.aspx?hotelId=" + Request["hotelId"] + "&Address=" + Request["Address"] + "&CheckIn=" + Request["CheckIn"] + "&CheckOut=" + Request["CheckOut"] + "&RoomNum=" + Request["RoomNum"] + "&GuestNum=" + Request["GuestNum"]);
 

@@ -4,7 +4,7 @@
     <script type="text/javascript">
         $(document).ready(function () {
             $('.payMethod').click(function () {
-                $('#mask').animate({ opacity: '1', zIndex: '999' }, 800);
+                $('#mask').css({ opacity: '1', zIndex: '999' });
             });
             $('#button2').click(function () {
                 $('#mask').animate({ opacity: '0', zIndex: '-1' }, 800);

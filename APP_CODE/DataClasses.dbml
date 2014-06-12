@@ -84,4 +84,14 @@
       <Association Name="Table_Room_Table_HotelReservation" Member="Table_Room" ThisKey="HotelId,RoomType" OtherKey="HotelId,RoomType" Type="Table_Room" IsForeignKey="true" />
     </Type>
   </Table>
+  <Table Name="dbo.Table_Comment" Member="Table_Comment">
+    <Type Name="Table_Comment">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="HotelId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Comment" Type="System.String" DbType="VarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="Date" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Score" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="CustomerEmail" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
 </Database>

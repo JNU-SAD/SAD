@@ -180,6 +180,8 @@
                     <asp:ListItem>Sort by price - high to low</asp:ListItem>
                     <asp:ListItem>Sort by stars - low to high</asp:ListItem>
                     <asp:ListItem>Sort by stars - high to low</asp:ListItem>
+                    <asp:ListItem>Sort by rating - low to high</asp:ListItem>
+                    <asp:ListItem>Sort by rating - high to low</asp:ListItem>
                     <asp:ListItem>Sort by name</asp:ListItem>
                 </asp:DropDownList>
             </div>
@@ -216,7 +218,7 @@
                 <a href="HotelDetail.aspx?hotelId=<%=hotel.Id %>&Address=<%=Request["Address"] %>&CheckIn=<%=Request["CheckIn"] %>&CheckOut=<%=Request["CheckOut"] %>&RoomNum=<%=Request["RoomNum"] %>&GuestNum=<%=Request["GuestNum"] %>"><img src="<%=@"image/hotel/" + hotel.ImageUrl%>" alt="hotel" class="img"/></a>
                 <div class="detail">
                     <div class="hotelName">
-                        <a href="HotelDetail.aspx?hotelId=<%=hotel.Id %>&Address=<%=Request["Address"] %>&CheckIn=<%=Request["CheckIn"] %>&CheckOut=<%=Request["CheckOut"] %>&RoomNum=<%=Request["RoomNum"] %>&GuestNum=<%=Request["GuestNum"] %>"><%=hotel.Name%></a>
+                        <a style="color:black;text-decoration:none" href="HotelDetail.aspx?hotelId=<%=hotel.Id %>&Address=<%=Request["Address"] %>&CheckIn=<%=Request["CheckIn"] %>&CheckOut=<%=Request["CheckOut"] %>&RoomNum=<%=Request["RoomNum"] %>&GuestNum=<%=Request["GuestNum"] %>"><%=hotel.Name%></a>
                     </div>
                     <div class="hotelAddress">
                         <%=hotel.Address%>
@@ -226,6 +228,11 @@
                           { %>
                         <img src="image/star.png" class="star" alt="star" />
                         <%} %>
+                    </div>
+                    <br />
+                    <div>
+                        <img src="image/3220.png" style="max-height:15px;margin-top:10px" />
+                        <span style="font-weight:600"><%=Rating(hotel.Rating)+", "+hotel.Rating.ToString() %></span>
                     </div>
                 </div>
                 <div class="price">
