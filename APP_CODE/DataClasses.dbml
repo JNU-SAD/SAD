@@ -9,6 +9,7 @@
       <Column Name="Sex" Type="System.String" DbType="VarChar(50)" CanBeNull="true" UpdateCheck="Never" />
       <Column Name="PhoneNumber" Type="System.String" DbType="VarChar(50)" CanBeNull="true" UpdateCheck="Never" />
       <Column Name="CreditCardNumber" Type="System.String" DbType="VarChar(50)" CanBeNull="true" UpdateCheck="Never" />
+      <Association Name="Table_Customer_Table_Comment" Member="Table_Comment" ThisKey="EmailAddress" OtherKey="CustomerEmail" Type="Table_Comment" />
       <Association Name="Table_Customer_Table_HotelReservation" Member="Table_HotelReservation" ThisKey="EmailAddress" OtherKey="Customer" Type="Table_HotelReservation" />
     </Type>
   </Table>
@@ -65,6 +66,19 @@
       <Association Name="Table_Room_Table_Arrangement" Member="Table_Room" ThisKey="HotelId,RoomType" OtherKey="HotelId,RoomType" Type="Table_Room" IsForeignKey="true" />
     </Type>
   </Table>
+  <Table Name="dbo.Table_Comment" Member="Table_Comment">
+    <Type Name="Table_Comment">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="HotelId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Comment" Type="System.String" DbType="VarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="Date" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Score" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="CustomerEmail" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="ReservationId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Table_Customer_Table_Comment" Member="Table_Customer" ThisKey="CustomerEmail" OtherKey="EmailAddress" Type="Table_Customer" IsForeignKey="true" />
+      <Association Name="Table_HotelReservation_Table_Comment" Member="Table_HotelReservation" ThisKey="ReservationId" OtherKey="Id" Type="Table_HotelReservation" IsForeignKey="true" />
+    </Type>
+  </Table>
   <Table Name="dbo.Table_HotelReservation" Member="Table_HotelReservation">
     <Type Name="Table_HotelReservation">
       <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -77,22 +91,13 @@
       <Column Name="Status" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="GuestNum" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="Value" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="name" Type="System.String" DbType="NChar(30)" CanBeNull="true" />
-      <Column Name="sex" Type="System.String" DbType="NChar(10)" CanBeNull="true" />
-      <Column Name="EmailAddress" Type="System.String" DbType="NChar(50)" CanBeNull="true" />
+      <Column Name="name" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="sex" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="EmailAddress" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="PhoneNum" Type="System.String" DbType="NChar(20)" CanBeNull="true" />
+      <Association Name="Table_HotelReservation_Table_Comment" Member="Table_Comment" ThisKey="Id" OtherKey="ReservationId" Type="Table_Comment" />
       <Association Name="Table_Customer_Table_HotelReservation" Member="Table_Customer" ThisKey="Customer" OtherKey="EmailAddress" Type="Table_Customer" IsForeignKey="true" />
       <Association Name="Table_Room_Table_HotelReservation" Member="Table_Room" ThisKey="HotelId,RoomType" OtherKey="HotelId,RoomType" Type="Table_Room" IsForeignKey="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.Table_Comment" Member="Table_Comment">
-    <Type Name="Table_Comment">
-      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="HotelId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="Comment" Type="System.String" DbType="VarChar(MAX) NOT NULL" CanBeNull="false" />
-      <Column Name="Date" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
-      <Column Name="Score" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="CustomerEmail" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
-      <Column Name="ReservationId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
     </Type>
   </Table>
 </Database>

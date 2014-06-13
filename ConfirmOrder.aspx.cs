@@ -22,6 +22,7 @@ public partial class ComfirmOrder : System.Web.UI.Page
             {
                 TextBox1.Text = reservation.name.Substring(0, reservation.name.IndexOf(".", 0));
                 TextBox2.Text = reservation.name.Substring(reservation.name.IndexOf(".", 0) + 1, reservation.name.Length - reservation.name.IndexOf(".", 0) - 1);
+                TextBox3.Text = reservation.PhoneNum.ToString();
                 TextBox5.Text = reservation.EmailAddress;
                 if (reservation.sex == "male")
                     DropDownList1.SelectedIndex = 0;
@@ -85,6 +86,7 @@ public partial class ComfirmOrder : System.Web.UI.Page
                 reservation.name = TextBox1.Text +"."+ TextBox2.Text;
                 reservation.sex = DropDownList1.Text.ToString();
                 reservation.EmailAddress = TextBox5.Text.ToString();
+                reservation.PhoneNum = TextBox3.Text.ToString();
                 reservation.Customer = Session["Customer"].ToString();
                 Response.Redirect("PayMethod.aspx");
             }
@@ -131,6 +133,7 @@ public partial class ComfirmOrder : System.Web.UI.Page
             {
                 reservation.name = TextBox1.Text + "." + TextBox2.Text;
                 reservation.sex = DropDownList1.Text.ToString();
+                reservation.PhoneNum = TextBox3.Text.ToString();
                 reservation.EmailAddress = TextBox5.Text.ToString();
                 reservation.Customer = Session["Customer"].ToString();
                 if (reservation.Id == -1)

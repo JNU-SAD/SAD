@@ -44,12 +44,12 @@ public partial class DataClassesDataContext : System.Data.Linq.DataContext
   partial void InsertTable_Arrangement(Table_Arrangement instance);
   partial void UpdateTable_Arrangement(Table_Arrangement instance);
   partial void DeleteTable_Arrangement(Table_Arrangement instance);
-  partial void InsertTable_HotelReservation(Table_HotelReservation instance);
-  partial void UpdateTable_HotelReservation(Table_HotelReservation instance);
-  partial void DeleteTable_HotelReservation(Table_HotelReservation instance);
   partial void InsertTable_Comment(Table_Comment instance);
   partial void UpdateTable_Comment(Table_Comment instance);
   partial void DeleteTable_Comment(Table_Comment instance);
+  partial void InsertTable_HotelReservation(Table_HotelReservation instance);
+  partial void UpdateTable_HotelReservation(Table_HotelReservation instance);
+  partial void DeleteTable_HotelReservation(Table_HotelReservation instance);
   #endregion
 	
 	public DataClassesDataContext() : 
@@ -122,19 +122,19 @@ public partial class DataClassesDataContext : System.Data.Linq.DataContext
 		}
 	}
 	
-	public System.Data.Linq.Table<Table_HotelReservation> Table_HotelReservation
-	{
-		get
-		{
-			return this.GetTable<Table_HotelReservation>();
-		}
-	}
-	
 	public System.Data.Linq.Table<Table_Comment> Table_Comment
 	{
 		get
 		{
 			return this.GetTable<Table_Comment>();
+		}
+	}
+	
+	public System.Data.Linq.Table<Table_HotelReservation> Table_HotelReservation
+	{
+		get
+		{
+			return this.GetTable<Table_HotelReservation>();
 		}
 	}
 }
@@ -158,6 +158,8 @@ public partial class Table_Customer : INotifyPropertyChanging, INotifyPropertyCh
 	private string _PhoneNumber;
 	
 	private string _CreditCardNumber;
+	
+	private EntitySet<Table_Comment> _Table_Comment;
 	
 	private EntitySet<Table_HotelReservation> _Table_HotelReservation;
 	
@@ -183,6 +185,7 @@ public partial class Table_Customer : INotifyPropertyChanging, INotifyPropertyCh
 	
 	public Table_Customer()
 	{
+		this._Table_Comment = new EntitySet<Table_Comment>(new Action<Table_Comment>(this.attach_Table_Comment), new Action<Table_Comment>(this.detach_Table_Comment));
 		this._Table_HotelReservation = new EntitySet<Table_HotelReservation>(new Action<Table_HotelReservation>(this.attach_Table_HotelReservation), new Action<Table_HotelReservation>(this.detach_Table_HotelReservation));
 		OnCreated();
 	}
@@ -327,6 +330,19 @@ public partial class Table_Customer : INotifyPropertyChanging, INotifyPropertyCh
 		}
 	}
 	
+	[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Table_Customer_Table_Comment", Storage="_Table_Comment", ThisKey="EmailAddress", OtherKey="CustomerEmail")]
+	public EntitySet<Table_Comment> Table_Comment
+	{
+		get
+		{
+			return this._Table_Comment;
+		}
+		set
+		{
+			this._Table_Comment.Assign(value);
+		}
+	}
+	
 	[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Table_Customer_Table_HotelReservation", Storage="_Table_HotelReservation", ThisKey="EmailAddress", OtherKey="Customer")]
 	public EntitySet<Table_HotelReservation> Table_HotelReservation
 	{
@@ -358,6 +374,18 @@ public partial class Table_Customer : INotifyPropertyChanging, INotifyPropertyCh
 		{
 			this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 		}
+	}
+	
+	private void attach_Table_Comment(Table_Comment entity)
+	{
+		this.SendPropertyChanging();
+		entity.Table_Customer = this;
+	}
+	
+	private void detach_Table_Comment(Table_Comment entity)
+	{
+		this.SendPropertyChanging();
+		entity.Table_Customer = null;
 	}
 	
 	private void attach_Table_HotelReservation(Table_HotelReservation entity)
@@ -417,12 +445,12 @@ public partial class Table_Hotel : INotifyPropertyChanging, INotifyPropertyChang
 	
 	private string _CheckOutTime;
 
-    private int price;
+    private int rating;
 
-    public int Price
+    public int Rating
     {
-        get { return price; }
-        set { price = value; }
+        get { return rating; }
+        set { rating = value; }
     }
 
     private List<Table_Room> room;
@@ -432,16 +460,14 @@ public partial class Table_Hotel : INotifyPropertyChanging, INotifyPropertyChang
         get { return room; }
         set { room = value; }
     }
+    private int price;
 
-    private int rating;
-
-    public int Rating
+    public int Price
     {
-        get { return rating; }
-        set { rating = value; }
+        get { return price; }
+        set { price = value; }
     }
-
-
+	
 	private EntitySet<Table_Room> _Table_Room;
 	
     #region 可扩展性方法定义
@@ -1053,7 +1079,6 @@ public partial class Table_Room : INotifyPropertyChanging, INotifyPropertyChange
         get { return arrangement; }
         set { arrangement = value; }
     }
-
 	
 	private EntitySet<Table_Arrangement> _Table_Arrangement;
 	
@@ -1499,6 +1524,294 @@ public partial class Table_Arrangement : INotifyPropertyChanging, INotifyPropert
 	}
 }
 
+[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Table_Comment")]
+public partial class Table_Comment : INotifyPropertyChanging, INotifyPropertyChanged
+{
+	
+	private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+	
+	private int _Id;
+	
+	private int _HotelId;
+	
+	private string _Comment;
+	
+	private System.DateTime _Date;
+	
+	private int _Score;
+	
+	private string _CustomerEmail;
+	
+	private int _ReservationId;
+	
+	private EntityRef<Table_Customer> _Table_Customer;
+	
+	private EntityRef<Table_HotelReservation> _Table_HotelReservation;
+	
+    #region 可扩展性方法定义
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIdChanging(int value);
+    partial void OnIdChanged();
+    partial void OnHotelIdChanging(int value);
+    partial void OnHotelIdChanged();
+    partial void OnCommentChanging(string value);
+    partial void OnCommentChanged();
+    partial void OnDateChanging(System.DateTime value);
+    partial void OnDateChanged();
+    partial void OnScoreChanging(int value);
+    partial void OnScoreChanged();
+    partial void OnCustomerEmailChanging(string value);
+    partial void OnCustomerEmailChanged();
+    partial void OnReservationIdChanging(int value);
+    partial void OnReservationIdChanged();
+    #endregion
+	
+	public Table_Comment()
+	{
+		this._Table_Customer = default(EntityRef<Table_Customer>);
+		this._Table_HotelReservation = default(EntityRef<Table_HotelReservation>);
+		OnCreated();
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+	public int Id
+	{
+		get
+		{
+			return this._Id;
+		}
+		set
+		{
+			if ((this._Id != value))
+			{
+				this.OnIdChanging(value);
+				this.SendPropertyChanging();
+				this._Id = value;
+				this.SendPropertyChanged("Id");
+				this.OnIdChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_HotelId", DbType="Int NOT NULL")]
+	public int HotelId
+	{
+		get
+		{
+			return this._HotelId;
+		}
+		set
+		{
+			if ((this._HotelId != value))
+			{
+				this.OnHotelIdChanging(value);
+				this.SendPropertyChanging();
+				this._HotelId = value;
+				this.SendPropertyChanged("HotelId");
+				this.OnHotelIdChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Comment", DbType="VarChar(MAX) NOT NULL", CanBeNull=false)]
+	public string Comment
+	{
+		get
+		{
+			return this._Comment;
+		}
+		set
+		{
+			if ((this._Comment != value))
+			{
+				this.OnCommentChanging(value);
+				this.SendPropertyChanging();
+				this._Comment = value;
+				this.SendPropertyChanged("Comment");
+				this.OnCommentChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Date", DbType="DateTime NOT NULL")]
+	public System.DateTime Date
+	{
+		get
+		{
+			return this._Date;
+		}
+		set
+		{
+			if ((this._Date != value))
+			{
+				this.OnDateChanging(value);
+				this.SendPropertyChanging();
+				this._Date = value;
+				this.SendPropertyChanged("Date");
+				this.OnDateChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Score", DbType="Int NOT NULL")]
+	public int Score
+	{
+		get
+		{
+			return this._Score;
+		}
+		set
+		{
+			if ((this._Score != value))
+			{
+				this.OnScoreChanging(value);
+				this.SendPropertyChanging();
+				this._Score = value;
+				this.SendPropertyChanged("Score");
+				this.OnScoreChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CustomerEmail", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
+	public string CustomerEmail
+	{
+		get
+		{
+			return this._CustomerEmail;
+		}
+		set
+		{
+			if ((this._CustomerEmail != value))
+			{
+				if (this._Table_Customer.HasLoadedOrAssignedValue)
+				{
+					throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+				}
+				this.OnCustomerEmailChanging(value);
+				this.SendPropertyChanging();
+				this._CustomerEmail = value;
+				this.SendPropertyChanged("CustomerEmail");
+				this.OnCustomerEmailChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ReservationId", DbType="Int NOT NULL")]
+	public int ReservationId
+	{
+		get
+		{
+			return this._ReservationId;
+		}
+		set
+		{
+			if ((this._ReservationId != value))
+			{
+				if (this._Table_HotelReservation.HasLoadedOrAssignedValue)
+				{
+					throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+				}
+				this.OnReservationIdChanging(value);
+				this.SendPropertyChanging();
+				this._ReservationId = value;
+				this.SendPropertyChanged("ReservationId");
+				this.OnReservationIdChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Table_Customer_Table_Comment", Storage="_Table_Customer", ThisKey="CustomerEmail", OtherKey="EmailAddress", IsForeignKey=true)]
+	public Table_Customer Table_Customer
+	{
+		get
+		{
+			return this._Table_Customer.Entity;
+		}
+		set
+		{
+			Table_Customer previousValue = this._Table_Customer.Entity;
+			if (((previousValue != value) 
+						|| (this._Table_Customer.HasLoadedOrAssignedValue == false)))
+			{
+				this.SendPropertyChanging();
+				if ((previousValue != null))
+				{
+					this._Table_Customer.Entity = null;
+					previousValue.Table_Comment.Remove(this);
+				}
+				this._Table_Customer.Entity = value;
+				if ((value != null))
+				{
+					value.Table_Comment.Add(this);
+					this._CustomerEmail = value.EmailAddress;
+				}
+				else
+				{
+					this._CustomerEmail = default(string);
+				}
+				this.SendPropertyChanged("Table_Customer");
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Table_HotelReservation_Table_Comment", Storage="_Table_HotelReservation", ThisKey="ReservationId", OtherKey="Id", IsForeignKey=true)]
+	public Table_HotelReservation Table_HotelReservation
+	{
+		get
+		{
+			return this._Table_HotelReservation.Entity;
+		}
+		set
+		{
+			Table_HotelReservation previousValue = this._Table_HotelReservation.Entity;
+			if (((previousValue != value) 
+						|| (this._Table_HotelReservation.HasLoadedOrAssignedValue == false)))
+			{
+				this.SendPropertyChanging();
+				if ((previousValue != null))
+				{
+					this._Table_HotelReservation.Entity = null;
+					previousValue.Table_Comment.Remove(this);
+				}
+				this._Table_HotelReservation.Entity = value;
+				if ((value != null))
+				{
+					value.Table_Comment.Add(this);
+					this._ReservationId = value.Id;
+				}
+				else
+				{
+					this._ReservationId = default(int);
+				}
+				this.SendPropertyChanged("Table_HotelReservation");
+			}
+		}
+	}
+	
+	public event PropertyChangingEventHandler PropertyChanging;
+	
+	public event PropertyChangedEventHandler PropertyChanged;
+	
+	protected virtual void SendPropertyChanging()
+	{
+		if ((this.PropertyChanging != null))
+		{
+			this.PropertyChanging(this, emptyChangingEventArgs);
+		}
+	}
+	
+	protected virtual void SendPropertyChanged(String propertyName)
+	{
+		if ((this.PropertyChanged != null))
+		{
+			this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+		}
+	}
+}
+
 [global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Table_HotelReservation")]
 public partial class Table_HotelReservation : INotifyPropertyChanging, INotifyPropertyChanged
 {
@@ -1530,6 +1843,10 @@ public partial class Table_HotelReservation : INotifyPropertyChanging, INotifyPr
 	private string _sex;
 	
 	private string _EmailAddress;
+	
+	private string _PhoneNum;
+	
+	private EntitySet<Table_Comment> _Table_Comment;
 	
 	private EntityRef<Table_Customer> _Table_Customer;
 	
@@ -1565,10 +1882,13 @@ public partial class Table_HotelReservation : INotifyPropertyChanging, INotifyPr
     partial void OnsexChanged();
     partial void OnEmailAddressChanging(string value);
     partial void OnEmailAddressChanged();
+    partial void OnPhoneNumChanging(string value);
+    partial void OnPhoneNumChanged();
     #endregion
 	
 	public Table_HotelReservation()
 	{
+		this._Table_Comment = new EntitySet<Table_Comment>(new Action<Table_Comment>(this.attach_Table_Comment), new Action<Table_Comment>(this.detach_Table_Comment));
 		this._Table_Customer = default(EntityRef<Table_Customer>);
 		this._Table_Room = default(EntityRef<Table_Room>);
 		OnCreated();
@@ -1786,7 +2106,7 @@ public partial class Table_HotelReservation : INotifyPropertyChanging, INotifyPr
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_name", DbType="NChar(30)")]
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_name", DbType="VarChar(50)")]
 	public string name
 	{
 		get
@@ -1806,7 +2126,7 @@ public partial class Table_HotelReservation : INotifyPropertyChanging, INotifyPr
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_sex", DbType="NChar(10)")]
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_sex", DbType="VarChar(10)")]
 	public string sex
 	{
 		get
@@ -1826,7 +2146,7 @@ public partial class Table_HotelReservation : INotifyPropertyChanging, INotifyPr
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EmailAddress", DbType="NChar(50)")]
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EmailAddress", DbType="VarChar(50)")]
 	public string EmailAddress
 	{
 		get
@@ -1843,6 +2163,39 @@ public partial class Table_HotelReservation : INotifyPropertyChanging, INotifyPr
 				this.SendPropertyChanged("EmailAddress");
 				this.OnEmailAddressChanged();
 			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PhoneNum", DbType="NChar(20)")]
+	public string PhoneNum
+	{
+		get
+		{
+			return this._PhoneNum;
+		}
+		set
+		{
+			if ((this._PhoneNum != value))
+			{
+				this.OnPhoneNumChanging(value);
+				this.SendPropertyChanging();
+				this._PhoneNum = value;
+				this.SendPropertyChanged("PhoneNum");
+				this.OnPhoneNumChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Table_HotelReservation_Table_Comment", Storage="_Table_Comment", ThisKey="Id", OtherKey="ReservationId")]
+	public EntitySet<Table_Comment> Table_Comment
+	{
+		get
+		{
+			return this._Table_Comment;
+		}
+		set
+		{
+			this._Table_Comment.Assign(value);
 		}
 	}
 	
@@ -1935,211 +2288,17 @@ public partial class Table_HotelReservation : INotifyPropertyChanging, INotifyPr
 			this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 		}
 	}
-}
-
-[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Table_Comment")]
-public partial class Table_Comment : INotifyPropertyChanging, INotifyPropertyChanged
-{
 	
-	private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-	
-	private int _Id;
-	
-	private int _HotelId;
-	
-	private string _Comment;
-	
-	private System.DateTime _Date;
-	
-	private int _Score;
-	
-	private string _CustomerEmail;
-	
-	private int _ReservationId;
-	
-    #region 可扩展性方法定义
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnIdChanging(int value);
-    partial void OnIdChanged();
-    partial void OnHotelIdChanging(int value);
-    partial void OnHotelIdChanged();
-    partial void OnCommentChanging(string value);
-    partial void OnCommentChanged();
-    partial void OnDateChanging(System.DateTime value);
-    partial void OnDateChanged();
-    partial void OnScoreChanging(int value);
-    partial void OnScoreChanged();
-    partial void OnCustomerEmailChanging(string value);
-    partial void OnCustomerEmailChanged();
-    partial void OnReservationIdChanging(int value);
-    partial void OnReservationIdChanged();
-    #endregion
-	
-	public Table_Comment()
+	private void attach_Table_Comment(Table_Comment entity)
 	{
-		OnCreated();
+		this.SendPropertyChanging();
+		entity.Table_HotelReservation = this;
 	}
 	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-	public int Id
+	private void detach_Table_Comment(Table_Comment entity)
 	{
-		get
-		{
-			return this._Id;
-		}
-		set
-		{
-			if ((this._Id != value))
-			{
-				this.OnIdChanging(value);
-				this.SendPropertyChanging();
-				this._Id = value;
-				this.SendPropertyChanged("Id");
-				this.OnIdChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_HotelId", DbType="Int NOT NULL")]
-	public int HotelId
-	{
-		get
-		{
-			return this._HotelId;
-		}
-		set
-		{
-			if ((this._HotelId != value))
-			{
-				this.OnHotelIdChanging(value);
-				this.SendPropertyChanging();
-				this._HotelId = value;
-				this.SendPropertyChanged("HotelId");
-				this.OnHotelIdChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Comment", DbType="VarChar(MAX) NOT NULL", CanBeNull=false)]
-	public string Comment
-	{
-		get
-		{
-			return this._Comment;
-		}
-		set
-		{
-			if ((this._Comment != value))
-			{
-				this.OnCommentChanging(value);
-				this.SendPropertyChanging();
-				this._Comment = value;
-				this.SendPropertyChanged("Comment");
-				this.OnCommentChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Date", DbType="DateTime NOT NULL")]
-	public System.DateTime Date
-	{
-		get
-		{
-			return this._Date;
-		}
-		set
-		{
-			if ((this._Date != value))
-			{
-				this.OnDateChanging(value);
-				this.SendPropertyChanging();
-				this._Date = value;
-				this.SendPropertyChanged("Date");
-				this.OnDateChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Score", DbType="Int NOT NULL")]
-	public int Score
-	{
-		get
-		{
-			return this._Score;
-		}
-		set
-		{
-			if ((this._Score != value))
-			{
-				this.OnScoreChanging(value);
-				this.SendPropertyChanging();
-				this._Score = value;
-				this.SendPropertyChanged("Score");
-				this.OnScoreChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CustomerEmail", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
-	public string CustomerEmail
-	{
-		get
-		{
-			return this._CustomerEmail;
-		}
-		set
-		{
-			if ((this._CustomerEmail != value))
-			{
-				this.OnCustomerEmailChanging(value);
-				this.SendPropertyChanging();
-				this._CustomerEmail = value;
-				this.SendPropertyChanged("CustomerEmail");
-				this.OnCustomerEmailChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ReservationId", DbType="Int NOT NULL")]
-	public int ReservationId
-	{
-		get
-		{
-			return this._ReservationId;
-		}
-		set
-		{
-			if ((this._ReservationId != value))
-			{
-				this.OnReservationIdChanging(value);
-				this.SendPropertyChanging();
-				this._ReservationId = value;
-				this.SendPropertyChanged("ReservationId");
-				this.OnReservationIdChanged();
-			}
-		}
-	}
-	
-	public event PropertyChangingEventHandler PropertyChanging;
-	
-	public event PropertyChangedEventHandler PropertyChanged;
-	
-	protected virtual void SendPropertyChanging()
-	{
-		if ((this.PropertyChanging != null))
-		{
-			this.PropertyChanging(this, emptyChangingEventArgs);
-		}
-	}
-	
-	protected virtual void SendPropertyChanged(String propertyName)
-	{
-		if ((this.PropertyChanged != null))
-		{
-			this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-		}
+		this.SendPropertyChanging();
+		entity.Table_HotelReservation = null;
 	}
 }
 #pragma warning restore 1591
