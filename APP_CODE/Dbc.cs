@@ -288,4 +288,12 @@ public class Dbc
                 select s;
         return q.ToList();
     }
+
+    //
+    public bool GetCommentByReservationId(int ReservationId)
+    {
+        var q = from s in data.Table_Comment
+                select s;
+        return q.Count() == 0 ? false  : true;
+    }
 }

@@ -154,7 +154,7 @@
                             <br />
                             <asp:Button ID="Button5" runat="server" Text="Pay now!" CssClass="button" OnClick="Button5_Click" />
                             <br />
-                            <a class="buttonc" href="javascript:void(0);" data-reveal-id="myModal" runat="server" id="Button6">Comment</a>
+                            <a class="buttonc" href="javascript:void(0);" data-reveal-id="myModal" runat="server" id="Button6" onclick="Button6_Click">Comment</a>
 
 
                             <asp:LinqDataSource ID="LinqDataSource3" runat="server" ContextTypeName="DataClassesDataContext" EntityTypeName="" TableName="Table_HotelReservation" Where="Id == @Id">
@@ -201,6 +201,7 @@
                                 <asp:BoundField DataField="Comment" HeaderText="Comment" SortExpression="Comment" />
                                 <asp:BoundField DataField="Date" HeaderText="Date" SortExpression="Date" />
                                 <asp:BoundField DataField="Score" HeaderText="Score" SortExpression="Score" />
+                                <asp:BoundField DataField="ReservationId" HeaderText="ReservationId" SortExpression="ReservationId" />
                             </Fields>
                             <FooterStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" />
                             <HeaderStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" />

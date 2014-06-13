@@ -103,6 +103,11 @@ public partial class Management : System.Web.UI.Page
     }
     protected void Button_comment_Click(object sender, EventArgs e)
     {
+        if (dbc.GetCommentByReservationId(Convert.ToInt32(GridView2.SelectedRow.Cells[0].Text)))
+        {
+            ScriptManager.RegisterStartupScript(this.UpdatePanel1, this.GetType(), "updateScript", "alert('You Had Commented The Reservation!')", true);
+            return;
+        }
         try
         {
             Table_Comment c = new Table_Comment();
@@ -111,10 +116,12 @@ public partial class Management : System.Web.UI.Page
             c.Score = DropDownList1.SelectedIndex + 1;
             c.Comment = textbox_comment.Text + " ";
             c.CustomerEmail = Session["Customer"].ToString();
+            c.ReservationId = Convert.ToInt32(DetailsView3.Rows[4].Cells[1].Text);
             data.Table_Comment.InsertOnSubmit(c);
             data.SubmitChanges();
         }
         catch (Exception) { }
+
     }
     protected void Button7_Click(object sender, EventArgs e)
     {
@@ -145,4 +152,5 @@ public partial class Management : System.Web.UI.Page
         DetailsView3.Rows[0].Cells[1].Text = dbc.GetHotelById(Convert.ToInt32(DetailsView3.Rows[0].Cells[1].Text)).Name;
         
     }
+    
 }
