@@ -289,11 +289,28 @@ public class Dbc
         return q.ToList();
     }
 
-    //
+    //判断是否存在该订单的评论
     public bool GetCommentByReservationId(int ReservationId)
     {
         var q = from s in data.Table_Comment
+                where s.ReservationId == ReservationId
                 select s;
-        return q.Count() == 0 ? false  : true;
+        return q.Count() == 0 ? false : true;
+    }
+    //根据酒店Id，房间类型，日期搜索是否存在该日程
+    public bool GetArrangementByHotelIdRoomTypeData(int HotelId, string RoomType, DateTime Date)
+    {
+        var q = from s in data.Table_Arrangement
+                where s.HotelId == HotelId && s.RoomType == RoomType && s.Date == Date
+                select s;
+        return q.Count() == 0 ? false : true;
+    }
+
+    public Table_Arrangement GetArrangementByHotelIdRoomTypeAndData(int HotelId, string RoomType, DateTime Date)
+    {
+        var q = from s in data.Table_Arrangement
+                where s.HotelId == HotelId && s.RoomType == RoomType && s.Date == Date
+                select s;
+        return q.Count() == 0 ? null : q.First();
     }
 }

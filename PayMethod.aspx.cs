@@ -31,6 +31,30 @@ public partial class PayMethod : System.Web.UI.Page
         {
             dbc.UpdateHotelReservation(Reservation);
         }
+        try
+        {
+            DateTime time = new DateTime();
+            for (time = Reservation.CheckIn; time != Reservation.CheckOut; time.AddDays(1))
+            {
+                Table_Arrangement arrangement = new Table_Arrangement();
+                if (!dbc.GetArrangementByHotelIdRoomTypeData(Reservation.HotelId, Reservation.RoomType, time))
+                {
+                    arrangement.BookedNumber = 1;
+                    arrangement.Date = time;
+                    arrangement.HotelId = Reservation.HotelId;
+                    arrangement.RoomType = Reservation.RoomType;
+                    arrangement.Rate = (dbc.GetRoomByHotelIdAndRoomType(Reservation.HotelId, Reservation.RoomType)).FullRate;
+                    dbc.AddArrangement(arrangement);
+                }
+                else
+                {
+                    arrangement = dbc.GetArrangementByHotelIdRoomTypeAndData(Reservation.HotelId, Reservation.RoomType, time);
+                    arrangement.BookedNumber++;
+                    dbc.UpdateArrangement(arrangement);
+                }
+            }
+        }
+        catch (Exception) { }
         Response.Redirect("Management.aspx");
     }
 }
