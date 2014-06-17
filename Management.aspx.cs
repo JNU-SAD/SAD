@@ -116,7 +116,7 @@ public partial class Management : System.Web.UI.Page
             c.Score = DropDownList1.SelectedIndex + 1;
             c.Comment = textbox_comment.Text + " ";
             c.CustomerEmail = Session["Customer"].ToString();
-            c.ReservationId = Convert.ToInt32(DetailsView3.Rows[4].Cells[1].Text);
+            c.ReservationId = Convert.ToInt32(GridView2.SelectedRow.Cells[0].Text);
             data.Table_Comment.InsertOnSubmit(c);
             data.SubmitChanges();
         }

@@ -34,12 +34,12 @@ public partial class PayMethod : System.Web.UI.Page
         try
         {
             DateTime time = new DateTime();
-            for (time = Reservation.CheckIn; time != Reservation.CheckOut; time.AddDays(1))
+            for (time = Reservation.CheckIn; time != Reservation.CheckOut; time = time.AddDays(1))
             {
                 Table_Arrangement arrangement = new Table_Arrangement();
-                if (!dbc.GetArrangementByHotelIdRoomTypeData(Reservation.HotelId, Reservation.RoomType, time))
+                if (!dbc.CheckArrangementDate(Reservation.HotelId, Reservation.RoomType, time))
                 {
-                    arrangement.BookedNumber = 1;
+                    arrangement.BookedNumber = Reservation.RoomNum;
                     arrangement.Date = time;
                     arrangement.HotelId = Reservation.HotelId;
                     arrangement.RoomType = Reservation.RoomType;
@@ -48,8 +48,8 @@ public partial class PayMethod : System.Web.UI.Page
                 }
                 else
                 {
-                    arrangement = dbc.GetArrangementByHotelIdRoomTypeAndData(Reservation.HotelId, Reservation.RoomType, time);
-                    arrangement.BookedNumber++;
+                    arrangement = dbc.GetArrangementByHotelIdRoomTypeAndDate(Reservation.HotelId, Reservation.RoomType, time);
+                    arrangement.BookedNumber += Reservation.RoomNum;
                     dbc.UpdateArrangement(arrangement);
                 }
             }

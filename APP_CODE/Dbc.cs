@@ -260,14 +260,12 @@ public class Dbc
     public void UpdateArrangement(Table_Arrangement arrangement)
     {
         var q = from s in data.Table_Arrangement
-                where s.HotelId == arrangement.HotelId && s.RoomType == arrangement.RoomType
+                where s.HotelId == arrangement.HotelId && s.RoomType == arrangement.RoomType && s.Date >= arrangement.Date && s.Date < arrangement.Date.AddDays(1)
                 select s;
         foreach (Table_Arrangement c in q)
         {
             c.BookedNumber = arrangement.BookedNumber;
-            c.Date = arrangement.Date;
             c.Rate = arrangement.Rate;
-            
         }
         data.SubmitChanges();
     }
@@ -298,18 +296,20 @@ public class Dbc
         return q.Count() == 0 ? false : true;
     }
     //根据酒店Id，房间类型，日期搜索是否存在该日程
-    public bool GetArrangementByHotelIdRoomTypeData(int HotelId, string RoomType, DateTime Date)
+    public bool CheckArrangementDate(int HotelId, string RoomType, DateTime Date)
     {
         var q = from s in data.Table_Arrangement
-                where s.HotelId == HotelId && s.RoomType == RoomType && s.Date == Date
+                where s.HotelId == HotelId && s.RoomType == RoomType && s.Date >= Date && s.Date < Date.AddDays(1)
                 select s;
-        return q.Count() == 0 ? false : true;
+        if (q.Count() == 0)
+            return false;
+        return true;
     }
 
-    public Table_Arrangement GetArrangementByHotelIdRoomTypeAndData(int HotelId, string RoomType, DateTime Date)
+    public Table_Arrangement GetArrangementByHotelIdRoomTypeAndDate(int HotelId, string RoomType, DateTime Date)
     {
         var q = from s in data.Table_Arrangement
-                where s.HotelId == HotelId && s.RoomType == RoomType && s.Date == Date
+                where s.HotelId == HotelId && s.RoomType == RoomType && s.Date >= Date && s.Date < Date.AddDays(1)
                 select s;
         return q.Count() == 0 ? null : q.First();
     }
